@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: uaeerf_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    networks:
+      - uaeerf
+    depends_on:
+      - mssql
+
+  nginx:
+    image: nginx:alpine
+    container_name: uaeerf_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - uaeerf
+    depends_on:
+      - app
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: uaeerf_mssql
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: "YourStrong@Passw0rd"
+      MSSQL_PID: Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+    networks:
+      - uaeerf
+
+networks:
+  uaeerf:
+    driver: bridge
+
+volumes:
+  mssql_data:
+    driver: local
