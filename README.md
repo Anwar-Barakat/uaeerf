@@ -85,7 +85,7 @@ Full-stack equestrian portal replicating key UAEERF functionality with MSSQL, SO
 ### External Services
 - **SOAP APIs:** UAEERF Web Services (8 endpoints)
 - **Payment Gateway:** PayTabs Sandbox
-- **Database:** MSSQL Server (wsdev.emiratesequestrian.ae)
+- **Database:** MSSQL Server ([REDACTED])
 
 ---
 
@@ -154,15 +154,15 @@ Edit `.env`:
 APP_URL=http://localhost:8000
 
 # MSSQL Database
-MSSQL_HOST=wsdev.emiratesequestrian.ae\DEVSQL,50441
+MSSQL_HOST=[REDACTED]\DEVSQL,50441
 MSSQL_PORT=50441
 MSSQL_DATABASE=EEFRegistration
-MSSQL_USERNAME=eeftest
-MSSQL_PASSWORD=UAE123!@#
+MSSQL_USERNAME=[REDACTED]
+MSSQL_PASSWORD=[REDACTED]
 
 # SOAP Authentication
-SOAP_AUTH_USERNAME=WS_TEST
-SOAP_AUTH_PASSWORD=TEST@0123
+SOAP_AUTH_USERNAME=[REDACTED]
+SOAP_AUTH_PASSWORD=[REDACTED]
 
 # PayTabs Sandbox
 PAYTABS_PROFILE_ID=your_profile_id
@@ -211,10 +211,10 @@ Expiry: Any future date
 All SOAP services pre-configured in `.env`:
 
 ```bash
-SOAP_AUTH_URL=http://wsdev.emiratesequestrian.ae/webservices/WSAuthentication.asmx
-SOAP_COMMONS_URL=http://wsdev.emiratesequestrian.ae/webservices/WSCommons.asmx
-SOAP_REGISTRATIONS_URL=http://wsdev.emiratesequestrian.ae/webservices/WSRegistrations.asmx
-SOAP_JUMPING_CRITERIA_URL=http://wsdev.emiratesequestrian.ae/webservices/ShowJumpingCriteria.asmx
+SOAP_AUTH_URL=http://[REDACTED]/webservices/WSAuthentication.asmx
+SOAP_COMMONS_URL=http://[REDACTED]/webservices/WSCommons.asmx
+SOAP_REGISTRATIONS_URL=http://[REDACTED]/webservices/WSRegistrations.asmx
+SOAP_JUMPING_CRITERIA_URL=http://[REDACTED]/webservices/ShowJumpingCriteria.asmx
 ```
 
 **Test Connection:**
@@ -244,10 +244,10 @@ Used for:
 
 **Connection String:**
 ```
-Server: wsdev.emiratesequestrian.ae\DEVSQL,50441
+Server: [REDACTED]\DEVSQL,50441
 Database: EEFRegistration
-User: eeftest
-Password: UAE123!@#
+User: [REDACTED]
+Password: [REDACTED]
 ```
 
 **Test Connection:**
@@ -540,7 +540,7 @@ sudo systemctl restart php8.3-fpm
 **Check:**
 ```bash
 # Test SOAP endpoint reachability
-curl -I http://wsdev.emiratesequestrian.ae/webservices/WSAuthentication.asmx
+curl -I http://[REDACTED]/webservices/WSAuthentication.asmx
 ```
 
 **Solution:** Increase timeout in `BaseSoapClient.php`:

@@ -64,7 +64,7 @@ graph TB
 - **Services:** SOAP clients, PayTabs integration
 
 ### Database
-- **MSSQL Server** (wsdev.emiratesequestrian.ae)
+- **MSSQL Server** ([REDACTED])
 - **Tables:** UserProfile, ClassEntriesWeb, payment_transactions, rider_registrations, rider_renewals, show_jumping_entries
 - **Note:** SQLite used only for unit testing
 
@@ -102,13 +102,13 @@ graph TB
 
 | Service | URL | Purpose |
 |---------|-----|---------|
-| WSAuthentication | http://wsdev.emiratesequestrian.ae/webservices/WSAuthentication.asmx | System auth |
-| WSCommons | http://wsdev.emiratesequestrian.ae/webservices/WSCommons.asmx | Common lists (cached 24h) |
-| WSRegistrations | http://wsdev.emiratesequestrian.ae/webservices/WSRegistrations.asmx | Rider registration/renewal |
-| ShowJumpingCriteria | http://wsdev.emiratesequestrian.ae/webservices/ShowJumpingCriteria.asmx | Eligibility validation |
+| WSAuthentication | http://[REDACTED]/webservices/WSAuthentication.asmx | System auth |
+| WSCommons | http://[REDACTED]/webservices/WSCommons.asmx | Common lists (cached 24h) |
+| WSRegistrations | http://[REDACTED]/webservices/WSRegistrations.asmx | Rider registration/renewal |
+| ShowJumpingCriteria | http://[REDACTED]/webservices/ShowJumpingCriteria.asmx | Eligibility validation |
 
 ### Authentication
-- System credentials: `WS_TEST` / `TEST@0123`
+- System credentials: `[REDACTED]` / `[REDACTED]`
 - Authenticated before calling other services
 - Response cached for performance
 
@@ -258,14 +258,14 @@ docs/
 **Required Environment Variables:**
 ```bash
 # MSSQL Database
-DB_HOST=wsdev.emiratesequestrian.ae\DEVSQL,50441
-DB_USER=eeftest
-DB_PASSWORD=UAE123!@#
+DB_HOST=[REDACTED]\DEVSQL,50441
+DB_USER=[REDACTED]
+DB_PASSWORD=[REDACTED]
 DB_NAME=EEFRegistration
 
 # SOAP Authentication
-SOAP_AUTH_USERNAME=WS_TEST
-SOAP_AUTH_PASSWORD=TEST@0123
+SOAP_AUTH_USERNAME=[REDACTED]
+SOAP_AUTH_PASSWORD=[REDACTED]
 
 # PayTabs
 PAYTABS_PROFILE_ID=<your_profile_id>

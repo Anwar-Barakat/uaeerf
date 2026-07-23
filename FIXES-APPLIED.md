@@ -97,8 +97,8 @@ if ($existingTransaction) {
 **Fix Applied:**
 ```bash
 # Before:
-MSSQL_USERNAME=eeftest
-MSSQL_PASSWORD=UAE123!@#
+MSSQL_USERNAME=[REDACTED]
+MSSQL_PASSWORD=[REDACTED]
 
 # After:
 MSSQL_USERNAME=your_username
