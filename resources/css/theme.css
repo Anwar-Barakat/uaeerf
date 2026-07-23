@@ -51,70 +51,56 @@ body {
         color: var(--slate-600);
     }
 
-    .service-card {
+    .service-card-registration {
         @apply rounded-2xl overflow-hidden transition-all duration-300;
         background: var(--white);
-        border: 2px solid transparent;
+        border: 2px solid var(--uae-green-light);
         box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
     }
 
-    .service-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.08);
-    }
-
-    .service-card-registration {
-        @apply service-card;
-        border-color: var(--uae-green-light);
-    }
-
     .service-card-registration:hover {
+        transform: translateY(-4px);
         box-shadow: 0 20px 25px -5px rgba(0, 166, 81, 0.15), 0 8px 10px -6px rgba(0, 166, 81, 0.1);
     }
 
     .service-card-renewal {
-        @apply service-card;
-        border-color: #3B82F6;
+        @apply rounded-2xl overflow-hidden transition-all duration-300;
+        background: var(--white);
+        border: 2px solid #3B82F6;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
     }
 
     .service-card-renewal:hover {
+        transform: translateY(-4px);
         box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.15), 0 8px 10px -6px rgba(59, 130, 246, 0.1);
     }
 
     .service-card-entry {
-        @apply service-card;
-        border-color: var(--uae-gold);
+        @apply rounded-2xl overflow-hidden transition-all duration-300;
+        background: var(--white);
+        border: 2px solid var(--uae-gold);
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
     }
 
     .service-card-entry:hover {
+        transform: translateY(-4px);
         box-shadow: 0 20px 25px -5px rgba(212, 175, 55, 0.15), 0 8px 10px -6px rgba(212, 175, 55, 0.1);
     }
 
-    .service-header {
-        @apply p-8;
-    }
-
     .service-header-registration {
-        @apply service-header;
         background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
     }
 
     .service-header-renewal {
-        @apply service-header;
         background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
     }
 
     .service-header-entry {
-        @apply service-header;
         background: linear-gradient(135deg, #FFF8DC 0%, #FFEAA7 100%);
     }
 
-    .service-icon {
-        @apply p-4 rounded-2xl flex items-center justify-center;
-    }
-
     .service-icon-registration {
-        @apply service-icon;
+        @apply rounded-2xl flex items-center justify-center;
         background: var(--white);
         box-shadow: 0 4px 6px -1px rgba(0, 122, 61, 0.1);
     }
@@ -125,7 +111,7 @@ body {
     }
 
     .service-icon-renewal {
-        @apply service-icon;
+        @apply rounded-2xl flex items-center justify-center;
         background: var(--white);
         box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1);
     }
@@ -136,7 +122,7 @@ body {
     }
 
     .service-icon-entry {
-        @apply service-icon;
+        @apply rounded-2xl flex items-center justify-center;
         background: var(--white);
         box-shadow: 0 4px 6px -1px rgba(212, 175, 55, 0.1);
     }
@@ -146,26 +132,22 @@ body {
         color: var(--uae-gold-dark);
     }
 
-    .fee-badge {
-        @apply px-5 py-3 rounded-xl font-bold text-base inline-block;
-    }
-
     .fee-badge-registration {
-        @apply fee-badge;
+        @apply rounded-xl font-bold text-base inline-block;
         background: var(--white);
         color: var(--uae-green);
         border: 2px solid var(--uae-green-light);
     }
 
     .fee-badge-renewal {
-        @apply fee-badge;
+        @apply rounded-xl font-bold text-base inline-block;
         background: var(--white);
         color: #2563EB;
         border: 2px solid #3B82F6;
     }
 
     .fee-badge-entry {
-        @apply fee-badge;
+        @apply rounded-xl font-bold text-base inline-block;
         background: var(--white);
         color: #92400E;
         border: 2px solid var(--uae-gold);
@@ -257,24 +239,20 @@ body {
         border-color: var(--uae-gold);
     }
 
-    .payment-section {
-        @apply p-8 rounded-2xl border-2;
-    }
-
     .payment-section-registration {
-        @apply payment-section;
+        @apply rounded-2xl border-2;
         background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
         border-color: var(--uae-green-light);
     }
 
     .payment-section-renewal {
-        @apply payment-section;
+        @apply rounded-2xl border-2;
         background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
         border-color: #3B82F6;
     }
 
     .payment-section-entry {
-        @apply payment-section;
+        @apply rounded-2xl border-2;
         background: linear-gradient(135deg, #FFF8DC 0%, #FFEAA7 100%);
         border-color: var(--uae-gold);
     }
