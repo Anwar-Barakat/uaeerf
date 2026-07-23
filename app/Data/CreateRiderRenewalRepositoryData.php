@@ -9,7 +9,7 @@ class CreateRiderRenewalRepositoryData extends Data
     public function __construct(
         public int $user_id,
         public string $cart_id,
-        public int $rider_id,
+        public string $rider_id,
         public int $season_id,
     ) {}
 

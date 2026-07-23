@@ -13,6 +13,7 @@ use App\Services\Soap\RegistrationsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class RiderController extends Controller
 {
@@ -26,6 +27,7 @@ class RiderController extends Controller
     public function initiateRegistration(RiderRegistrationData $data)
     {
         $user = Auth::user();
+        $data->nationality = $this->resolveNationalityCode($data->nationality_id);
         $cartId = PayTabsService::generateCartId('rider_reg', $user->id);
         $repositoryData = CreateRiderRepositoryData::fromRegistrationData(
             $user->id,
@@ -42,12 +44,13 @@ class RiderController extends Controller
             'country' => 'AE',
         ], $cartId);
 
-        return response()->json([
-            'success' => true,
-            'cart_id' => $cartId,
-            'redirect_url' => $paymentData['redirect_url'] ?? null,
-            'tran_ref' => $paymentData['tran_ref'] ?? null,
-        ]);
+        if (empty($paymentData['redirect_url'])) {
+            Log::error('PayTabs registration payment missing redirect_url', ['cart_id' => $cartId]);
+
+            return back()->withErrors(['payment' => 'Unable to start payment. Please try again.']);
+        }
+
+        return Inertia::location($paymentData['redirect_url']);
     }
 
     public function initiateRenewal(RiderRenewalData $data)
@@ -64,12 +67,30 @@ class RiderController extends Controller
             'country' => 'AE',
         ], $cartId);
 
-        return response()->json([
-            'success' => true,
-            'cart_id' => $cartId,
-            'redirect_url' => $paymentData['redirect_url'] ?? null,
-            'tran_ref' => $paymentData['tran_ref'] ?? null,
-        ]);
+        if (empty($paymentData['redirect_url'])) {
+            Log::error('PayTabs renewal payment missing redirect_url', ['cart_id' => $cartId]);
+
+            return back()->withErrors(['payment' => 'Unable to start payment. Please try again.']);
+        }
+
+        return Inertia::location($paymentData['redirect_url']);
+    }
+
+    protected function resolveNationalityCode(string $nationalityId): string
+    {
+        try {
+            foreach (app(\App\Services\Soap\CommonsService::class)->getCountryList() as $country) {
+                if ((string) ($country->Code ?? '') === $nationalityId) {
+                    $short = strtoupper(trim($country->ShortName ?? ''));
+
+                    return substr($short ?: 'ARE', 0, 3);
+                }
+            }
+        } catch (\Exception $e) {
+            Log::warning('Nationality code resolution failed', ['error' => $e->getMessage()]);
+        }
+
+        return 'ARE';
     }
 
     public function processRegistration(string $cartId, string $tranRef): void
@@ -89,15 +110,40 @@ class RiderController extends Controller
         try {
             $this->registrationRepo->processWithTransaction(function () use ($registration, $cartId, $tranRef) {
 
-                $soapResult = $this->registrationsService->submitHorseNewRegistration([
-                    'RiderName' => $registration->rider_name,
-                    'DateOfBirth' => $registration->date_of_birth,
+                $soapResult = $this->registrationsService->submitPersonNewRegistration([
+                    'PayType' => 'ONLINE',
+                    'UserId' => (int) $registration->user_id,
+                    'Name' => $registration->rider_name,
+                    'FatherName' => $registration->last_name
+                        ?: (str_contains($registration->rider_name, ' ')
+                            ? substr($registration->rider_name, strrpos($registration->rider_name, ' ') + 1)
+                            : $registration->rider_name),
+                    'Dob' => date('c', strtotime($registration->date_of_birth)),
                     'Nationality' => $registration->nationality,
-                    'PassportNumber' => $registration->passport_number,
-                    'DisciplineID' => $registration->discipline_id,
-                    'CategoryID' => $registration->category_id,
-                    'TransactionReference' => $tranRef,
+                    'NationalityID' => (string) $registration->nationality_id,
+                    'SexID' => (string) $registration->gender_id,
+                    'CityID' => (string) $registration->city_id,
+                    'CountryID' => (string) $registration->country_id,
+                    'Email' => (string) $registration->email,
+                    'Mobile' => (string) $registration->mobile,
+                    'Address' => (string) $registration->address,
+                    'PoBox' => (string) $registration->po_box,
+                    'Weight' => (string) $registration->weight,
+                    'VisaCategory' => (int) $registration->visa_category,
+                    'EID' => (string) $registration->eid,
+                    'RegisterSeason' => $registration->register_season ? 1 : 0,
+                    'RegisterFEI' => $registration->register_fei ? 1 : 0,
+                    'RefNum' => $registration->passport_number,
+                    'DivisionId' => (int) $registration->discipline_id,
+                    'Category' => (string) $registration->category_id,
+                    'ReferenceNumber' => $tranRef,
+                    'DateSubmit' => date('c'),
                 ]);
+
+                if (empty($soapResult->Submit_PersonNewRegistrationResult)) {
+                    $messages = (array) ($soapResult->msg->string ?? []);
+                    throw new \RuntimeException('SOAP registration rejected: ' . implode('; ', $messages));
+                }
                 $this->registrationRepo->markCompleted(
                     $cartId,
                     $tranRef,
@@ -137,11 +183,19 @@ class RiderController extends Controller
         try {
             $this->renewalRepo->processWithTransaction(function () use ($renewal, $cartId, $tranRef) {
 
-                $soapResult = $this->registrationsService->submitHorseRenewal([
-                    'RiderID' => $renewal->rider_id,
-                    'SeasonID' => $renewal->season_id,
-                    'TransactionReference' => $tranRef,
+                $soapResult = $this->registrationsService->submitPersonRenewal([
+                    'PayType' => 'ONLINE',
+                    'PersonID' => (string) $renewal->rider_id,
+                    'SeasonCode' => (int) $renewal->season_id,
+                    'RegisterSeason' => 1,
+                    'ReferenceNumber' => $tranRef,
+                    'DateSubmit' => date('c'),
                 ]);
+
+                if (empty($soapResult->Submit_PersonRenewalResult)) {
+                    $messages = (array) ($soapResult->msg->string ?? []);
+                    throw new \RuntimeException('SOAP renewal rejected: ' . implode('; ', $messages));
+                }
                 $this->renewalRepo->markCompleted(
                     $cartId,
                     $tranRef,
