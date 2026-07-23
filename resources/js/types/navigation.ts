@@ -11,4 +11,6 @@ export type NavItem = {
     href: NonNullable<InertiaLinkProps['href']>;
     icon?: LucideIcon | null;
     isActive?: boolean;
+    /** Tailwind classes for the icon chip, e.g. "bg-emerald-500 text-white". */
+    iconColor?: string;
 };

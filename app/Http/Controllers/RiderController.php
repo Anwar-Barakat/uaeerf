@@ -113,28 +113,30 @@ class RiderController extends Controller
         }
 
         try {
-            // Call SOAP service to submit registration
-            $soapResult = $this->registrationsService->submitHorseNewRegistration([
-                'RiderName' => $registration->rider_name,
-                'DateOfBirth' => $registration->date_of_birth,
-                'Nationality' => $registration->nationality,
-                'PassportNumber' => $registration->passport_number,
-                'DisciplineID' => $registration->discipline_id,
-                'CategoryID' => $registration->category_id,
-                'TransactionReference' => $tranRef,
-            ]);
+            $this->registrationRepo->processWithTransaction(function () use ($registration, $cartId, $tranRef) {
+                // Call SOAP service to submit registration
+                $soapResult = $this->registrationsService->submitHorseNewRegistration([
+                    'RiderName' => $registration->rider_name,
+                    'DateOfBirth' => $registration->date_of_birth,
+                    'Nationality' => $registration->nationality,
+                    'PassportNumber' => $registration->passport_number,
+                    'DisciplineID' => $registration->discipline_id,
+                    'CategoryID' => $registration->category_id,
+                    'TransactionReference' => $tranRef,
+                ]);
 
-            // Update registration status
-            $this->registrationRepo->markCompleted(
-                $cartId,
-                $tranRef,
-                json_encode($soapResult)
-            );
+                // Update registration status
+                $this->registrationRepo->markCompleted(
+                    $cartId,
+                    $tranRef,
+                    json_encode($soapResult)
+                );
 
-            Log::info('Rider registration completed', [
-                'cart_id' => $cartId,
-                'tran_ref' => $tranRef,
-            ]);
+                Log::info('Rider registration completed', [
+                    'cart_id' => $cartId,
+                    'tran_ref' => $tranRef,
+                ]);
+            });
 
         } catch (\Exception $e) {
             Log::error('Rider registration SOAP call failed', [
@@ -164,24 +166,26 @@ class RiderController extends Controller
         }
 
         try {
-            // Call SOAP service to submit renewal
-            $soapResult = $this->registrationsService->submitHorseRenewal([
-                'RiderID' => $renewal->rider_id,
-                'SeasonID' => $renewal->season_id,
-                'TransactionReference' => $tranRef,
-            ]);
+            $this->renewalRepo->processWithTransaction(function () use ($renewal, $cartId, $tranRef) {
+                // Call SOAP service to submit renewal
+                $soapResult = $this->registrationsService->submitHorseRenewal([
+                    'RiderID' => $renewal->rider_id,
+                    'SeasonID' => $renewal->season_id,
+                    'TransactionReference' => $tranRef,
+                ]);
 
-            // Update renewal status
-            $this->renewalRepo->markCompleted(
-                $cartId,
-                $tranRef,
-                json_encode($soapResult)
-            );
+                // Update renewal status
+                $this->renewalRepo->markCompleted(
+                    $cartId,
+                    $tranRef,
+                    json_encode($soapResult)
+                );
 
-            Log::info('Rider renewal completed', [
-                'cart_id' => $cartId,
-                'tran_ref' => $tranRef,
-            ]);
+                Log::info('Rider renewal completed', [
+                    'cart_id' => $cartId,
+                    'tran_ref' => $tranRef,
+                ]);
+            });
 
         } catch (\Exception $e) {
             Log::error('Rider renewal SOAP call failed', [

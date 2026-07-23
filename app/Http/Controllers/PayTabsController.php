@@ -36,6 +36,16 @@ class PayTabsController extends Controller
         // Parse and validate webhook data using DTO
         $webhookData = PaymentWebhookData::from($this->payTabsService->parseWebhook($request->all()));
 
+        // Check for duplicate transaction (idempotency)
+        $existingTransaction = $this->transactionRepo->findByTranRef($webhookData->tran_ref);
+        if ($existingTransaction) {
+            Log::info('Duplicate webhook received, skipping', [
+                'tran_ref' => $webhookData->tran_ref,
+                'cart_id' => $webhookData->cart_id,
+            ]);
+            return response()->json(['status' => 'already_processed']);
+        }
+
         // Store transaction record
         $this->transactionRepo->create([
             'tran_ref' => $webhookData->tran_ref,

@@ -8,7 +8,7 @@ class PaymentTransactionRepository
 {
     public function create(array $data): int
     {
-        return DB::table('payment_transactions')->insertGetId([
+        return DB::connection('mssql')->table('payment_transactions')->insertGetId([
             'tran_ref' => $data['tran_ref'],
             'cart_id' => $data['cart_id'],
             'amount' => $data['amount'],
@@ -25,21 +25,21 @@ class PaymentTransactionRepository
 
     public function findByCartId(string $cartId): ?object
     {
-        return DB::table('payment_transactions')
+        return DB::connection('mssql')->table('payment_transactions')
             ->where('cart_id', $cartId)
             ->first();
     }
 
     public function findByTranRef(string $tranRef): ?object
     {
-        return DB::table('payment_transactions')
+        return DB::connection('mssql')->table('payment_transactions')
             ->where('tran_ref', $tranRef)
             ->first();
     }
 
     public function markProcessed(string $cartId): int
     {
-        return DB::table('payment_transactions')
+        return DB::connection('mssql')->table('payment_transactions')
             ->where('cart_id', $cartId)
             ->update([
                 'processed' => true,
@@ -56,7 +56,7 @@ class PaymentTransactionRepository
 
     public function getRecentTransactions(int $limit = 50): array
     {
-        return DB::table('payment_transactions')
+        return DB::connection('mssql')->table('payment_transactions')
             ->orderBy('created_at', 'desc')
             ->limit($limit)
             ->get()
@@ -65,7 +65,7 @@ class PaymentTransactionRepository
 
     public function getSuccessfulTransactions(int $limit = 50): array
     {
-        return DB::table('payment_transactions')
+        return DB::connection('mssql')->table('payment_transactions')
             ->where('status', 'success')
             ->orderBy('created_at', 'desc')
             ->limit($limit)
