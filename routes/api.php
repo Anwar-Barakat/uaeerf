@@ -25,6 +25,13 @@ Route::prefix('commons')->group(function () {
 // PayTabs webhook (no auth - verified by signature)
 Route::post('paytabs/webhook', [\App\Http\Controllers\PayTabsController::class, 'webhook']);
 
+// PayTabs return URL (stateless so the cross-site POST cannot overwrite the user session)
+Route::match(['get', 'post'], 'payment/return', [\App\Http\Controllers\PayTabsController::class, 'returnUrl'])
+    ->name('payment.return');
+
+// Rider search for renewal flow (authenticated)
+Route::middleware(['web', 'auth'])->get('riders/search', [\App\Http\Controllers\Api\RidersController::class, 'search']);
+
 // Admin routes (protected)
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::post('commons/clear-cache', [CommonsController::class, 'clearCache']);
