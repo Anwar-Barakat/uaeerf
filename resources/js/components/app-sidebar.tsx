@@ -1,5 +1,12 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
+import {
+    LayoutGrid,
+    UserPlus,
+    RefreshCw,
+    Trophy,
+    FileText,
+    Globe
+} from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -12,6 +19,8 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    SidebarGroup,
+    SidebarGroupLabel,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
@@ -24,16 +33,37 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
+const riderNavItems: NavItem[] = [
+    {
+        title: 'Rider Registration',
+        href: '/rider/registration',
+        icon: UserPlus,
+    },
+    {
+        title: 'Rider Renewal',
+        href: '/rider/renewal',
+        icon: RefreshCw,
+    },
+];
+
+const competitionNavItems: NavItem[] = [
+    {
+        title: 'Show Jumping Entry',
+        href: '/jumping/entry',
+        icon: Trophy,
+    },
+];
+
 const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: FolderGit2,
+        title: 'UAEERF Website',
+        href: 'https://www.emiratesequestrian.ae',
+        icon: Globe,
     },
     {
         title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
+        href: '#',
+        icon: FileText,
     },
 ];
 
@@ -54,6 +84,16 @@ export function AppSidebar() {
 
             <SidebarContent>
                 <NavMain items={mainNavItems} />
+
+                <SidebarGroup className="px-2 py-0 mt-4">
+                    <SidebarGroupLabel>Rider Services</SidebarGroupLabel>
+                    <NavMain items={riderNavItems} />
+                </SidebarGroup>
+
+                <SidebarGroup className="px-2 py-0 mt-4">
+                    <SidebarGroupLabel>Competitions</SidebarGroupLabel>
+                    <NavMain items={competitionNavItems} />
+                </SidebarGroup>
             </SidebarContent>
 
             <SidebarFooter>

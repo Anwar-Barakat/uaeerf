@@ -7,6 +7,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* UAEERF Brand Colors */
+:root {
+    --uae-green: 0 122 61;
+    --uae-red: 206 17 38;
+    --uae-black: 0 0 0;
+    --uae-white: 255 255 255;
+}
+
 @theme {
     --font-sans:
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
