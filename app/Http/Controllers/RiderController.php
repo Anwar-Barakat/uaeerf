@@ -22,17 +22,10 @@ class RiderController extends Controller
         protected RiderRenewalRepository $renewalRepo
     ) {}
 
-    /**
-     * Initiate new rider registration payment
-     */
     public function initiateRegistration(RiderRegistrationData $data)
     {
         $user = Auth::user();
-
-        // Generate unique cart ID
         $cartId = PayTabsService::generateCartId('rider_reg', $user->id);
-
-        // Create repository DTO and store
         $repositoryData = CreateRiderRepositoryData::fromRegistrationData(
             $user->id,
             $cartId,
@@ -40,8 +33,6 @@ class RiderController extends Controller
         );
 
         $this->registrationRepo->create($repositoryData->toArray());
-
-        // Create PayTabs payment
         $paymentData = $this->payTabsService->createRiderRegistrationPayment([
             'name' => $user->name,
             'email' => $user->email,
@@ -58,27 +49,16 @@ class RiderController extends Controller
         ]);
     }
 
-    /**
-     * Initiate rider renewal payment
-     */
     public function initiateRenewal(RiderRenewalData $data)
     {
         $user = Auth::user();
-
-        // Verify rider belongs to user (TODO: add riders table)
-
-        // Generate unique cart ID
         $cartId = PayTabsService::generateCartId('rider_renewal', $user->id);
-
-        // Store pending renewal
         $this->renewalRepo->create([
             'user_id' => $user->id,
             'cart_id' => $cartId,
             'rider_id' => $data->rider_id,
             'season_id' => $data->season_id,
         ]);
-
-        // Create PayTabs payment
         $paymentData = $this->payTabsService->createRiderRenewalPayment([
             'name' => $user->name,
             'email' => $user->email,
@@ -95,9 +75,6 @@ class RiderController extends Controller
         ]);
     }
 
-    /**
-     * Process successful rider registration (called from webhook)
-     */
     public function processRegistration(string $cartId, string $tranRef): void
     {
         $registration = $this->registrationRepo->findByCartId($cartId);
@@ -114,7 +91,7 @@ class RiderController extends Controller
 
         try {
             $this->registrationRepo->processWithTransaction(function () use ($registration, $cartId, $tranRef) {
-                // Call SOAP service to submit registration
+
                 $soapResult = $this->registrationsService->submitHorseNewRegistration([
                     'RiderName' => $registration->rider_name,
                     'DateOfBirth' => $registration->date_of_birth,
@@ -124,8 +101,6 @@ class RiderController extends Controller
                     'CategoryID' => $registration->category_id,
                     'TransactionReference' => $tranRef,
                 ]);
-
-                // Update registration status
                 $this->registrationRepo->markCompleted(
                     $cartId,
                     $tranRef,
@@ -148,9 +123,6 @@ class RiderController extends Controller
         }
     }
 
-    /**
-     * Process successful rider renewal (called from webhook)
-     */
     public function processRenewal(string $cartId, string $tranRef): void
     {
         $renewal = $this->renewalRepo->findByCartId($cartId);
@@ -167,14 +139,12 @@ class RiderController extends Controller
 
         try {
             $this->renewalRepo->processWithTransaction(function () use ($renewal, $cartId, $tranRef) {
-                // Call SOAP service to submit renewal
+
                 $soapResult = $this->registrationsService->submitHorseRenewal([
                     'RiderID' => $renewal->rider_id,
                     'SeasonID' => $renewal->season_id,
                     'TransactionReference' => $tranRef,
                 ]);
-
-                // Update renewal status
                 $this->renewalRepo->markCompleted(
                     $cartId,
                     $tranRef,

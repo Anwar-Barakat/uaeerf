@@ -23,7 +23,7 @@ class DashboardController extends Controller
             $stats = $this->dashboard->statsForUser($userId);
             $activity = $this->dashboard->monthlyActivityForUser($userId);
         } catch (Throwable $e) {
-            // DB unreachable or tables not migrated yet — degrade gracefully.
+
             report($e);
 
             $stats = [

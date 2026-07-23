@@ -12,10 +12,6 @@ class AuthenticationService extends BaseSoapClient
         return config('services.soap.auth_url') . '?WSDL';
     }
 
-    /**
-     * Authenticate with SOAP web services
-     * Returns LoginResult with Message field
-     */
     public function login(string $username = null, string $password = null): object
     {
         $username ??= config('services.soap.auth_username');
@@ -33,9 +29,6 @@ class AuthenticationService extends BaseSoapClient
         return $result->LoginResult;
     }
 
-    /**
-     * Login to back office
-     */
     public function loginBackOffice(string $username, string $password): bool
     {
         $result = $this->call('LoginBackOffice', [
@@ -46,9 +39,6 @@ class AuthenticationService extends BaseSoapClient
         return $result->LoginBackOfficeResult ?? false;
     }
 
-    /**
-     * Get user stable ID by discipline
-     */
     public function getUserStableIdByDiscipline(string $stableId, string $disciplineId): ?string
     {
         $result = $this->call('GetUserStableIDbyDiscipline', [
@@ -59,10 +49,6 @@ class AuthenticationService extends BaseSoapClient
         return $result->GetUserStableIDbyDisciplineResult ?? null;
     }
 
-    /**
-     * Authenticate and cache result
-     * Returns true if authenticated successfully
-     */
     public function authenticateAndCache(): bool
     {
         return Cache::remember('soap_auth_status', 3600, function () {

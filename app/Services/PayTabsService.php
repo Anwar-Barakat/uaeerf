@@ -22,9 +22,6 @@ class PayTabsService
         $this->returnUrl = config('services.paytabs.return_url');
     }
 
-    /**
-     * Create payment page for rider registration (AED 100)
-     */
     public function createRiderRegistrationPayment(array $userData, string $cartId): array
     {
         return $this->createPayment([
@@ -45,9 +42,6 @@ class PayTabsService
         ]);
     }
 
-    /**
-     * Create payment page for rider renewal (AED 50)
-     */
     public function createRiderRenewalPayment(array $userData, string $cartId): array
     {
         return $this->createPayment([
@@ -68,9 +62,6 @@ class PayTabsService
         ]);
     }
 
-    /**
-     * Create payment page for show jumping entry (AED 150)
-     */
     public function createShowJumpingPayment(array $userData, array $entryData, string $cartId): array
     {
         return $this->createPayment([
@@ -94,9 +85,6 @@ class PayTabsService
         ]);
     }
 
-    /**
-     * Create payment request
-     */
     protected function createPayment(array $data): array
     {
         $payload = [
@@ -142,21 +130,13 @@ class PayTabsService
         return $result;
     }
 
-    /**
-     * Verify webhook signature
-     */
     public function verifyWebhookSignature(array $payload, string $signature): bool
     {
-        // PayTabs signature verification
-        // Signature = HMAC-SHA256(serverKey, payload)
         $calculatedSignature = hash_hmac('sha256', json_encode($payload), $this->serverKey);
 
         return hash_equals($calculatedSignature, $signature);
     }
 
-    /**
-     * Parse webhook payload
-     */
     public function parseWebhook(array $payload): array
     {
         return [
@@ -174,18 +154,12 @@ class PayTabsService
         ];
     }
 
-    /**
-     * Check if payment was successful
-     */
     public function isPaymentSuccessful(array $webhookData): bool
     {
         return isset($webhookData['payment_result']['response_status'])
             && strtoupper($webhookData['payment_result']['response_status']) === 'A';
     }
 
-    /**
-     * Generate unique cart ID
-     */
     public static function generateCartId(string $type, int $userId): string
     {
         return sprintf('%s_%d_%s', $type, $userId, uniqid());

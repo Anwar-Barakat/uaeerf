@@ -11,10 +11,6 @@ class CommonsService extends BaseSoapClient
         return config('services.soap.commons_url') . '?WSDL';
     }
 
-    /**
-     * Get list of cities
-     * Returns array of ['Code' => int, 'Name' => string]
-     */
     public function getCityList(): array
     {
         return Cache::remember('soap_cities', 86400, function () {
@@ -23,10 +19,6 @@ class CommonsService extends BaseSoapClient
         });
     }
 
-    /**
-     * Get jumping division level list
-     * Returns array of ['Code' => int, 'Name' => string]
-     */
     public function getJumpingDivisionLevelList(): array
     {
         return Cache::remember('soap_divisions', 86400, function () {
@@ -35,9 +27,6 @@ class CommonsService extends BaseSoapClient
         });
     }
 
-    /**
-     * Get category list
-     */
     public function getCategoryList(): array
     {
         return Cache::remember('soap_categories', 86400, function () {
@@ -46,9 +35,6 @@ class CommonsService extends BaseSoapClient
         });
     }
 
-    /**
-     * Get country list
-     */
     public function getCountryList(): array
     {
         return Cache::remember('soap_countries', 86400, function () {
@@ -57,9 +43,6 @@ class CommonsService extends BaseSoapClient
         });
     }
 
-    /**
-     * Get GCC country list
-     */
     public function getGCCCountryList(): array
     {
         return Cache::remember('soap_gcc_countries', 86400, function () {
@@ -68,9 +51,6 @@ class CommonsService extends BaseSoapClient
         });
     }
 
-    /**
-     * Get discipline list
-     */
     public function getDisciplineList(): array
     {
         return Cache::remember('soap_disciplines', 86400, function () {
@@ -79,9 +59,6 @@ class CommonsService extends BaseSoapClient
         });
     }
 
-    /**
-     * Get season list
-     */
     public function getSeasonList(): array
     {
         return Cache::remember('soap_seasons', 86400, function () {
@@ -90,9 +67,6 @@ class CommonsService extends BaseSoapClient
         });
     }
 
-    /**
-     * Get gender list
-     */
     public function getGenderList(): array
     {
         return Cache::remember('soap_genders', 86400, function () {
@@ -101,27 +75,18 @@ class CommonsService extends BaseSoapClient
         });
     }
 
-    /**
-     * Check if email is available
-     */
     public function checkIfEmailAvailable(string $email): bool
     {
         $result = $this->call('CheckIfEmailAvailable', ['email' => $email]);
         return $result->CheckIfEmailAvailableResult ?? false;
     }
 
-    /**
-     * Check if mobile number is available
-     */
     public function checkIfMobileNoAvailable(string $mobile): bool
     {
         $result = $this->call('CheckIfMobileNoAvailable', ['mobileNo' => $mobile]);
         return $result->CheckIfMobileNoAvailableResult ?? false;
     }
 
-    /**
-     * Clear all cached common lists
-     */
     public function clearCache(): void
     {
         $keys = [

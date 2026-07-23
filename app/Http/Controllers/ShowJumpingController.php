@@ -19,9 +19,6 @@ class ShowJumpingController extends Controller
         protected ShowJumpingEntryRepository $entryRepo
     ) {}
 
-    /**
-     * Validate rider and horse eligibility
-     */
     public function validateEligibility(Request $request)
     {
         $validated = $request->validate([
@@ -59,14 +56,9 @@ class ShowJumpingController extends Controller
         }
     }
 
-    /**
-     * Initiate show jumping entry payment
-     */
     public function initiateEntry(ShowJumpingEntryData $data)
     {
         $user = Auth::user();
-
-        // Validate eligibility first
         try {
             $eligibility = $this->criteriaService->validateRiderHorseCombination(
                 ['riderId' => $data->rider_id],
@@ -88,11 +80,7 @@ class ShowJumpingController extends Controller
                 'message' => config('app.debug') ? $e->getMessage() : null,
             ], 500);
         }
-
-        // Generate unique cart ID
         $cartId = PayTabsService::generateCartId('jumping', $user->id);
-
-        // Create repository DTO and store
         $repositoryData = CreateShowJumpingEntryRepositoryData::fromEntryData(
             $user->id,
             $cartId,
@@ -100,8 +88,6 @@ class ShowJumpingController extends Controller
         );
 
         $this->entryRepo->create($repositoryData->toArray());
-
-        // Create PayTabs payment
         $paymentData = $this->payTabsService->createShowJumpingPayment([
             'name' => $user->name,
             'email' => $user->email,
@@ -120,10 +106,6 @@ class ShowJumpingController extends Controller
         ]);
     }
 
-    /**
-     * Process successful show jumping entry (called from webhook)
-     * CRITICAL: Insert into ClassEntriesWeb ONLY after payment confirmed
-     */
     public function processEntry(string $cartId, string $tranRef): void
     {
         $entry = $this->entryRepo->findByCartId($cartId);
@@ -140,11 +122,7 @@ class ShowJumpingController extends Controller
 
         try {
             $this->entryRepo->processWithTransaction(function () use ($entry, $cartId, $tranRef) {
-                // Insert into MSSQL ClassEntriesWeb table
-                // IMPORTANT: Payment confirmed, now safe to write to database
                 $this->entryRepo->insertToClassEntriesWeb($entry, $tranRef);
-
-                // Update local entry status
                 $this->entryRepo->markCompleted($cartId, $tranRef);
 
                 Log::info('Show jumping entry completed', [
