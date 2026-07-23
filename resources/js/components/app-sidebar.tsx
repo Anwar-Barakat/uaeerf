@@ -1,7 +1,12 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
+import {
+    LayoutGrid,
+    UserPlus,
+    RefreshCw,
+    Trophy,
+    Home,
+} from 'lucide-react';
 import AppLogo from '@/components/app-logo';
-import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -21,25 +26,37 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
+        iconColor: 'bg-violet-500 text-white',
     },
 ];
 
-const footerNavItems: NavItem[] = [
+const riderNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: FolderGit2,
+        title: 'Rider Registration',
+        href: '/rider/registration',
+        icon: UserPlus,
+        iconColor: 'bg-emerald-500 text-white',
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
+        title: 'Rider Renewal',
+        href: '/rider/renewal',
+        icon: RefreshCw,
+        iconColor: 'bg-blue-500 text-white',
+    },
+];
+
+const competitionNavItems: NavItem[] = [
+    {
+        title: 'Show Jumping Entry',
+        href: '/jumping/entry',
+        icon: Trophy,
+        iconColor: 'bg-amber-500 text-white',
     },
 ];
 
 export function AppSidebar() {
     return (
-        <Sidebar collapsible="icon" variant="inset">
+        <Sidebar collapsible="icon">
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
@@ -53,11 +70,28 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={mainNavItems} label="Platform" />
+                <NavMain items={riderNavItems} label="Rider Services" />
+                <NavMain items={competitionNavItems} label="Competitions" />
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+                <SidebarMenu className="mt-auto gap-1">
+                    <SidebarMenuItem>
+                        <SidebarMenuButton
+                            asChild
+                            tooltip={{ children: 'UAEERF Website' }}
+                            className="group/nav h-9 gap-3 rounded-lg font-medium transition-colors hover:bg-primary/5 hover:text-foreground group-data-[collapsible=icon]:size-9! group-data-[collapsible=icon]:p-1!"
+                        >
+                            <Link href="/">
+                                <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-teal-500 text-white shadow-sm transition-transform group-hover/nav:scale-105">
+                                    <Home className="size-3.5" />
+                                </span>
+                                <span>UAEERF Website</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                </SidebarMenu>
                 <NavUser />
             </SidebarFooter>
         </Sidebar>
