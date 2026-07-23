@@ -16,6 +16,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import { initiateEntry, validateEligibility as validateEligibilityRoute } from '@/actions/App/Http/Controllers/ShowJumpingController';
 
 interface Props {
     userRiders: Array<{ id: number; name: string }>;
@@ -48,7 +49,7 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
         setEligibility(null);
 
         try {
-            const response = await axios.post(route('jumping.validate'), {
+            const response = await axios.post(validateEligibilityRoute().url, {
                 rider_id: data.rider_id,
                 horse_id: data.horse_id,
                 event_id: data.event_id,
@@ -70,14 +71,14 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('jumping.entry'));
+        post(initiateEntry().url);
     };
 
     return (
         <>
             <Head title="Show Jumping Entry" />
 
-            <div className="mx-auto max-w-3xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
+            <div className="space-y-8 p-6">
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight">Show Jumping Entry</h1>
                     <p className="text-muted-foreground">

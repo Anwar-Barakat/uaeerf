@@ -13,179 +13,163 @@ Full-stack equestrian portal integrating MSSQL database, SOAP web services, and 
 ```mermaid
 graph TB
     User[User Browser]
-    
+
     subgraph "Laravel Application"
         Web[Web Routes<br/>Inertia Pages]
         API[API Routes<br/>REST Endpoints]
-        Auth[Fortify Auth]
+        Auth[Fortify Auth<br/>+ UserProfile verify]
         Controllers[Controllers]
         Services[Service Layer]
-        
+
         subgraph "Services"
-            SOAP[SOAP Services]
+            SOAP[SOAP Services<br/>auth handshake enforced]
             PayTabs[PayTabs Service]
         end
-        
+
         subgraph "Data Layer"
             MSSQL[(MSSQL Database<br/>UserProfile<br/>Payments<br/>Registrations<br/>ClassEntriesWeb)]
         end
     end
-    
+
     subgraph "External Systems"
-        SoapAPI[UAEERF SOAP APIs<br/>WSAuthentication<br/>WSRegistrations<br/>WSCommons<br/>ShowJumpingCriteria]
+        SoapAPI[UAEERF SOAP APIs<br/>WSAuthentication<br/>WSRegistrations<br/>WSRiders<br/>WSCommons<br/>ShowJumpingCriteria]
         PayTabsGW[PayTabs Gateway<br/>Payment Processing]
     end
-    
+
     User -->|HTTP/HTTPS| Web
     User -->|AJAX/Fetch| API
     Web --> Auth
     API --> Controllers
+    Web --> Controllers
     Controllers --> Services
     Services --> SOAP
     Services --> PayTabs
-    Services --> MSSQL
+    Controllers --> MSSQL
     SOAP -->|SOAP/XML| SoapAPI
     PayTabs -->|REST/JSON| PayTabsGW
-    PayTabsGW -->|Webhook| API
+    PayTabsGW -->|Webhook IPN + Return| API
 ```
 
 ---
 
-## Key Components
+## SOAP Authentication Handshake (Evaluation Criterion)
 
-### Frontend
-- **React 19** + TypeScript + Inertia.js
-- **Tailwind CSS 4** + shadcn/ui components
-- **Pages:** Welcome, Dashboard, Registration, Renewal, Show Jumping Entry
+Every SOAP operation passes through `BaseSoapClient::call()`, which enforces a
+login against `WSAuthentication.asmx` **before** any other service is invoked
+(result cached 1 hour):
 
-### Backend
-- **Controllers:** PayTabs, Rider, ShowJumping
-- **Repositories:** Payment, Registration, Renewal, Entry (with transaction support)
-- **Services:** SOAP clients, PayTabs integration
+```mermaid
+graph LR
+    A[Any SOAP call] --> B{Auth cached?}
+    B -->|no| L[WSAuthentication.asmx<br/>Login system credentials]
+    L -->|SUCCESSFUL| CACHE[Cache 1h] --> CALL[__soapCall]
+    B -->|yes| CALL
+    L -->|failure| X[Throw SoapFault<br/>operation aborted]
+```
 
-### Database
-- **MSSQL Server** ([REDACTED])
-- **Tables:** UserProfile, ClassEntriesWeb, payment_transactions, rider_registrations, rider_renewals, show_jumping_entries
-- **Note:** SQLite used only for unit testing
+| Service class | Endpoint | Purpose |
+|---|---|---|
+| `AuthenticationService` | WSAuthentication.asmx | System login handshake |
+| `CommonsService` | WSCommons.asmx | Cities, countries, genders, disciplines, categories, seasons, visa categories — **cached 24 h** |
+| `RegistrationsService` | WSRegistrations.asmx | `Submit_PersonNewRegistration` / `Submit_PersonRenewal` (full WSDL `PersonRegEntries` struct) |
+| `RidersService` | WSRiders.asmx | `SearchRiderList` — renewal rider lookup |
+| `ShowJumpingCriteriaService` | ShowJumpingCriteria.asmx | `IsRiderEligible` / `IsHorseEligible` |
 
 ---
 
-## Payment Flow
+## Payment Flow (webhook is source of truth)
 
-```
-1. User submits registration form
-2. Controller creates pending record (MSSQL)
-3. PayTabs payment page created
-4. User redirected to PayTabs → completes payment
-5. PayTabs webhook → /api/paytabs/webhook (signature verified)
-6. Check duplicate (idempotency)
-7. Payment confirmed → DB transaction:
-   - Call SOAP service (if applicable)
-   - Update status to 'completed'
-   - Insert into ClassEntriesWeb (if jumping entry)
-   - Mark payment as processed
-8. User redirected to return URL
+```mermaid
+sequenceDiagram
+    participant U as User (Browser)
+    participant L as Laravel
+    participant DB as MSSQL
+    participant PT as PayTabs
+    participant WS as UAEERF SOAP
+
+    U->>L: POST /rider/register (athlete form)
+    L->>DB: INSERT rider_registrations (pending_payment)
+    L->>PT: Create hosted payment (cart_id, callback, return)
+    PT-->>L: redirect_url + tran_ref
+    L-->>U: Inertia::location(redirect_url)
+    U->>PT: Card payment (hosted page)
+
+    par Server-to-server webhook (IPN)
+        PT->>L: POST /api/paytabs/webhook (Signature header)
+        L->>L: HMAC-SHA256 verify of raw body (400 on mismatch)
+        L->>DB: INSERT payment_transactions (idempotent on tran_ref)
+        alt authorised (response_status = A)
+            L->>WS: Auth handshake → Submit_PersonNewRegistration
+            alt SOAP accepted
+                L->>DB: registration → completed + tran_ref
+            else SOAP rejected
+                L->>DB: registration → failed + server messages
+            end
+        else declined
+            L->>DB: transaction → failed (registration untouched)
+        end
+    and Browser return
+        PT->>U: POST /api/payment/return (stateless route)
+        U->>L: 302 PRG redirect → GET with query params
+        L-->>U: success / failed / pending page (app-styled)
+    end
 ```
 
-**Critical Rules:**
-- ✅ Webhook is source of truth (not return URL)
-- ✅ Database write ONLY after payment confirmed
-- ✅ Transaction reference stored with all entries
-- ✅ Signature verification on all webhooks
-- ✅ Idempotency check prevents duplicate processing
+**Critical rules:**
+
+- ✅ Webhook is the source of truth (return URL is display-only)
+- ✅ Database completion / SOAP submission ONLY after confirmed payment
+- ✅ Signature = HMAC-SHA256 of the **raw request body** with the server key
+- ✅ Idempotency: duplicate webhooks short-circuit on existing `tran_ref`
+- ✅ `cart_id` prefix routes processing: `rider_reg_` / `rider_renewal_` / `jumping_`
+- ✅ Return route is **stateless** (API group) so PayTabs' cross-site POST cannot
+  rotate the authenticated session cookie
+- ✅ Transaction reference stored with every entry
 
 ---
 
-## SOAP Integration
+## Show Jumping Entry (AED 150)
 
-### Endpoints
-
-| Service | URL | Purpose |
-|---------|-----|---------|
-| WSAuthentication | http://[REDACTED]/webservices/WSAuthentication.asmx | System auth |
-| WSCommons | http://[REDACTED]/webservices/WSCommons.asmx | Common lists (cached 24h) |
-| WSRegistrations | http://[REDACTED]/webservices/WSRegistrations.asmx | Rider registration/renewal |
-| ShowJumpingCriteria | http://[REDACTED]/webservices/ShowJumpingCriteria.asmx | Eligibility validation |
-
-### Authentication
-- System credentials: `[REDACTED]` / `[REDACTED]`
-- Authenticated before calling other services
-- Response cached for performance
+```mermaid
+graph LR
+    F[Entry form] --> V[ShowJumpingCriteria.asmx<br/>IsRiderEligible + IsHorseEligible]
+    V -->|both eligible| P[PayTabs AED 150]
+    V -->|ineligible| E[Back with errors]
+    P -->|webhook authorised| I[INSERT ClassEntriesWeb<br/>incl. PayTabs tran_ref]
+```
 
 ---
 
-## Database Schema (MSSQL)
+## Identity & Access (Task 1)
 
-```sql
--- UserProfile (user master data)
-CREATE TABLE UserProfile (
-    UserID INT PRIMARY KEY IDENTITY,
-    Email NVARCHAR(255) UNIQUE,
-    Password NVARCHAR(255),
-    FullName NVARCHAR(255),
-    MobileNumber NVARCHAR(20),
-    City NVARCHAR(100),
-    RegistrationDate DATETIME
-);
+- **Registration** — Fortify `CreateNewUser` dual-writes: local `users` row
+  (Laravel auth) **and** MSSQL `UserProfile` row.
+- **Login** — custom `Fortify::authenticateUsing`: local credential check
+  **plus** verification against `UserProfile.Password`. A profile password
+  mismatch denies login; MSSQL being unreachable logs an error and degrades
+  gracefully (no lockout on infrastructure failure).
 
--- ClassEntriesWeb (show jumping - payment confirmed only)
-CREATE TABLE ClassEntriesWeb (
-    EntryID INT PRIMARY KEY IDENTITY,
-    RiderID INT,
-    HorseID INT,
-    EventID INT,
-    ClassID INT,
-    TransactionReference NVARCHAR(255),
-    EntryDate DATETIME,
-    Status NVARCHAR(50),
-    PaymentAmount DECIMAL(10,2)
-);
+---
 
--- payment_transactions
-CREATE TABLE payment_transactions (
-    id INT PRIMARY KEY IDENTITY,
-    tran_ref NVARCHAR(255) UNIQUE,
-    cart_id NVARCHAR(255) UNIQUE,
-    amount DECIMAL(10,2),
-    status NVARCHAR(50),
-    processed BIT DEFAULT 0,
-    created_at DATETIME
-);
+## Rider Renewal Lookup (Task 3 "Query rider")
 
--- rider_registrations
-CREATE TABLE rider_registrations (
-    id INT PRIMARY KEY IDENTITY,
-    user_id INT,
-    cart_id NVARCHAR(255) UNIQUE,
-    rider_name NVARCHAR(255),
-    date_of_birth DATE,
-    status NVARCHAR(50),
-    tran_ref NVARCHAR(255),
-    created_at DATETIME
-);
-
--- rider_renewals, show_jumping_entries (similar structure)
-```
+`GET /api/riders/search?q=` (authenticated, validated) → `RidersService::searchRiders()`
+→ `SearchRiderList` on WSRiders.asmx → mapped to
+`{rider_id, name, dob, nationality, registered_current_season}`.
+The renewal page uses a debounced type-ahead; real federation rider IDs
+(`E00xxxxx`, nvarchar) flow through to `Submit_PersonRenewal.PersonID`.
 
 ---
 
 ## Security Features
 
-✅ **Payment Security:**
-- Webhook signature verification (HMAC-SHA256)
-- Idempotency checks (duplicate prevention)
-- Rate limiting (10 requests/min)
+- Webhook signature verification (HMAC-SHA256, raw body)
+- Idempotency checks (duplicate webhook prevention)
+- Rate limiting (10 req/min on payment initiation endpoints)
 - Payment-before-database-write flow
-
-✅ **Authentication:**
-- Laravel Fortify
-- SOAP system credentials (not user credentials)
-- Session management
-
-✅ **Data Integrity:**
-- Database transactions for atomic operations
-- Repository pattern (no direct DB calls in controllers)
-- Foreign key constraints removed (dual-database architecture)
+- SOAP system credentials via environment only (never hardcoded)
+- Session-safe stateless payment return route
+- Mass-assignment protection, LIKE-wildcard escaping, no `dangerouslySetInnerHTML`
 
 ---
 
@@ -193,98 +177,51 @@ CREATE TABLE rider_registrations (
 
 ### Public
 ```
-GET  /api/commons/cities      # City list (cached)
-GET  /api/commons/divisions   # Division levels
-GET  /api/commons/disciplines # Disciplines
+GET  /api/commons/*             # Cached SOAP lists (cities, countries, genders, ...)
 ```
 
-### Protected (auth required)
+### Protected (auth)
 ```
-POST /rider/register          # Rider registration → PayTabs (AED 100)
-POST /rider/renew             # Rider renewal → PayTabs (AED 50)
-POST /jumping/entry           # Competition entry → PayTabs (AED 150)
-POST /jumping/validate        # Eligibility check
-```
-
-### Webhooks
-```
-POST /api/paytabs/webhook     # PayTabs IPN (signature verified)
-GET  /payment/return          # User return URL (display only)
+POST /rider/register            # Registration → PayTabs (AED 100)
+POST /rider/renew               # Renewal → PayTabs (AED 50)
+POST /jumping/validate          # Eligibility check (AJAX)
+POST /jumping/entry             # Entry → PayTabs (AED 150)
+GET  /api/riders/search?q=      # Rider lookup for renewals
 ```
 
----
-
-## Directory Structure
-
+### Payment (no auth — verified by signature / display-only)
 ```
-app/
-├── Http/Controllers/
-│   ├── PayTabsController.php      # Webhook + return URL
-│   ├── RiderController.php        # Registration + renewal
-│   └── ShowJumpingController.php  # Entry validation
-├── Repositories/
-│   ├── PaymentTransactionRepository.php
-│   ├── RiderRegistrationRepository.php
-│   └── ShowJumpingEntryRepository.php
-└── Services/
-    ├── PayTabsService.php
-    └── Soap/
-        ├── AuthenticationService.php
-        ├── CommonsService.php
-        ├── RegistrationsService.php
-        └── ShowJumpingCriteriaService.php
-
-resources/js/
-├── pages/
-│   ├── welcome.tsx            # Landing page
-│   ├── dashboard.tsx          # User dashboard
-│   ├── rider/
-│   │   ├── registration.tsx
-│   │   └── renewal.tsx
-│   └── jumping/
-│       └── entry.tsx
-└── components/
-    └── ui/                    # shadcn/ui components
-
-docs/
-├── ARCHITECTURE.md            # This file
-└── architecture-diagram.png   # Visual diagram
+POST     /api/paytabs/webhook   # PayTabs IPN (HMAC verified)
+GET|POST /api/payment/return    # User return URL (stateless, PRG)
 ```
 
 ---
 
-## Configuration
+## Testing
 
-**Required Environment Variables:**
-```bash
-# MSSQL Database
-DB_HOST=[REDACTED]\DEVSQL,50441
-DB_USER=[REDACTED]
-DB_PASSWORD=[REDACTED]
-DB_NAME=EEFRegistration
-
-# SOAP Authentication
-SOAP_AUTH_USERNAME=[REDACTED]
-SOAP_AUTH_PASSWORD=[REDACTED]
-
-# PayTabs
-PAYTABS_PROFILE_ID=<your_profile_id>
-PAYTABS_SERVER_KEY=<your_server_key>
-PAYTABS_CALLBACK_URL=https://your-domain.com/api/paytabs/webhook
-```
+68 automated tests (Pest) covering registration validation, payment webhook
+security (signature, idempotency, declined/authorised paths, SOAP
+success/rejection for registrations **and** renewals), payment return pages,
+rider search endpoint, and UserProfile-verified login. MSSQL is faked as an
+in-memory SQLite connection per test — the suite runs with no external
+dependencies.
 
 ---
 
-## Assessment Compliance
+## Known Environment Limitation
 
-✅ **Task 1:** User registration → UserProfile (MSSQL)  
-✅ **Task 2:** SOAP common lists with 24h caching  
-✅ **Task 3:** Rider registration/renewal with PayTabs  
-✅ **Task 4:** Show jumping entry with eligibility validation  
-✅ **Security:** Webhook signature verification, payment-first flow  
-✅ **Architecture:** Proper separation of concerns, repository pattern
+`Submit_PersonNewRegistration` on the WS_TEST environment returns
+**"Invalid User ID" for every UserId value** — verified with a fresh,
+server-side-confirmed session (`WSUserAuth` row present for our IP) against the
+assessment portal account `testings@uaeerf.ae` (UserID 6422), existing users,
+`0`, and all `PersonType` values. Every other field validation passes (name,
+DOB ≥ 11y, nationality/gender/city/country IDs, email, mobile, address, PO box,
+weight, EID format). The blocker is server-side permissioning for the WS_TEST
+account; the service's rejection messages are captured verbatim in
+`rider_registrations.error_message`. Raised with the UAEERF technical contact.
+
+Deferred by scope: profile-photo upload (`Submit_Document`).
 
 ---
 
-**Built for:** UAEERF Technical Assessment  
-**Completion Date:** 2026-07-25
+**Built for:** UAEERF Technical Assessment

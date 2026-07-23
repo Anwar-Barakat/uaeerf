@@ -1,18 +1,13 @@
 import { Head, Link } from '@inertiajs/react';
-import { ArrowRight, BarChart3, CalendarClock, CircleCheck, FileText, RefreshCw, Sparkles, Trophy, UserPlus } from 'lucide-react';
+import { ArrowRight, BarChart3, CalendarClock, CircleCheck, RefreshCw, Sparkles, Trophy, UserPlus } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { dashboard } from '@/routes';
-
-type ActivityPoint = { month: string; registrations: number; entries: number };
+import type { ActivityPoint, Stats } from '@/types';
 
 interface DashboardProps {
-    stats?: {
-        activeRegistrations: number;
-        competitionEntries: number;
-        renewals: number;
-    };
+    stats?: Stats;
     activity?: ActivityPoint[];
 }
 
@@ -91,7 +86,7 @@ export default function Dashboard({ stats, activity = [] }: DashboardProps) {
         <>
             <Head title="Dashboard" />
 
-            <div className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
+            <div className="space-y-8 p-6">
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
                     <p className="text-muted-foreground">
@@ -213,59 +208,6 @@ export default function Dashboard({ stats, activity = [] }: DashboardProps) {
                             </CardContent>
                         </Card>
                     ))}
-                </div>
-
-                <div className="space-y-1">
-                    <h2 className="text-xl font-semibold tracking-tight">Recent Activity</h2>
-                    <p className="text-sm text-muted-foreground">
-                        View your registration history and competition entries
-                    </p>
-                </div>
-
-                <div className="grid gap-6 md:grid-cols-2">
-                    <Card>
-                        <CardHeader>
-                            <div className="flex items-center justify-between">
-                                <CardTitle>My Registrations</CardTitle>
-                                <Badge variant="secondary">0</Badge>
-                            </div>
-                            <CardDescription>Your rider registration history</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="flex flex-col items-center justify-center py-10 text-center">
-                                <FileText className="size-10 text-muted-foreground/40" />
-                                <h3 className="mt-4 font-semibold">No registrations yet</h3>
-                                <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-                                    Start by registering as a rider to access competitions and events.
-                                </p>
-                                <Button asChild variant="outline" className="mt-4">
-                                    <Link href="/rider/registration">Register as Rider</Link>
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    <Card>
-                        <CardHeader>
-                            <div className="flex items-center justify-between">
-                                <CardTitle>My Competition Entries</CardTitle>
-                                <Badge variant="secondary">0</Badge>
-                            </div>
-                            <CardDescription>Your competition entry history</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="flex flex-col items-center justify-center py-10 text-center">
-                                <Trophy className="size-10 text-muted-foreground/40" />
-                                <h3 className="mt-4 font-semibold">No entries yet</h3>
-                                <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-                                    Register for show jumping competitions to see your entries here.
-                                </p>
-                                <Button asChild variant="outline" className="mt-4">
-                                    <Link href="/jumping/entry">Enter Competition</Link>
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
                 </div>
             </div>
         </>

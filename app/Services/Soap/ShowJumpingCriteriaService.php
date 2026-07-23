@@ -9,41 +9,54 @@ class ShowJumpingCriteriaService extends BaseSoapClient
         return config('services.soap.jumping_criteria_url') . '?WSDL';
     }
 
-    public function isRiderEligible(array $params): object
+    public function isRiderEligible(string $riderId, string $eventId, string $classId, string $horseId): object
     {
-        return $this->call('IsRiderEligible', $params);
+        return $this->call('IsRiderEligible', [
+            'RiderID' => $riderId,
+            'EventID' => $eventId,
+            'ClassID' => $classId,
+            'HorseID' => $horseId,
+        ]);
     }
 
-    public function isHorseEligible(array $params): object
+    public function isHorseEligible(string $horseId, string $eventId, string $classId): object
     {
-        return $this->call('IsHorseEligible', $params);
+        return $this->call('IsHorseEligible', [
+            'HorseID' => $horseId,
+            'EventID' => $eventId,
+            'ClassID' => $classId,
+        ]);
     }
 
-    public function isRiderEligibleChecking(array $params): object
+    public function validateRiderHorseCombination(array $params): array
     {
-        return $this->call('IsRiderEligibleChecking', $params);
-    }
+        $riderResult = $this->isRiderEligible(
+            (string) $params['rider_id'],
+            (string) $params['event_id'],
+            (string) $params['class_id'],
+            (string) $params['horse_id'],
+        );
 
-    public function isHorseEligibleChecking(array $params): object
-    {
-        return $this->call('IsHorseEligibleChecking', $params);
-    }
-
-    public function validateRiderHorseCombination(array $riderParams, array $horseParams): array
-    {
-        $riderResult = $this->isRiderEligible($riderParams);
-        $horseResult = $this->isHorseEligible($horseParams);
+        $horseResult = $this->isHorseEligible(
+            (string) $params['horse_id'],
+            (string) $params['event_id'],
+            (string) $params['class_id'],
+        );
 
         return [
-            'riderEligible' => $this->parseEligibilityResult($riderResult),
-            'horseEligible' => $this->parseEligibilityResult($horseResult),
-            'riderDetails' => $riderResult,
-            'horseDetails' => $horseResult,
+            'riderEligible' => $this->parseEligibilityResult($riderResult->IsRiderEligibleResult ?? null),
+            'horseEligible' => $this->parseEligibilityResult($horseResult->IsHorseEligibleResult ?? null),
+            'riderDetails' => $riderResult->IsRiderEligibleResult ?? null,
+            'horseDetails' => $horseResult->IsHorseEligibleResult ?? null,
         ];
     }
 
-    protected function parseEligibilityResult(object $result): bool
+    protected function parseEligibilityResult(?string $result): bool
     {
-        return true;
+        if ($result === null) {
+            return false;
+        }
+
+        return in_array(strtolower(trim($result)), ['true', '1', 'yes', 'eligible', 'ok'], true);
     }
 }

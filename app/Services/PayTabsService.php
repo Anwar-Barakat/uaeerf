@@ -130,9 +130,9 @@ class PayTabsService
         return $result;
     }
 
-    public function verifyWebhookSignature(array $payload, string $signature): bool
+    public function verifyWebhookSignature(string $rawBody, string $signature): bool
     {
-        $calculatedSignature = hash_hmac('sha256', json_encode($payload), $this->serverKey);
+        $calculatedSignature = hash_hmac('sha256', $rawBody, $this->serverKey);
 
         return hash_equals($calculatedSignature, $signature);
     }

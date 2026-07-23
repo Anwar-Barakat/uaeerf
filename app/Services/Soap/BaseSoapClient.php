@@ -40,6 +40,8 @@ abstract class BaseSoapClient
 
     protected function call(string $method, array $parameters = []): mixed
     {
+        $this->ensureAuthenticated();
+
         try {
             $result = $this->client->__soapCall($method, [$parameters]);
 
@@ -61,6 +63,21 @@ abstract class BaseSoapClient
                 'response' => $this->client->__getLastResponse(),
             ]);
             throw $e;
+        }
+    }
+
+    protected function ensureAuthenticated(): void
+    {
+        if ($this instanceof AuthenticationService) {
+            return;
+        }
+
+        if (!app(AuthenticationService::class)->authenticateAndCache()) {
+            Log::error('SOAP authentication handshake failed', [
+                'service' => static::class,
+            ]);
+
+            throw new SoapFault('Client', 'SOAP authentication handshake failed');
         }
     }
 

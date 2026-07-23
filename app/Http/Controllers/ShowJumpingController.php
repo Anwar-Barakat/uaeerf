@@ -10,6 +10,7 @@ use App\Services\Soap\ShowJumpingCriteriaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class ShowJumpingController extends Controller
 {
@@ -29,10 +30,7 @@ class ShowJumpingController extends Controller
         ]);
 
         try {
-            $result = $this->criteriaService->validateRiderHorseCombination(
-                ['riderId' => $validated['rider_id']],
-                ['horseId' => $validated['horse_id']]
-            );
+            $result = $this->criteriaService->validateRiderHorseCombination($validated);
 
             return response()->json([
                 'success' => true,
@@ -60,25 +58,21 @@ class ShowJumpingController extends Controller
     {
         $user = Auth::user();
         try {
-            $eligibility = $this->criteriaService->validateRiderHorseCombination(
-                ['riderId' => $data->rider_id],
-                ['horseId' => $data->horse_id]
-            );
+            $eligibility = $this->criteriaService->validateRiderHorseCombination([
+                'rider_id' => $data->rider_id,
+                'horse_id' => $data->horse_id,
+                'event_id' => $data->event_id,
+                'class_id' => $data->class_id,
+            ]);
 
             if (!($eligibility['riderEligible'] && $eligibility['horseEligible'])) {
-                return response()->json([
-                    'success' => false,
-                    'error' => 'Rider or horse not eligible for this competition',
-                    'details' => $eligibility,
-                ], 422);
+                return back()->withErrors(['eligibility' => 'Rider or horse not eligible for this competition']);
             }
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'error' => 'Failed to validate eligibility',
-                'message' => config('app.debug') ? $e->getMessage() : null,
-            ], 500);
+            Log::error('Show jumping eligibility check failed', ['error' => $e->getMessage()]);
+
+            return back()->withErrors(['eligibility' => 'Failed to validate eligibility. Please try again.']);
         }
         $cartId = PayTabsService::generateCartId('jumping', $user->id);
         $repositoryData = CreateShowJumpingEntryRepositoryData::fromEntryData(
@@ -98,12 +92,13 @@ class ShowJumpingController extends Controller
             'event_name' => $data->event_name,
         ], $cartId);
 
-        return response()->json([
-            'success' => true,
-            'cart_id' => $cartId,
-            'redirect_url' => $paymentData['redirect_url'] ?? null,
-            'tran_ref' => $paymentData['tran_ref'] ?? null,
-        ]);
+        if (empty($paymentData['redirect_url'])) {
+            Log::error('PayTabs jumping payment missing redirect_url', ['cart_id' => $cartId]);
+
+            return back()->withErrors(['payment' => 'Unable to start payment. Please try again.']);
+        }
+
+        return Inertia::location($paymentData['redirect_url']);
     }
 
     public function processEntry(string $cartId, string $tranRef): void

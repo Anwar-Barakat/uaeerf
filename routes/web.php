@@ -5,24 +5,30 @@ use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'welcome')->name('home');
 
-// PayTabs return URL (user redirected here after payment)
-Route::get('payment/return', [\App\Http\Controllers\PayTabsController::class, 'returnUrl'])->name('payment.return');
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('history/registrations', [\App\Http\Controllers\HistoryController::class, 'registrations'])->name('history.registrations');
+    Route::get('history/renewals', [\App\Http\Controllers\HistoryController::class, 'renewals'])->name('history.renewals');
+    Route::get('history/entries', [\App\Http\Controllers\HistoryController::class, 'entries'])->name('history.entries');
+
     // Rider Registration & Renewal Pages
     Route::get('rider/registration', function () {
+        $commons = app(\App\Services\Soap\CommonsService::class);
+
         return inertia('rider/registration', [
-            'disciplines' => app(\App\Services\Soap\CommonsService::class)->getDisciplineList(),
-            'categories' => app(\App\Services\Soap\CommonsService::class)->getCategoryList(),
+            'disciplines' => $commons->getDisciplineList(),
+            'categories' => $commons->getCategoryList(),
+            'cities' => $commons->getCityList(),
+            'countries' => $commons->getCountryList(),
+            'genders' => $commons->getGenderList(),
+            'visaCategories' => $commons->getVisaCategoryList(),
         ]);
     })->name('rider.registration');
 
     Route::get('rider/renewal', function () {
         return inertia('rider/renewal', [
             'seasons' => app(\App\Services\Soap\CommonsService::class)->getSeasonList(),
-            'userRiders' => [],
         ]);
     })->name('rider.renewal');
 
