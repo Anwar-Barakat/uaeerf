@@ -19,13 +19,15 @@ class PayTabsController extends Controller
     public function webhook(Request $request)
     {
         Log::info('PayTabs webhook received', [
-            'payload' => $request->all(),
-            'signature' => $request->header('Signature'),
+            'cart_id' => $request->input('cart_id'),
+            'tran_ref' => $request->input('tran_ref'),
         ]);
         $signature = $request->header('Signature') ?? $request->header('signature');
-        if (!$signature || !$this->payTabsService->verifyWebhookSignature($request->all(), $signature)) {
-            Log::warning('PayTabs webhook signature verification failed');
-            return response()->json(['error' => 'Invalid signature'], 401);
+        if (!$signature || !$this->payTabsService->verifyWebhookSignature($request->getContent(), $signature)) {
+            Log::warning('PayTabs webhook signature verification failed', [
+                'cart_id' => $request->input('cart_id'),
+            ]);
+            return response()->json(['error' => 'Invalid signature'], 400);
         }
         $webhookData = PaymentWebhookData::from($this->payTabsService->parseWebhook($request->all()));
         $existingTransaction = $this->transactionRepo->findByTranRef($webhookData->tran_ref);
@@ -96,13 +98,27 @@ class PayTabsController extends Controller
 
     public function returnUrl(Request $request)
     {
-        $tranRef = $request->query('tranRef');
-        $cartId = $request->query('cartId');
+        $tranRef = $request->input('tranRef');
+        $cartId = $request->input('cartId');
 
         Log::info('User returned from PayTabs', [
             'tran_ref' => $tranRef,
             'cart_id' => $cartId,
         ]);
+
+        if ($request->isMethod('post')) {
+            return redirect()->route('payment.return', array_filter([
+                'tranRef' => $tranRef,
+                'cartId' => $cartId,
+            ]));
+        }
+
+        if (!$cartId) {
+            return view('payment.pending', [
+                'message' => 'Payment processing... Please wait.',
+            ]);
+        }
+
         $transaction = $this->transactionRepo->findByCartId($cartId);
 
         if (!$transaction) {

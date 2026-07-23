@@ -1,120 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Successful - UAEERF</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .card {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            padding: 48px;
-            max-width: 500px;
-            text-align: center;
-        }
-        .icon {
-            width: 80px;
-            height: 80px;
-            background: #10b981;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-        }
-        .icon svg {
-            width: 48px;
-            height: 48px;
-            stroke: white;
-        }
-        h1 {
-            color: #1a202c;
-            font-size: 28px;
-            margin-bottom: 12px;
-        }
-        p {
-            color: #718096;
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 32px;
-        }
-        .details {
-            background: #f7fafc;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: left;
-            margin-bottom: 32px;
-        }
-        .details-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .details-row:last-child {
-            border-bottom: none;
-        }
-        .label {
-            color: #718096;
-            font-size: 14px;
-        }
-        .value {
-            color: #1a202c;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        .button {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 14px 32px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
-        .button:hover {
-            background: #5568d3;
-        }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <div class="icon">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+@extends('payment.layout')
+
+@section('title', 'Payment Successful')
+
+@section('content')
+    <div class="flex flex-col items-center gap-4">
+        <div class="flex size-16 items-center justify-center rounded-full bg-emerald-500/15">
+            <svg class="size-8 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
             </svg>
         </div>
-        <h1>Payment Successful!</h1>
-        <p>Your payment has been processed successfully. You will receive a confirmation email shortly.</p>
-
-        <div class="details">
-            <div class="details-row">
-                <span class="label">Transaction Reference</span>
-                <span class="value">{{ $transaction->tran_ref }}</span>
-            </div>
-            <div class="details-row">
-                <span class="label">Amount</span>
-                <span class="value">{{ $transaction->currency }} {{ number_format($transaction->amount, 2) }}</span>
-            </div>
-            <div class="details-row">
-                <span class="label">Status</span>
-                <span class="value" style="color: #10b981;">✓ Confirmed</span>
-            </div>
+        <div class="space-y-1">
+            <h1 class="text-2xl font-bold tracking-tight">Payment Successful!</h1>
+            <p class="text-sm text-muted-foreground">
+                Your payment has been processed successfully. You will receive a confirmation email shortly.
+            </p>
         </div>
-
-        <a href="{{ route('dashboard') }}" class="button">Go to Dashboard</a>
     </div>
-</body>
-</html>
+
+    <div class="rounded-lg border border-border/60 bg-muted/40 p-4 text-left">
+        <dl class="divide-y divide-border/60 text-sm">
+            <div class="flex items-center justify-between gap-4 py-2">
+                <dt class="text-muted-foreground">Transaction Reference</dt>
+                <dd class="font-mono text-xs font-medium">{{ $transaction->tran_ref }}</dd>
+            </div>
+            <div class="flex items-center justify-between gap-4 py-2">
+                <dt class="text-muted-foreground">Amount</dt>
+                <dd class="font-semibold">{{ $transaction->currency }} {{ number_format($transaction->amount, 2) }}</dd>
+            </div>
+            <div class="flex items-center justify-between gap-4 py-2">
+                <dt class="text-muted-foreground">Status</dt>
+                <dd>
+                    <span class="inline-flex items-center rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                        Confirmed
+                    </span>
+                </dd>
+            </div>
+        </dl>
+    </div>
+
+    <a href="{{ route('dashboard') }}"
+       class="inline-flex w-full items-center justify-center rounded-md bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90">
+        Go to Dashboard
+    </a>
+@endsection
