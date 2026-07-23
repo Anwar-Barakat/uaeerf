@@ -110,8 +110,24 @@ return [
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
-            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
-            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
+            'encrypt' => env('DB_ENCRYPT', 'no'),
+            'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', true),
+        ],
+
+        // UAEERF MSSQL (named instance)
+        'mssql' => [
+            'driver' => 'sqlsrv',
+            'url' => env('MSSQL_URL'),
+            'host' => env('MSSQL_HOST', 'localhost'),
+            'port' => env('MSSQL_PORT', '1433'),
+            'database' => env('MSSQL_DATABASE', 'EEFRegistration'),
+            'username' => env('MSSQL_USERNAME', ''),
+            'password' => env('MSSQL_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'encrypt' => env('MSSQL_ENCRYPT', 'no'),
+            'trust_server_certificate' => env('MSSQL_TRUST_SERVER_CERTIFICATE', true),
         ],
 
     ],
