@@ -74,23 +74,22 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
         <>
             <Head title="Show Jumping Entry" />
 
-            <div className="page-background py-12 px-4">
-                <div className="container mx-auto max-w-3xl">
-                <div className="mb-8">
-                    <h1 className="text-4xl font-bold tracking-tight text-slate-800 mb-2">Show Jumping Entry</h1>
-                    <p className="text-lg text-slate-600">
+            <div className="container mx-auto max-w-2xl py-8 px-4">
+                <div className="mb-6">
+                    <h1 className="text-3xl font-bold tracking-tight">Show Jumping Entry</h1>
+                    <p className="text-muted-foreground mt-2">
                         Register for a show jumping competition
                     </p>
                 </div>
 
-                <Card className="form-card-entry">
-                    <CardHeader className="service-header-entry">
-                        <CardTitle className="text-xl">Competition Entry</CardTitle>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Competition Entry</CardTitle>
                         <CardDescription>
                             Enter your details and validate eligibility before payment
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="pt-6">
+                    <CardContent>
                         <form onSubmit={submit} className="space-y-6">
                             <div className="space-y-2">
                                 <Label htmlFor="rider_id">Select Rider *</Label>
@@ -194,7 +193,8 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
 
                             <Button
                                 type="button"
-                                className="btn-outline-entry h-11"
+                                variant="outline"
+                                className="w-full"
                                 onClick={validateEligibility}
                                 disabled={validating || !data.rider_id || !data.horse_id}
                             >
@@ -226,25 +226,19 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
                                 </Alert>
                             )}
 
-                            <div className="payment-section-entry">
+                            <div className="rounded-lg bg-muted p-4">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="payment-label-entry text-lg">
-                                            Entry Fee
-                                        </p>
-                                        <p className="text-sm text-muted-foreground mt-1">
-                                            Secure payment via PayTabs
-                                        </p>
+                                        <p className="font-medium">Entry Fee</p>
+                                        <p className="text-sm text-muted-foreground">Secure payment via PayTabs</p>
                                     </div>
-                                    <div className="payment-amount-entry">
-                                        AED 150
-                                    </div>
+                                    <p className="text-2xl font-bold">AED 150</p>
                                 </div>
                             </div>
 
                             <Button
                                 type="submit"
-                                className="btn-outline-entry"
+                                className="w-full"
                                 disabled={
                                     processing ||
                                     !userRiders?.length ||

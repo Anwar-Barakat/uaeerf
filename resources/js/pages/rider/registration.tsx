@@ -36,23 +36,22 @@ export default function RiderRegistration({ disciplines, categories }: Props) {
         <>
             <Head title="Rider Registration" />
 
-            <div className="page-background py-12 px-4">
-                <div className="container mx-auto max-w-3xl">
-                <div className="mb-8">
-                    <h1 className="text-4xl font-bold tracking-tight text-slate-800 mb-2">Rider Registration</h1>
-                    <p className="text-lg text-slate-600">
+            <div className="container mx-auto max-w-2xl py-8 px-4">
+                <div className="mb-6">
+                    <h1 className="text-3xl font-bold tracking-tight">Rider Registration</h1>
+                    <p className="text-muted-foreground mt-2">
                         Register as a new rider with UAE Equestrian & Racing Federation
                     </p>
                 </div>
 
-                <Card className="form-card-registration">
-                    <CardHeader className="service-header-registration">
-                        <CardTitle className="text-xl">New Rider Application</CardTitle>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>New Rider Application</CardTitle>
                         <CardDescription>
                             Complete the form below to begin your rider registration process
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="pt-6">
+                    <CardContent>
                         <form onSubmit={submit} className="space-y-6">
                             <div className="space-y-2">
                                 <Label htmlFor="rider_name">Rider Name *</Label>
@@ -163,27 +162,17 @@ export default function RiderRegistration({ disciplines, categories }: Props) {
                                 )}
                             </div>
 
-                            <div className="payment-section-registration">
+                            <div className="rounded-lg bg-muted p-4">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="payment-label-registration text-lg">
-                                            Registration Fee
-                                        </p>
-                                        <p className="text-sm text-muted-foreground mt-1">
-                                            Secure payment via PayTabs
-                                        </p>
+                                        <p className="font-medium">Registration Fee</p>
+                                        <p className="text-sm text-muted-foreground">Secure payment via PayTabs</p>
                                     </div>
-                                    <div className="payment-amount-registration">
-                                        AED 100
-                                    </div>
+                                    <p className="text-2xl font-bold">AED 100</p>
                                 </div>
                             </div>
 
-                            <Button
-                                type="submit"
-                                className="btn-primary-registration"
-                                disabled={processing}
-                            >
+                            <Button type="submit" className="w-full" disabled={processing}>
                                 {processing ? 'Processing...' : 'Proceed to Secure Payment →'}
                             </Button>
                         </form>
