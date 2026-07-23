@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
+use App\Models\User;
+use App\Models\UserProfile;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -41,6 +45,37 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
         Fortify::createUsersUsing(CreateNewUser::class);
+
+        Fortify::authenticateUsing(function (Request $request) {
+            $user = User::where('email', $request->email)->first();
+
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return null;
+            }
+
+            try {
+                $profile = UserProfile::where('Email', $request->email)->first();
+
+                if (!$profile) {
+                    Log::warning('Login allowed but no MSSQL UserProfile found', [
+                        'email' => $request->email,
+                    ]);
+                } elseif (!Hash::check($request->password, $profile->Password)) {
+                    Log::warning('MSSQL UserProfile password mismatch on login', [
+                        'email' => $request->email,
+                    ]);
+
+                    return null;
+                }
+            } catch (\Exception $e) {
+                Log::error('MSSQL UserProfile verification unavailable during login', [
+                    'email' => $request->email,
+                    'error' => $e->getMessage(),
+                ]);
+            }
+
+            return $user;
+        });
     }
 
     /**
