@@ -65,48 +65,51 @@
 :root {
     --radius: 0.65rem;
 
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
+    /* Soft, eye-friendly light theme — background is a warm off-white, not harsh pure white */
+    --background: oklch(0.966 0.003 160);
+    --foreground: oklch(0.22 0.01 160);
 
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
+    --card: oklch(0.995 0.001 160);
+    --card-foreground: oklch(0.22 0.01 160);
 
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
+    --popover: oklch(0.995 0.001 160);
+    --popover-foreground: oklch(0.22 0.01 160);
 
-    --primary: oklch(0.47 0.11 158);
-    --primary-foreground: oklch(0.985 0 0);
+    /* Brand: rich UAE gold */
+    --primary: oklch(0.63 0.135 82);
+    --primary-foreground: oklch(0.99 0 0);
 
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.93 0.004 160);
+    --secondary-foreground: oklch(0.28 0.01 160);
 
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
+    --muted: oklch(0.93 0.004 160);
+    --muted-foreground: oklch(0.52 0.012 160);
 
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
+    --accent: oklch(0.93 0.004 160);
+    --accent-foreground: oklch(0.28 0.01 160);
 
     --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(0.985 0 0);
 
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.47 0.11 158);
+    --border: oklch(0.892 0.005 160);
+    --input: oklch(0.892 0.005 160);
+    --ring: oklch(0.63 0.135 82);
 
-    --chart-1: oklch(0.47 0.11 158);
+    --chart-1: oklch(0.63 0.135 82);
     --chart-2: oklch(0.6 0.118 184.704);
     --chart-3: oklch(0.646 0.222 41.116);
     --chart-4: oklch(0.828 0.189 84.429);
     --chart-5: oklch(0.577 0.245 27.325);
 
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.47 0.11 158);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.47 0.11 158);
+    /* Sidebar: a soft, warm-tinted panel — distinct from the page but not harsh */
+    --sidebar: oklch(0.945 0.008 88);
+    --sidebar-foreground: oklch(0.22 0.01 160);
+    --sidebar-primary: oklch(0.63 0.135 82);
+    --sidebar-primary-foreground: oklch(0.99 0 0);
+    --sidebar-accent: oklch(0.9 0.012 88);
+    --sidebar-accent-foreground: oklch(0.28 0.01 160);
+    --sidebar-border: oklch(0.88 0.012 88);
+    --sidebar-ring: oklch(0.63 0.135 82);
 }
 
 .dark {
