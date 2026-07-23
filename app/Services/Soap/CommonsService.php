@@ -75,6 +75,14 @@ class CommonsService extends BaseSoapClient
         });
     }
 
+    public function getVisaCategoryList(): array
+    {
+        return Cache::remember('soap_visa_categories', 86400, function () {
+            $result = $this->call('getVisaCategoryList');
+            return $result->getVisaCategoryListResult->VisaCategory ?? [];
+        });
+    }
+
     public function checkIfEmailAvailable(string $email): bool
     {
         $result = $this->call('CheckIfEmailAvailable', ['email' => $email]);
