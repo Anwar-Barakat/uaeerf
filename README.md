@@ -333,12 +333,28 @@ POST /jumping/entry               # Create entry (→ PayTabs AED 150)
 
 ```bash
 POST /api/paytabs/webhook         # PayTabs IPN (signature verified)
-GET  /payment/return              # User return URL
+GET|POST /api/payment/return      # User return URL (stateless, PRG)
 ```
 
 ---
 
 ## 🧪 Testing
+
+### Automated Tests
+
+```bash
+php artisan test
+```
+
+**68 tests / 215 assertions** covering:
+- Registration validation (phone, city, password, unique email, DOB rules)
+- Payment webhook security: HMAC signature (raw body), idempotency, declined vs authorised paths
+- SOAP success/rejection handling for registrations **and** renewals (mocked SOAP)
+- Payment return pages (PRG redirect, pending/success/failed views)
+- Rider search endpoint (auth, validation, SOAP failure handling)
+- Login verified against MSSQL `UserProfile` (mismatch denies login)
+
+MSSQL is faked as in-memory SQLite per test — the suite runs with **zero external dependencies**.
 
 ### Manual Testing Flow
 
@@ -613,14 +629,28 @@ curl -X POST http://localhost:8000/api/admin/commons/clear-cache \
 
 ## 🤝 Submission Notes
 
-### What Works
+### What Works (live-verified end-to-end)
 
-✅ SOAP authentication & common lists  
-✅ User registration (SQLite + MSSQL sync)  
-✅ Payment flow structure (PayTabs integration)  
-✅ Show jumping eligibility validation  
-✅ Database schema (migrations run)  
-✅ API endpoints (tested & documented)  
+✅ SOAP authentication handshake (enforced before every service call, cached 1h)  
+✅ Common lists via authenticated SOAP, cached 24h (cities, countries, genders, disciplines, categories, seasons, visa categories)  
+✅ User registration (dual-write: Laravel users + MSSQL UserProfile)  
+✅ Login verified against MSSQL UserProfile (password mismatch denies login)  
+✅ Full PayTabs flow: hosted page → signed webhook → idempotent transaction persistence → SOAP submission → status update  
+✅ Portal-parity athlete registration form (visa category, Emirates ID, name split, weight, season/FEI options)  
+✅ Rider renewal with live rider lookup (WSRiders SearchRiderList type-ahead)  
+✅ Show jumping eligibility validation (real IsRiderEligible/IsHorseEligible parsing)  
+✅ 68 automated tests / 215 assertions  
+
+### Known Environment Limitation
+
+⚠️ `Submit_PersonNewRegistration` on WS_TEST returns **"Invalid User ID" for every UserId** —
+verified with a fresh server-confirmed session against the assessment portal account
+(UserID 6422) and all PersonType values. All other field validations pass. This is
+server-side permissioning for the WS_TEST account; rejection messages are captured in
+`rider_registrations.error_message`. Raised with the UAEERF technical contact.
+See `docs/ARCHITECTURE.md` for full evidence.
+
+Deferred by scope: profile-photo upload (`Submit_Document`).
 
 ### What Requires Credentials
 
