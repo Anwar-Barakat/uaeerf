@@ -46,7 +46,7 @@ class DashboardRepository
 
     private function countCompleted(string $table, int $userId): int
     {
-        return DB::table($table)
+        return DB::connection('mssql')->table($table)
             ->where('user_id', $userId)
             ->where('status', 'completed')
             ->count();
@@ -54,7 +54,7 @@ class DashboardRepository
 
     private function countCompletedBetween(string $table, int $userId, Carbon $start, Carbon $end): int
     {
-        return DB::table($table)
+        return DB::connection('mssql')->table($table)
             ->where('user_id', $userId)
             ->where('status', 'completed')
             ->whereBetween('created_at', [$start, $end])

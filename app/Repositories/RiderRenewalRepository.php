@@ -2,14 +2,15 @@
 
 namespace App\Repositories;
 
+use App\Data\CreateRiderRenewalRepositoryData;
 use App\Models\RiderRenewal;
 use Illuminate\Support\Facades\DB;
 
 class RiderRenewalRepository
 {
-    public function create(array $data): RiderRenewal
+    public function create(CreateRiderRenewalRepositoryData $data): RiderRenewal
     {
-        return RiderRenewal::create($data);
+        return RiderRenewal::create($data->toArray());
     }
 
     public function findByCartId(string $cartId): ?RiderRenewal

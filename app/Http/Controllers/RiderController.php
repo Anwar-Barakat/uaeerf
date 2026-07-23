@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Data\CreateRiderRepositoryData;
+use App\Data\CreateRiderRenewalRepositoryData;
 use App\Data\RiderRegistrationData;
 use App\Data\RiderRenewalData;
 use App\Repositories\RiderRegistrationRepository;
@@ -53,12 +54,8 @@ class RiderController extends Controller
     {
         $user = Auth::user();
         $cartId = PayTabsService::generateCartId('rider_renewal', $user->id);
-        $this->renewalRepo->create([
-            'user_id' => $user->id,
-            'cart_id' => $cartId,
-            'rider_id' => $data->rider_id,
-            'season_id' => $data->season_id,
-        ]);
+        $repositoryData = CreateRiderRenewalRepositoryData::fromRenewalData($user->id, $cartId, $data);
+        $this->renewalRepo->create($repositoryData);
         $paymentData = $this->payTabsService->createRiderRenewalPayment([
             'name' => $user->name,
             'email' => $user->email,
