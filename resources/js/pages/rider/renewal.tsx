@@ -61,7 +61,7 @@ export default function RiderRenewal({ seasons, userRiders }: Props) {
                                     onValueChange={(value) => setData('rider_id', value)}
                                     required
                                 >
-                                    <SelectTrigger>
+                                    <SelectTrigger className="w-full">
                                         <SelectValue placeholder="Select your rider profile" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -89,7 +89,7 @@ export default function RiderRenewal({ seasons, userRiders }: Props) {
                                     onValueChange={(value) => setData('season_id', value)}
                                     required
                                 >
-                                    <SelectTrigger>
+                                    <SelectTrigger className="w-full">
                                         <SelectValue placeholder="Select season" />
                                     </SelectTrigger>
                                     <SelectContent>

@@ -73,34 +73,90 @@ export default function RiderRegistration({ disciplines, categories }: Props) {
                                 )}
                             </div>
 
-                            <div className="space-y-2">
-                                <Label htmlFor="date_of_birth">Date of Birth *</Label>
-                                <Input
-                                    id="date_of_birth"
-                                    type="date"
-                                    value={data.date_of_birth}
-                                    onChange={(e) => setData('date_of_birth', e.target.value)}
-                                    required
-                                />
-                                {errors.date_of_birth && (
-                                    <p className="text-sm text-destructive">{errors.date_of_birth}</p>
-                                )}
+                            <div className="grid gap-4 sm:grid-cols-2">
+                                <div className="space-y-2">
+                                    <Label htmlFor="date_of_birth">Date of Birth *</Label>
+                                    <Input
+                                        id="date_of_birth"
+                                        type="date"
+                                        value={data.date_of_birth}
+                                        onChange={(e) => setData('date_of_birth', e.target.value)}
+                                        required
+                                    />
+                                    {errors.date_of_birth && (
+                                        <p className="text-sm text-destructive">{errors.date_of_birth}</p>
+                                    )}
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="nationality">Nationality *</Label>
+                                    <Input
+                                        id="nationality"
+                                        type="text"
+                                        value={data.nationality}
+                                        onChange={(e) => setData('nationality', e.target.value)}
+                                        placeholder="3-letter code (e.g., ARE)"
+                                        maxLength={3}
+                                        required
+                                    />
+                                    {errors.nationality && (
+                                        <p className="text-sm text-destructive">{errors.nationality}</p>
+                                    )}
+                                </div>
                             </div>
 
-                            <div className="space-y-2">
-                                <Label htmlFor="nationality">Nationality *</Label>
-                                <Input
-                                    id="nationality"
-                                    type="text"
-                                    value={data.nationality}
-                                    onChange={(e) => setData('nationality', e.target.value)}
-                                    placeholder="3-letter country code (e.g., ARE)"
-                                    maxLength={3}
-                                    required
-                                />
-                                {errors.nationality && (
-                                    <p className="text-sm text-destructive">{errors.nationality}</p>
-                                )}
+                            <div className="grid gap-4 sm:grid-cols-2">
+                                <div className="space-y-2">
+                                    <Label htmlFor="discipline_id">Discipline *</Label>
+                                    <Select
+                                        value={data.discipline_id}
+                                        onValueChange={(value) => setData('discipline_id', value)}
+                                        required
+                                    >
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Select discipline" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {disciplines?.map((discipline) => (
+                                                <SelectItem
+                                                    key={discipline.Code}
+                                                    value={discipline.Code.toString()}
+                                                >
+                                                    {discipline.Name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    {errors.discipline_id && (
+                                        <p className="text-sm text-destructive">{errors.discipline_id}</p>
+                                    )}
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="category_id">Category *</Label>
+                                    <Select
+                                        value={data.category_id}
+                                        onValueChange={(value) => setData('category_id', value)}
+                                        required
+                                    >
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Select category" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {categories?.map((category) => (
+                                                <SelectItem
+                                                    key={category.Code}
+                                                    value={category.Code.toString()}
+                                                >
+                                                    {category.Name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    {errors.category_id && (
+                                        <p className="text-sm text-destructive">{errors.category_id}</p>
+                                    )}
+                                </div>
                             </div>
 
                             <div className="space-y-2">
@@ -113,58 +169,6 @@ export default function RiderRegistration({ disciplines, categories }: Props) {
                                 />
                                 {errors.passport_number && (
                                     <p className="text-sm text-destructive">{errors.passport_number}</p>
-                                )}
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="discipline_id">Discipline *</Label>
-                                <Select
-                                    value={data.discipline_id}
-                                    onValueChange={(value) => setData('discipline_id', value)}
-                                    required
-                                >
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Select discipline" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {disciplines?.map((discipline) => (
-                                            <SelectItem
-                                                key={discipline.Code}
-                                                value={discipline.Code.toString()}
-                                            >
-                                                {discipline.Name}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                {errors.discipline_id && (
-                                    <p className="text-sm text-destructive">{errors.discipline_id}</p>
-                                )}
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="category_id">Category *</Label>
-                                <Select
-                                    value={data.category_id}
-                                    onValueChange={(value) => setData('category_id', value)}
-                                    required
-                                >
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Select category" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {categories?.map((category) => (
-                                            <SelectItem
-                                                key={category.Code}
-                                                value={category.Code.toString()}
-                                            >
-                                                {category.Name}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                {errors.category_id && (
-                                    <p className="text-sm text-destructive">{errors.category_id}</p>
                                 )}
                             </div>
 
