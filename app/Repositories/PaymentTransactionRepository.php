@@ -2,50 +2,33 @@
 
 namespace App\Repositories;
 
+use App\Models\PaymentTransaction;
 use Illuminate\Support\Facades\DB;
 
 class PaymentTransactionRepository
 {
-    public function create(array $data): int
+    public function create(array $data): PaymentTransaction
     {
-        return DB::connection('mssql')->table('payment_transactions')->insertGetId([
-            'tran_ref' => $data['tran_ref'],
-            'cart_id' => $data['cart_id'],
-            'amount' => $data['amount'],
-            'currency' => $data['currency'],
-            'status' => $data['status'],
-            'response_code' => $data['response_code'] ?? null,
-            'response_message' => $data['response_message'] ?? null,
-            'webhook_payload' => $data['webhook_payload'] ?? null,
-            'processed' => false,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        return PaymentTransaction::create($data);
     }
 
-    public function findByCartId(string $cartId): ?object
+    public function findByCartId(string $cartId): ?PaymentTransaction
     {
-        return DB::connection('mssql')->table('payment_transactions')
-            ->where('cart_id', $cartId)
-            ->first();
+        return PaymentTransaction::where('cart_id', $cartId)->first();
     }
 
-    public function findByTranRef(string $tranRef): ?object
+    public function findByTranRef(string $tranRef): ?PaymentTransaction
     {
-        return DB::connection('mssql')->table('payment_transactions')
-            ->where('tran_ref', $tranRef)
-            ->first();
+        return PaymentTransaction::where('tran_ref', $tranRef)->first();
     }
 
-    public function markProcessed(string $cartId): int
+    public function markProcessed(string $cartId): bool
     {
-        return DB::connection('mssql')->table('payment_transactions')
-            ->where('cart_id', $cartId)
+        return PaymentTransaction::where('cart_id', $cartId)
             ->update([
                 'processed' => true,
                 'processed_at' => now(),
-                'updated_at' => now(),
-            ]);
+            ]) > 0;
     }
 
     public function isProcessed(string $cartId): bool
@@ -56,8 +39,7 @@ class PaymentTransactionRepository
 
     public function getRecentTransactions(int $limit = 50): array
     {
-        return DB::connection('mssql')->table('payment_transactions')
-            ->orderBy('created_at', 'desc')
+        return PaymentTransaction::orderBy('created_at', 'desc')
             ->limit($limit)
             ->get()
             ->toArray();
@@ -65,11 +47,15 @@ class PaymentTransactionRepository
 
     public function getSuccessfulTransactions(int $limit = 50): array
     {
-        return DB::connection('mssql')->table('payment_transactions')
-            ->where('status', 'success')
+        return PaymentTransaction::where('status', 'success')
             ->orderBy('created_at', 'desc')
             ->limit($limit)
             ->get()
             ->toArray();
+    }
+
+    public function processWithTransaction(callable $callback)
+    {
+        return DB::connection('mssql')->transaction($callback);
     }
 }

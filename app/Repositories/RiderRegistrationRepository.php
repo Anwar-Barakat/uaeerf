@@ -2,47 +2,30 @@
 
 namespace App\Repositories;
 
+use App\Models\RiderRegistration;
 use Illuminate\Support\Facades\DB;
 
 class RiderRegistrationRepository
 {
-    protected string $connection = 'mssql';
-
-    public function create(array $data): int
+    public function create(array $data): RiderRegistration
     {
-        return DB::connection($this->connection)->table('rider_registrations')->insertGetId([
-            'user_id' => $data['user_id'],
-            'cart_id' => $data['cart_id'],
-            'rider_name' => $data['rider_name'],
-            'date_of_birth' => $data['date_of_birth'],
-            'nationality' => $data['nationality'],
-            'passport_number' => $data['passport_number'] ?? null,
-            'discipline_id' => $data['discipline_id'],
-            'category_id' => $data['category_id'],
-            'status' => 'pending_payment',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        return RiderRegistration::create($data);
     }
 
-    public function findByCartId(string $cartId): ?object
+    public function findByCartId(string $cartId): ?RiderRegistration
     {
-        return DB::connection($this->connection)->table('rider_registrations')
-            ->where('cart_id', $cartId)
-            ->first();
+        return RiderRegistration::where('cart_id', $cartId)->first();
     }
 
-    public function updateStatus(string $cartId, string $status, array $additionalData = []): int
+    public function updateStatus(string $cartId, string $status, array $additionalData = []): bool
     {
-        return DB::connection($this->connection)->table('rider_registrations')
-            ->where('cart_id', $cartId)
+        return RiderRegistration::where('cart_id', $cartId)
             ->update(array_merge([
                 'status' => $status,
-                'updated_at' => now(),
-            ], $additionalData));
+            ], $additionalData)) > 0;
     }
 
-    public function markCompleted(string $cartId, string $tranRef, ?string $soapResponse = null): int
+    public function markCompleted(string $cartId, string $tranRef, ?string $soapResponse = null): bool
     {
         return $this->updateStatus($cartId, 'completed', [
             'tran_ref' => $tranRef,
@@ -51,7 +34,7 @@ class RiderRegistrationRepository
         ]);
     }
 
-    public function markFailed(string $cartId, string $errorMessage): int
+    public function markFailed(string $cartId, string $errorMessage): bool
     {
         return $this->updateStatus($cartId, 'failed', [
             'error_message' => $errorMessage,
@@ -60,19 +43,15 @@ class RiderRegistrationRepository
 
     public function findByUserId(int $userId, int $limit = 10): array
     {
-        return DB::connection($this->connection)->table('rider_registrations')
-            ->where('user_id', $userId)
+        return RiderRegistration::where('user_id', $userId)
             ->orderBy('created_at', 'desc')
             ->limit($limit)
             ->get()
             ->toArray();
     }
 
-    /**
-     * Process registration in transaction
-     */
     public function processWithTransaction(callable $callback)
     {
-        return DB::connection($this->connection)->transaction($callback);
+        return DB::connection('mssql')->transaction($callback);
     }
 }
