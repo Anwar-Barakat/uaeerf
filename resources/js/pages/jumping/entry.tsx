@@ -108,7 +108,7 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
                                     }}
                                     required
                                 >
-                                    <SelectTrigger>
+                                    <SelectTrigger className="w-full">
                                         <SelectValue placeholder="Select rider" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -134,7 +134,7 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
                                     }}
                                     required
                                 >
-                                    <SelectTrigger>
+                                    <SelectTrigger className="w-full">
                                         <SelectValue placeholder="Select horse" />
                                     </SelectTrigger>
                                     <SelectContent>
