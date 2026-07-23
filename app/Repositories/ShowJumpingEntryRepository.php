@@ -2,14 +2,15 @@
 
 namespace App\Repositories;
 
+use App\Data\CreateShowJumpingEntryRepositoryData;
 use App\Models\ShowJumpingEntry;
 use Illuminate\Support\Facades\DB;
 
 class ShowJumpingEntryRepository
 {
-    public function create(array $data): ShowJumpingEntry
+    public function create(CreateShowJumpingEntryRepositoryData $data): ShowJumpingEntry
     {
-        return ShowJumpingEntry::create($data);
+        return ShowJumpingEntry::create($data->toArray());
     }
 
     public function findByCartId(string $cartId): ?ShowJumpingEntry

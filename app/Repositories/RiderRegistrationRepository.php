@@ -2,14 +2,15 @@
 
 namespace App\Repositories;
 
+use App\Data\CreateRiderRepositoryData;
 use App\Models\RiderRegistration;
 use Illuminate\Support\Facades\DB;
 
 class RiderRegistrationRepository
 {
-    public function create(array $data): RiderRegistration
+    public function create(CreateRiderRepositoryData $data): RiderRegistration
     {
-        return RiderRegistration::create($data);
+        return RiderRegistration::create($data->toArray());
     }
 
     public function findByCartId(string $cartId): ?RiderRegistration

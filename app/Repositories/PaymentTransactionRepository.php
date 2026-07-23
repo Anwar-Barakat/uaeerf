@@ -2,14 +2,15 @@
 
 namespace App\Repositories;
 
+use App\Data\PaymentTransactionData;
 use App\Models\PaymentTransaction;
 use Illuminate\Support\Facades\DB;
 
 class PaymentTransactionRepository
 {
-    public function create(array $data): PaymentTransaction
+    public function create(PaymentTransactionData $data): PaymentTransaction
     {
-        return PaymentTransaction::create($data);
+        return PaymentTransaction::create($data->toArray());
     }
 
     public function findByCartId(string $cartId): ?PaymentTransaction

@@ -87,7 +87,7 @@ class ShowJumpingController extends Controller
             $data
         );
 
-        $this->entryRepo->create($repositoryData->toArray());
+        $this->entryRepo->create($repositoryData);
         $paymentData = $this->payTabsService->createShowJumpingPayment([
             'name' => $user->name,
             'email' => $user->email,

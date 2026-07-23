@@ -32,7 +32,7 @@ class RiderController extends Controller
             $data
         );
 
-        $this->registrationRepo->create($repositoryData->toArray());
+        $this->registrationRepo->create($repositoryData);
         $paymentData = $this->payTabsService->createRiderRegistrationPayment([
             'name' => $user->name,
             'email' => $user->email,
