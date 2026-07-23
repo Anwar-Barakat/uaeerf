@@ -218,24 +218,24 @@ body {
         cursor: not-allowed;
     }
 
-    .form-card {
+    .form-card-registration {
         @apply border-2 rounded-2xl overflow-hidden;
         background: var(--white);
         box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.06);
-    }
-
-    .form-card-registration {
-        @apply form-card;
         border-color: var(--uae-green-light);
     }
 
     .form-card-renewal {
-        @apply form-card;
+        @apply border-2 rounded-2xl overflow-hidden;
+        background: var(--white);
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.06);
         border-color: #3B82F6;
     }
 
     .form-card-entry {
-        @apply form-card;
+        @apply border-2 rounded-2xl overflow-hidden;
+        background: var(--white);
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.06);
         border-color: var(--uae-gold);
     }
 
@@ -257,41 +257,33 @@ body {
         border-color: var(--uae-gold);
     }
 
-    .payment-amount {
-        @apply text-4xl font-bold;
-    }
-
     .payment-amount-registration {
-        @apply payment-amount;
+        @apply text-4xl font-bold;
         color: var(--uae-green);
     }
 
     .payment-amount-renewal {
-        @apply payment-amount;
+        @apply text-4xl font-bold;
         color: #1D4ED8;
     }
 
     .payment-amount-entry {
-        @apply payment-amount;
+        @apply text-4xl font-bold;
         color: #92400E;
     }
 
-    .payment-label {
-        @apply text-base font-semibold;
-    }
-
     .payment-label-registration {
-        @apply payment-label;
+        @apply text-base font-semibold;
         color: var(--uae-green-dark);
     }
 
     .payment-label-renewal {
-        @apply payment-label;
+        @apply text-base font-semibold;
         color: #1E40AF;
     }
 
     .payment-label-entry {
-        @apply payment-label;
+        @apply text-base font-semibold;
         color: #78350F;
     }
 
