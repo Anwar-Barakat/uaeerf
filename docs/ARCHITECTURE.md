@@ -27,8 +27,7 @@ graph TB
         end
         
         subgraph "Data Layer"
-            SQLite[(SQLite<br/>Session/Auth)]
-            MSSQL[(MSSQL<br/>UserProfile<br/>ClassEntriesWeb)]
+            MSSQL[(MSSQL Database<br/>UserProfile<br/>Payments<br/>Registrations<br/>ClassEntriesWeb)]
         end
     end
     
@@ -44,7 +43,6 @@ graph TB
     Controllers --> Services
     Services --> SOAP
     Services --> PayTabs
-    Services --> SQLite
     Services --> MSSQL
     SOAP -->|SOAP/XML| SoapAPI
     PayTabs -->|REST/JSON| PayTabsGW
@@ -123,26 +121,20 @@ app/Services/
 sequenceDiagram
     participant U as User
     participant L as Laravel
-    participant S as SQLite
     participant M as MSSQL
     
     U->>L: POST /register
     L->>L: Validate input
-    L->>S: Insert User (auth)
-    S-->>L: User created
-    L->>M: Insert UserProfile
-    alt MSSQL driver available
-        M-->>L: Success
-    else Driver missing
-        M-->>L: Log warning, continue
-    end
+    L->>M: Insert User + UserProfile
+    M-->>L: User created
     L->>U: Redirect to dashboard
 ```
 
 **Key Points:**
-- Dual database write (SQLite + MSSQL)
-- Graceful MSSQL fallback
-- Laravel auth uses SQLite
+- Single database (MSSQL only)
+- User authentication via Laravel Fortify
+- UserProfile stored in MSSQL
+- SQLite used only for unit testing
 
 ---
 
@@ -246,74 +238,9 @@ sequenceDiagram
 
 ## Database Schema
 
-### SQLite (Local - Laravel Auth)
+### MSSQL (Production Database)
 
-```sql
--- users (Fortify/Laravel)
-CREATE TABLE users (
-    id INTEGER PRIMARY KEY,
-    name VARCHAR(255),
-    email VARCHAR(255) UNIQUE,
-    password VARCHAR(255),
-    two_factor_secret TEXT,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP
-);
-
--- payment_transactions (local tracking)
-CREATE TABLE payment_transactions (
-    id INTEGER PRIMARY KEY,
-    tran_ref VARCHAR(255) UNIQUE,
-    cart_id VARCHAR(255) UNIQUE,
-    amount DECIMAL(10,2),
-    currency VARCHAR(3),
-    status ENUM('pending','success','failed'),
-    webhook_payload JSON,
-    processed BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP
-);
-
--- rider_registrations (pending + completed)
-CREATE TABLE rider_registrations (
-    id INTEGER PRIMARY KEY,
-    user_id INTEGER REFERENCES users(id),
-    cart_id VARCHAR(255) UNIQUE,
-    rider_name VARCHAR(255),
-    date_of_birth DATE,
-    status ENUM('pending_payment','completed','failed'),
-    tran_ref VARCHAR(255),
-    soap_response TEXT,
-    created_at TIMESTAMP
-);
-
--- rider_renewals
-CREATE TABLE rider_renewals (
-    id INTEGER PRIMARY KEY,
-    user_id INTEGER REFERENCES users(id),
-    cart_id VARCHAR(255) UNIQUE,
-    rider_id INTEGER,
-    season_id INTEGER,
-    status ENUM('pending_payment','completed','failed'),
-    tran_ref VARCHAR(255),
-    created_at TIMESTAMP
-);
-
--- show_jumping_entries
-CREATE TABLE show_jumping_entries (
-    id INTEGER PRIMARY KEY,
-    user_id INTEGER REFERENCES users(id),
-    cart_id VARCHAR(255) UNIQUE,
-    rider_id INTEGER,
-    horse_id INTEGER,
-    event_id INTEGER,
-    class_id INTEGER,
-    status ENUM('pending_payment','completed','failed'),
-    tran_ref VARCHAR(255),
-    created_at TIMESTAMP
-);
-```
-
-### MSSQL (UAEERF Production Database)
+**Note:** SQLite is used only for unit testing. All production data is stored in MSSQL.
 
 ```sql
 -- UserProfile (user master data)
@@ -344,6 +271,74 @@ CREATE TABLE ClassEntriesWeb (
     PaymentAmount DECIMAL(10,2),
     PaymentCurrency NVARCHAR(3),
     CreatedAt DATETIME
+);
+
+-- payment_transactions (payment tracking)
+CREATE TABLE payment_transactions (
+    id INT PRIMARY KEY IDENTITY,
+    tran_ref NVARCHAR(255) UNIQUE,
+    cart_id NVARCHAR(255) UNIQUE,
+    amount DECIMAL(10,2),
+    currency NVARCHAR(3),
+    status NVARCHAR(50),
+    response_code NVARCHAR(50),
+    response_message NVARCHAR(MAX),
+    webhook_payload NVARCHAR(MAX),
+    processed BIT DEFAULT 0,
+    processed_at DATETIME,
+    created_at DATETIME,
+    updated_at DATETIME
+);
+
+-- rider_registrations (pending + completed)
+CREATE TABLE rider_registrations (
+    id INT PRIMARY KEY IDENTITY,
+    user_id INT,
+    cart_id NVARCHAR(255) UNIQUE,
+    rider_name NVARCHAR(255),
+    date_of_birth DATE,
+    nationality NVARCHAR(3),
+    passport_number NVARCHAR(50),
+    discipline_id INT,
+    category_id INT,
+    status NVARCHAR(50),
+    tran_ref NVARCHAR(255),
+    soap_response NVARCHAR(MAX),
+    completed_at DATETIME,
+    created_at DATETIME,
+    updated_at DATETIME
+);
+
+-- rider_renewals
+CREATE TABLE rider_renewals (
+    id INT PRIMARY KEY IDENTITY,
+    user_id INT,
+    cart_id NVARCHAR(255) UNIQUE,
+    rider_id INT,
+    season_id INT,
+    status NVARCHAR(50),
+    tran_ref NVARCHAR(255),
+    soap_response NVARCHAR(MAX),
+    completed_at DATETIME,
+    created_at DATETIME,
+    updated_at DATETIME
+);
+
+-- show_jumping_entries
+CREATE TABLE show_jumping_entries (
+    id INT PRIMARY KEY IDENTITY,
+    user_id INT,
+    cart_id NVARCHAR(255) UNIQUE,
+    rider_id INT,
+    horse_id INT,
+    event_id INT,
+    class_id INT,
+    event_name NVARCHAR(255),
+    status NVARCHAR(50),
+    tran_ref NVARCHAR(255),
+    completed_at DATETIME,
+    created_at DATETIME,
+    updated_at DATETIME
 );
 ```
 
@@ -466,10 +461,10 @@ if (!hash_equals($signature, $requestSignature)) {
 │                              │             │
 │         ┌────────────────────┼────────┐   │
 │         │                    │        │   │
-│    ┌────▼────┐        ┌──────▼──┐  ┌─▼──┐│
-│    │ SQLite  │        │  MSSQL  │  │Redis││
-│    │(Session)│        │  Server │  │Cache││
-│    └─────────┘        └─────────┘  └─────┘│
+│    ┌────▼────┐              ┌──────▼──┐  ┌─▼──┐│
+│    │  MSSQL  │              │  Redis  │││
+│    │ Database│              │  Cache  │││
+│    └─────────┘              └─────────┘│
 │                                             │
 └─────────────────────────────────────────────┘
           │                    │
@@ -523,13 +518,8 @@ try {
     return response()->json(['error' => 'Service temporarily unavailable'], 503);
 }
 
-// MSSQL fallback
-try {
-    UserProfile::create($data);
-} catch (Exception $e) {
-    Log::warning('MSSQL sync failed', ['error' => $e->getMessage()]);
-    // Continue - user still created in SQLite
-}
+// Create user in MSSQL
+UserProfile::create($data);
 ```
 
 ---
