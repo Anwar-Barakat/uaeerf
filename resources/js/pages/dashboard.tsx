@@ -7,12 +7,12 @@ export default function Dashboard() {
     return (
         <>
             <Head title="Dashboard" />
-            <div className="flex h-full flex-1 flex-col gap-6 overflow-x-auto rounded-xl p-4">
-                <div>
-                    <h2 className="text-2xl font-bold tracking-tight">
-                        Welcome to UAE Equestrian Portal
-                    </h2>
-                    <p className="text-muted-foreground">
+            <div className="page-background flex flex-1 flex-col gap-10 overflow-x-auto p-10">
+                <div className="dashboard-header">
+                    <h1 className="dashboard-title">
+                        UAE Equestrian Portal
+                    </h1>
+                    <p className="dashboard-subtitle">
                         Manage your rider registrations and competition entries
                     </p>
                 </div>
@@ -100,26 +100,40 @@ export default function Dashboard() {
                     </Card>
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-2">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>My Registrations</CardTitle>
-                            <CardDescription>View your registration history</CardDescription>
+                <div className="grid gap-6 md:grid-cols-2">
+                    <Card className="info-card">
+                        <CardHeader className="p-6 space-y-2">
+                            <div className="flex items-center gap-3">
+                                <div className="p-3 bg-green-50 rounded-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                                <CardTitle className="text-xl font-bold text-slate-800">My Registrations</CardTitle>
+                            </div>
+                            <CardDescription className="text-slate-600">View your registration history</CardDescription>
                         </CardHeader>
-                        <CardContent>
-                            <p className="text-sm text-muted-foreground">
+                        <CardContent className="p-6 pt-0">
+                            <p className="text-sm text-slate-500">
                                 No registrations yet. Start by registering as a rider.
                             </p>
                         </CardContent>
                     </Card>
 
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>My Entries</CardTitle>
-                            <CardDescription>View your competition entries</CardDescription>
+                    <Card className="info-card">
+                        <CardHeader className="p-6 space-y-2">
+                            <div className="flex items-center gap-3">
+                                <div className="p-3 bg-amber-50 rounded-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                    </svg>
+                                </div>
+                                <CardTitle className="text-xl font-bold text-slate-800">My Entries</CardTitle>
+                            </div>
+                            <CardDescription className="text-slate-600">View your competition entries</CardDescription>
                         </CardHeader>
-                        <CardContent>
-                            <p className="text-sm text-muted-foreground">
+                        <CardContent className="p-6 pt-0">
+                            <p className="text-sm text-slate-500">
                                 No entries yet. Register for a competition to get started.
                             </p>
                         </CardContent>

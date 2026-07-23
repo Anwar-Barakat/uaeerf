@@ -36,10 +36,11 @@ export default function RiderRegistration({ disciplines, categories }: Props) {
         <>
             <Head title="Rider Registration" />
 
-            <div className="container mx-auto max-w-3xl py-8 px-4">
-                <div className="mb-6">
-                    <h1 className="text-3xl font-bold tracking-tight">Rider Registration</h1>
-                    <p className="text-muted-foreground mt-2">
+            <div className="page-background py-12 px-4">
+                <div className="container mx-auto max-w-3xl">
+                <div className="mb-8">
+                    <h1 className="text-4xl font-bold tracking-tight text-slate-800 mb-2">Rider Registration</h1>
+                    <p className="text-lg text-slate-600">
                         Register as a new rider with UAE Equestrian & Racing Federation
                     </p>
                 </div>

@@ -31,10 +31,11 @@ export default function RiderRenewal({ seasons, userRiders }: Props) {
         <>
             <Head title="Rider Renewal" />
 
-            <div className="container mx-auto max-w-3xl py-8 px-4">
-                <div className="mb-6">
-                    <h1 className="text-3xl font-bold tracking-tight">Rider Renewal</h1>
-                    <p className="text-muted-foreground mt-2">
+            <div className="page-background py-12 px-4">
+                <div className="container mx-auto max-w-3xl">
+                <div className="mb-8">
+                    <h1 className="text-4xl font-bold tracking-tight text-slate-800 mb-2">Rider Renewal</h1>
+                    <p className="text-lg text-slate-600">
                         Renew your rider registration for the upcoming season
                     </p>
                 </div>
