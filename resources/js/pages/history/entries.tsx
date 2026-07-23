@@ -1,47 +1,37 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { ArrowLeft, Trophy } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { ArrowLeft, Plus, Search, Trophy } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-
-type Entry = {
-    id: number;
-    rider_id: number;
-    horse_id: number;
-    event_id: number;
-    class_id: number;
-    status: string;
-    tran_ref: string | null;
-    created_at: string;
-};
-
-type PaginatedData = {
-    data: Entry[];
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-    links: Array<{ url: string | null; label: string; active: boolean }>;
-};
+import { Input } from '@/components/ui/input';
+import { getStatusBadge } from '@/lib/status-badge';
+import type { Entry, PaginatedData } from '@/types';
 
 interface EntriesProps {
-    entries: PaginatedData;
+    entries: PaginatedData<Entry>;
+    filters: { search: string | null };
 }
 
-const getStatusBadge = (status: string) => {
-    switch (status) {
-        case 'completed':
-            return <Badge className="bg-emerald-500">Completed</Badge>;
-        case 'pending':
-            return <Badge variant="secondary">Pending</Badge>;
-        case 'failed':
-            return <Badge variant="destructive">Failed</Badge>;
-        default:
-            return <Badge variant="outline">{status}</Badge>;
-    }
-};
+export default function Entries({ entries, filters }: EntriesProps) {
+    const [search, setSearch] = useState(filters.search || '');
+    const isFirstRender = useRef(true);
 
-export default function Entries({ entries }: EntriesProps) {
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
+        const timer = setTimeout(() => {
+            router.get('/history/entries', { search: search || undefined }, {
+                preserveState: true,
+                preserveScroll: true,
+            });
+        }, 300);
+
+        return () => clearTimeout(timer);
+    }, [search]);
+
     const handlePageChange = (url: string | null) => {
         if (url) {
             router.visit(url);
@@ -52,28 +42,47 @@ export default function Entries({ entries }: EntriesProps) {
         <>
             <Head title="My Competition Entries" />
 
-            <div className="mx-auto max-w-7xl space-y-6 px-4 py-8 sm:px-6 lg:px-8">
-                <div className="flex items-center gap-4">
-                    <Button asChild variant="outline" size="icon">
-                        <Link href="/dashboard">
-                            <ArrowLeft className="size-4" />
+            <div className="space-y-6 p-6">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <Button asChild variant="outline" size="icon">
+                            <Link href="/dashboard">
+                                <ArrowLeft className="size-4" />
+                            </Link>
+                        </Button>
+                        <div className="space-y-1">
+                            <h1 className="text-3xl font-bold tracking-tight">My Competition Entries</h1>
+                            <p className="text-muted-foreground">View your complete competition entry history</p>
+                        </div>
+                    </div>
+                    <Button asChild>
+                        <Link href="/jumping/entry">
+                            <Plus className="size-4" />
+                            Create New
                         </Link>
                     </Button>
-                    <div className="space-y-1">
-                        <h1 className="text-3xl font-bold tracking-tight">My Competition Entries</h1>
-                        <p className="text-muted-foreground">View your complete competition entry history</p>
-                    </div>
                 </div>
 
                 <Card>
                     <CardHeader>
-                        <div className="flex items-center justify-between">
-                            <CardTitle>All Entries</CardTitle>
-                            <Badge variant="secondary">{entries.total} total</Badge>
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="space-y-1">
+                                <CardTitle>All Entries</CardTitle>
+                                <CardDescription>
+                                    Showing {entries.data.length} of {entries.total} entries
+                                </CardDescription>
+                            </div>
+                            <div className="relative w-64">
+                                <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                                <Input
+                                    type="text"
+                                    placeholder="Search by rider, horse, event..."
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    className="pl-9"
+                                />
+                            </div>
                         </div>
-                        <CardDescription>
-                            Showing {entries.data.length} of {entries.total} entries
-                        </CardDescription>
                     </CardHeader>
                     <CardContent>
                         {entries.data.length === 0 ? (
@@ -84,7 +93,10 @@ export default function Entries({ entries }: EntriesProps) {
                                     Register for show jumping competitions to see your entries here.
                                 </p>
                                 <Button asChild className="mt-6">
-                                    <Link href="/jumping/entry">Enter Competition</Link>
+                                    <Link href="/jumping/entry">
+                                        <Plus className="size-4" />
+                                        Enter Competition
+                                    </Link>
                                 </Button>
                             </div>
                         ) : (
@@ -128,16 +140,22 @@ export default function Entries({ entries }: EntriesProps) {
                                             Page {entries.current_page} of {entries.last_page}
                                         </p>
                                         <div className="flex gap-2">
-                                            {entries.links.map((link, index) => (
-                                                <Button
-                                                    key={index}
-                                                    variant={link.active ? 'default' : 'outline'}
-                                                    size="sm"
-                                                    onClick={() => handlePageChange(link.url)}
-                                                    disabled={!link.url}
-                                                    dangerouslySetInnerHTML={{ __html: link.label }}
-                                                />
-                                            ))}
+                                            {entries.links.map((link, index) => {
+                                                const label = link.label
+                                                    .replace('&laquo;', '«')
+                                                    .replace('&raquo;', '»');
+                                                return (
+                                                    <Button
+                                                        key={index}
+                                                        variant={link.active ? 'default' : 'outline'}
+                                                        size="sm"
+                                                        onClick={() => handlePageChange(link.url)}
+                                                        disabled={!link.url}
+                                                    >
+                                                        {label}
+                                                    </Button>
+                                                );
+                                            })}
                                         </div>
                                     </div>
                                 )}

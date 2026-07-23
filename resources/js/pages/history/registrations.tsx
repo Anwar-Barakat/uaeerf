@@ -1,45 +1,37 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { ArrowLeft, FileText } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { ArrowLeft, FileText, Plus, Search } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-
-type Registration = {
-    id: number;
-    rider_name: string;
-    date_of_birth: string;
-    status: string;
-    tran_ref: string | null;
-    created_at: string;
-};
-
-type PaginatedData = {
-    data: Registration[];
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-    links: Array<{ url: string | null; label: string; active: boolean }>;
-};
+import { Input } from '@/components/ui/input';
+import { getStatusBadge } from '@/lib/status-badge';
+import type { PaginatedData, Registration } from '@/types';
 
 interface RegistrationsProps {
-    registrations: PaginatedData;
+    registrations: PaginatedData<Registration>;
+    filters: { search: string | null };
 }
 
-const getStatusBadge = (status: string) => {
-    switch (status) {
-        case 'completed':
-            return <Badge className="bg-emerald-500">Completed</Badge>;
-        case 'pending':
-            return <Badge variant="secondary">Pending</Badge>;
-        case 'failed':
-            return <Badge variant="destructive">Failed</Badge>;
-        default:
-            return <Badge variant="outline">{status}</Badge>;
-    }
-};
+export default function Registrations({ registrations, filters }: RegistrationsProps) {
+    const [search, setSearch] = useState(filters.search || '');
+    const isFirstRender = useRef(true);
 
-export default function Registrations({ registrations }: RegistrationsProps) {
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
+        const timer = setTimeout(() => {
+            router.get('/history/registrations', { search: search || undefined }, {
+                preserveState: true,
+                preserveScroll: true,
+            });
+        }, 300);
+
+        return () => clearTimeout(timer);
+    }, [search]);
+
     const handlePageChange = (url: string | null) => {
         if (url) {
             router.visit(url);
@@ -50,28 +42,47 @@ export default function Registrations({ registrations }: RegistrationsProps) {
         <>
             <Head title="My Registrations" />
 
-            <div className="mx-auto max-w-7xl space-y-6 px-4 py-8 sm:px-6 lg:px-8">
-                <div className="flex items-center gap-4">
-                    <Button asChild variant="outline" size="icon">
-                        <Link href="/dashboard">
-                            <ArrowLeft className="size-4" />
+            <div className="space-y-6 p-6">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <Button asChild variant="outline" size="icon">
+                            <Link href="/dashboard">
+                                <ArrowLeft className="size-4" />
+                            </Link>
+                        </Button>
+                        <div className="space-y-1">
+                            <h1 className="text-3xl font-bold tracking-tight">My Registrations</h1>
+                            <p className="text-muted-foreground">View your complete rider registration history</p>
+                        </div>
+                    </div>
+                    <Button asChild>
+                        <Link href="/rider/registration">
+                            <Plus className="size-4" />
+                            Create New
                         </Link>
                     </Button>
-                    <div className="space-y-1">
-                        <h1 className="text-3xl font-bold tracking-tight">My Registrations</h1>
-                        <p className="text-muted-foreground">View your complete rider registration history</p>
-                    </div>
                 </div>
 
                 <Card>
                     <CardHeader>
-                        <div className="flex items-center justify-between">
-                            <CardTitle>All Registrations</CardTitle>
-                            <Badge variant="secondary">{registrations.total} total</Badge>
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="space-y-1">
+                                <CardTitle>All Registrations</CardTitle>
+                                <CardDescription>
+                                    Showing {registrations.data.length} of {registrations.total} registrations
+                                </CardDescription>
+                            </div>
+                            <div className="relative w-64">
+                                <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                                <Input
+                                    type="text"
+                                    placeholder="Search by name or transaction..."
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    className="pl-9"
+                                />
+                            </div>
                         </div>
-                        <CardDescription>
-                            Showing {registrations.data.length} of {registrations.total} registrations
-                        </CardDescription>
                     </CardHeader>
                     <CardContent>
                         {registrations.data.length === 0 ? (
@@ -82,7 +93,10 @@ export default function Registrations({ registrations }: RegistrationsProps) {
                                     Start by registering as a rider to access competitions and events.
                                 </p>
                                 <Button asChild className="mt-6">
-                                    <Link href="/rider/registration">Register as Rider</Link>
+                                    <Link href="/rider/registration">
+                                        <Plus className="size-4" />
+                                        Register as Rider
+                                    </Link>
                                 </Button>
                             </div>
                         ) : (
@@ -122,16 +136,22 @@ export default function Registrations({ registrations }: RegistrationsProps) {
                                             Page {registrations.current_page} of {registrations.last_page}
                                         </p>
                                         <div className="flex gap-2">
-                                            {registrations.links.map((link, index) => (
-                                                <Button
-                                                    key={index}
-                                                    variant={link.active ? 'default' : 'outline'}
-                                                    size="sm"
-                                                    onClick={() => handlePageChange(link.url)}
-                                                    disabled={!link.url}
-                                                    dangerouslySetInnerHTML={{ __html: link.label }}
-                                                />
-                                            ))}
+                                            {registrations.links.map((link, index) => {
+                                                const label = link.label
+                                                    .replace('&laquo;', '«')
+                                                    .replace('&raquo;', '»');
+                                                return (
+                                                    <Button
+                                                        key={index}
+                                                        variant={link.active ? 'default' : 'outline'}
+                                                        size="sm"
+                                                        onClick={() => handlePageChange(link.url)}
+                                                        disabled={!link.url}
+                                                    >
+                                                        {label}
+                                                    </Button>
+                                                );
+                                            })}
                                         </div>
                                     </div>
                                 )}

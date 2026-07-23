@@ -7,11 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardRepository
 {
-    /**
-     * Completed-record counts for the given user.
-     *
-     * @return array{activeRegistrations:int, competitionEntries:int, renewals:int}
-     */
     public function statsForUser(int $userId): array
     {
         return [
@@ -21,11 +16,6 @@ class DashboardRepository
         ];
     }
 
-    /**
-     * Completed registrations & entries bucketed by month for the last N months.
-     *
-     * @return array<int, array{month:string, registrations:int, entries:int}>
-     */
     public function monthlyActivityForUser(int $userId, int $months = 6): array
     {
         $activity = [];
@@ -61,60 +51,57 @@ class DashboardRepository
             ->count();
     }
 
-    public function recentRegistrations(int $userId, int $limit = 5): array
+    public function paginateRegistrations(int $userId, ?string $search = null, int $perPage = 10)
     {
-        return DB::connection('mssql')->table('rider_registrations')
-            ->where('user_id', $userId)
-            ->orderBy('created_at', 'desc')
-            ->limit($limit)
-            ->get(['id', 'rider_name', 'date_of_birth', 'status', 'tran_ref', 'created_at'])
-            ->map(fn($row) => (array) $row)
-            ->toArray();
-    }
+        $query = DB::connection('mssql')->table('rider_registrations')
+            ->where('user_id', $userId);
 
-    public function recentRenewals(int $userId, int $limit = 5): array
-    {
-        return DB::connection('mssql')->table('rider_renewals')
-            ->where('user_id', $userId)
-            ->orderBy('created_at', 'desc')
-            ->limit($limit)
-            ->get(['id', 'rider_id', 'season_id', 'status', 'tran_ref', 'created_at'])
-            ->map(fn($row) => (array) $row)
-            ->toArray();
-    }
+        if ($search) {
+            $escapedSearch = str_replace(['%', '_'], ['\%', '\_'], $search);
+            $query->where(function ($q) use ($escapedSearch) {
+                $q->where('rider_name', 'like', "%{$escapedSearch}%")
+                  ->orWhere('tran_ref', 'like', "%{$escapedSearch}%");
+            });
+        }
 
-    public function recentEntries(int $userId, int $limit = 5): array
-    {
-        return DB::connection('mssql')->table('show_jumping_entries')
-            ->where('user_id', $userId)
-            ->orderBy('created_at', 'desc')
-            ->limit($limit)
-            ->get(['id', 'rider_id', 'horse_id', 'event_id', 'class_id', 'status', 'tran_ref', 'created_at'])
-            ->map(fn($row) => (array) $row)
-            ->toArray();
-    }
-
-    public function paginateRegistrations(int $userId, int $perPage = 10)
-    {
-        return DB::connection('mssql')->table('rider_registrations')
-            ->where('user_id', $userId)
-            ->orderBy('created_at', 'desc')
+        return $query->orderBy('created_at', 'desc')
             ->paginate($perPage, ['id', 'rider_name', 'date_of_birth', 'status', 'tran_ref', 'created_at']);
     }
 
-    public function paginateRenewals(int $userId, int $perPage = 10)
+    public function paginateRenewals(int $userId, ?string $search = null, int $perPage = 10)
     {
-        return DB::connection('mssql')->table('rider_renewals')
-            ->where('user_id', $userId)
-            ->orderBy('created_at', 'desc')
+        $query = DB::connection('mssql')->table('rider_renewals')
+            ->where('user_id', $userId);
+
+        if ($search) {
+            $escapedSearch = str_replace(['%', '_'], ['\%', '\_'], $search);
+            $query->where(function ($q) use ($escapedSearch) {
+                $q->where('rider_id', 'like', "%{$escapedSearch}%")
+                  ->orWhere('season_id', 'like', "%{$escapedSearch}%")
+                  ->orWhere('tran_ref', 'like', "%{$escapedSearch}%");
+            });
+        }
+
+        return $query->orderBy('created_at', 'desc')
             ->paginate($perPage, ['id', 'rider_id', 'season_id', 'status', 'tran_ref', 'created_at']);
     }
 
-    public function paginateEntries(int $userId, int $perPage = 10)
+    public function paginateEntries(int $userId, ?string $search = null, int $perPage = 10)
     {
-        return DB::connection('mssql')->table('show_jumping_entries')
-            ->where('user_id', $userId)
-            ->orderBy('created_at', 'desc')
+        $query = DB::connection('mssql')->table('show_jumping_entries')
+            ->where('user_id', $userId);
+
+        if ($search) {
+            $escapedSearch = str_replace(['%', '_'], ['\%', '\_'], $search);
+            $query->where(function ($q) use ($escapedSearch) {
+                $q->where('rider_id', 'like', "%{$escapedSearch}%")
+                  ->orWhere('horse_id', 'like', "%{$escapedSearch}%")
+                  ->orWhere('event_id', 'like', "%{$escapedSearch}%")
+                  ->orWhere('tran_ref', 'like', "%{$escapedSearch}%");
+            });
+        }
+
+        return $query->orderBy('created_at', 'desc')
             ->paginate($perPage, ['id', 'rider_id', 'horse_id', 'event_id', 'class_id', 'status', 'tran_ref', 'created_at']);
     }
 }

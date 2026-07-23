@@ -32,14 +32,14 @@ const mainNavItems: NavItem[] = [
 
 const riderNavItems: NavItem[] = [
     {
-        title: 'Rider Registration',
-        href: '/rider/registration',
+        title: 'Rider Registrations',
+        href: '/history/registrations',
         icon: UserPlus,
         iconColor: 'bg-emerald-500 text-white',
     },
     {
-        title: 'Rider Renewal',
-        href: '/rider/renewal',
+        title: 'Rider Renewals',
+        href: '/history/renewals',
         icon: RefreshCw,
         iconColor: 'bg-blue-500 text-white',
     },
@@ -47,8 +47,8 @@ const riderNavItems: NavItem[] = [
 
 const competitionNavItems: NavItem[] = [
     {
-        title: 'Show Jumping Entry',
-        href: '/jumping/entry',
+        title: 'Competition Entries',
+        href: '/history/entries',
         icon: Trophy,
         iconColor: 'bg-amber-500 text-white',
     },

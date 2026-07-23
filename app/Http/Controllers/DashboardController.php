@@ -22,9 +22,6 @@ class DashboardController extends Controller
         try {
             $stats = $this->dashboard->statsForUser($userId);
             $activity = $this->dashboard->monthlyActivityForUser($userId);
-            $registrations = $this->dashboard->recentRegistrations($userId);
-            $renewals = $this->dashboard->recentRenewals($userId);
-            $entries = $this->dashboard->recentEntries($userId);
         } catch (Throwable $e) {
 
             report($e);
@@ -43,18 +40,11 @@ class DashboardController extends Controller
                     'entries' => 0,
                 ];
             }
-
-            $registrations = [];
-            $renewals = [];
-            $entries = [];
         }
 
         return Inertia::render('dashboard', [
             'stats' => $stats,
             'activity' => $activity,
-            'registrations' => $registrations,
-            'renewals' => $renewals,
-            'entries' => $entries,
         ]);
     }
 }

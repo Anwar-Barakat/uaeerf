@@ -16,30 +16,36 @@ class HistoryController extends Controller
     public function registrations(Request $request): Response
     {
         $userId = $request->user()->id;
-        $registrations = $this->dashboard->paginateRegistrations($userId);
+        $search = $request->input('search');
+        $registrations = $this->dashboard->paginateRegistrations($userId, $search);
 
         return Inertia::render('history/registrations', [
             'registrations' => $registrations,
+            'filters' => ['search' => $search],
         ]);
     }
 
     public function renewals(Request $request): Response
     {
         $userId = $request->user()->id;
-        $renewals = $this->dashboard->paginateRenewals($userId);
+        $search = $request->input('search');
+        $renewals = $this->dashboard->paginateRenewals($userId, $search);
 
         return Inertia::render('history/renewals', [
             'renewals' => $renewals,
+            'filters' => ['search' => $search],
         ]);
     }
 
     public function entries(Request $request): Response
     {
         $userId = $request->user()->id;
-        $entries = $this->dashboard->paginateEntries($userId);
+        $search = $request->input('search');
+        $entries = $this->dashboard->paginateEntries($userId, $search);
 
         return Inertia::render('history/entries', [
             'entries' => $entries,
+            'filters' => ['search' => $search],
         ]);
     }
 }

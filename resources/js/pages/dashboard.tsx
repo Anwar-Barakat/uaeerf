@@ -1,51 +1,14 @@
 import { Head, Link } from '@inertiajs/react';
-import { ArrowRight, BarChart3, CalendarClock, CircleCheck, FileText, RefreshCw, Sparkles, Trophy, UserPlus } from 'lucide-react';
+import { ArrowRight, BarChart3, CalendarClock, CircleCheck, RefreshCw, Sparkles, Trophy, UserPlus } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { dashboard } from '@/routes';
-
-type ActivityPoint = { month: string; registrations: number; entries: number };
-
-type Registration = {
-    id: number;
-    rider_name: string;
-    date_of_birth: string;
-    status: string;
-    tran_ref: string | null;
-    created_at: string;
-};
-
-type Renewal = {
-    id: number;
-    rider_id: number;
-    season_id: number;
-    status: string;
-    tran_ref: string | null;
-    created_at: string;
-};
-
-type Entry = {
-    id: number;
-    rider_id: number;
-    horse_id: number;
-    event_id: number;
-    class_id: number;
-    status: string;
-    tran_ref: string | null;
-    created_at: string;
-};
+import type { ActivityPoint, Stats } from '@/types';
 
 interface DashboardProps {
-    stats?: {
-        activeRegistrations: number;
-        competitionEntries: number;
-        renewals: number;
-    };
+    stats?: Stats;
     activity?: ActivityPoint[];
-    registrations?: Registration[];
-    renewals?: Renewal[];
-    entries?: Entry[];
 }
 
 const statMeta = [
@@ -114,29 +77,16 @@ const actions = [
     },
 ];
 
-export default function Dashboard({ stats, activity = [], registrations = [], renewals = [], entries = [] }: DashboardProps) {
+export default function Dashboard({ stats, activity = [] }: DashboardProps) {
     const values = stats ?? { activeRegistrations: 0, competitionEntries: 0, renewals: 0 };
     const activityTotal = activity.reduce((sum, m) => sum + m.registrations + m.entries, 0);
     const activityMax = Math.max(1, ...activity.map((m) => Math.max(m.registrations, m.entries)));
-
-    const getStatusBadge = (status: string) => {
-        switch (status) {
-            case 'completed':
-                return <Badge className="bg-emerald-500">Completed</Badge>;
-            case 'pending':
-                return <Badge variant="secondary">Pending</Badge>;
-            case 'failed':
-                return <Badge variant="destructive">Failed</Badge>;
-            default:
-                return <Badge variant="outline">{status}</Badge>;
-        }
-    };
 
     return (
         <>
             <Head title="Dashboard" />
 
-            <div className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
+            <div className="space-y-8 p-6">
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
                     <p className="text-muted-foreground">
@@ -258,195 +208,6 @@ export default function Dashboard({ stats, activity = [], registrations = [], re
                             </CardContent>
                         </Card>
                     ))}
-                </div>
-
-                <div className="space-y-1">
-                    <h2 className="text-xl font-semibold tracking-tight">Recent Activity</h2>
-                    <p className="text-sm text-muted-foreground">
-                        View your registration history and competition entries
-                    </p>
-                </div>
-
-                <div className="space-y-6">
-                    <Card>
-                        <CardHeader>
-                            <div className="flex items-center justify-between">
-                                <div className="space-y-1">
-                                    <CardTitle>My Registrations</CardTitle>
-                                    <CardDescription>Your rider registration history</CardDescription>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <Badge variant="secondary">{registrations.length}</Badge>
-                                    {registrations.length > 0 && (
-                                        <Button asChild variant="outline" size="sm">
-                                            <Link href="/history/registrations">View All</Link>
-                                        </Button>
-                                    )}
-                                </div>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            {registrations.length === 0 ? (
-                                <div className="flex flex-col items-center justify-center py-10 text-center">
-                                    <FileText className="size-10 text-muted-foreground/40" />
-                                    <h3 className="mt-4 font-semibold">No registrations yet</h3>
-                                    <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-                                        Start by registering as a rider to access competitions and events.
-                                    </p>
-                                    <Button asChild variant="outline" className="mt-4">
-                                        <Link href="/rider/registration">Register as Rider</Link>
-                                    </Button>
-                                </div>
-                            ) : (
-                                <div className="overflow-x-auto">
-                                    <table className="w-full text-sm">
-                                        <thead>
-                                            <tr className="border-b">
-                                                <th className="pb-2 text-left font-medium">Rider Name</th>
-                                                <th className="pb-2 text-left font-medium">Date</th>
-                                                <th className="pb-2 text-left font-medium">Status</th>
-                                                <th className="pb-2 text-left font-medium">Transaction</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {registrations.map((reg) => (
-                                                <tr key={reg.id} className="border-b last:border-0">
-                                                    <td className="py-3">{reg.rider_name}</td>
-                                                    <td className="py-3 text-muted-foreground">{reg.created_at}</td>
-                                                    <td className="py-3">{getStatusBadge(reg.status)}</td>
-                                                    <td className="py-3 font-mono text-xs text-muted-foreground">
-                                                        {reg.tran_ref || 'N/A'}
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            )}
-                        </CardContent>
-                    </Card>
-
-                    <Card>
-                        <CardHeader>
-                            <div className="flex items-center justify-between">
-                                <div className="space-y-1">
-                                    <CardTitle>My Renewals</CardTitle>
-                                    <CardDescription>Your rider renewal history</CardDescription>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <Badge variant="secondary">{renewals.length}</Badge>
-                                    {renewals.length > 0 && (
-                                        <Button asChild variant="outline" size="sm">
-                                            <Link href="/history/renewals">View All</Link>
-                                        </Button>
-                                    )}
-                                </div>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            {renewals.length === 0 ? (
-                                <div className="flex flex-col items-center justify-center py-10 text-center">
-                                    <RefreshCw className="size-10 text-muted-foreground/40" />
-                                    <h3 className="mt-4 font-semibold">No renewals yet</h3>
-                                    <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-                                        Renew your rider registration for the new season.
-                                    </p>
-                                    <Button asChild variant="outline" className="mt-4">
-                                        <Link href="/rider/renewal">Renew Registration</Link>
-                                    </Button>
-                                </div>
-                            ) : (
-                                <div className="overflow-x-auto">
-                                    <table className="w-full text-sm">
-                                        <thead>
-                                            <tr className="border-b">
-                                                <th className="pb-2 text-left font-medium">Rider ID</th>
-                                                <th className="pb-2 text-left font-medium">Season ID</th>
-                                                <th className="pb-2 text-left font-medium">Date</th>
-                                                <th className="pb-2 text-left font-medium">Status</th>
-                                                <th className="pb-2 text-left font-medium">Transaction</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {renewals.map((renewal) => (
-                                                <tr key={renewal.id} className="border-b last:border-0">
-                                                    <td className="py-3">{renewal.rider_id}</td>
-                                                    <td className="py-3">{renewal.season_id}</td>
-                                                    <td className="py-3 text-muted-foreground">{renewal.created_at}</td>
-                                                    <td className="py-3">{getStatusBadge(renewal.status)}</td>
-                                                    <td className="py-3 font-mono text-xs text-muted-foreground">
-                                                        {renewal.tran_ref || 'N/A'}
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            )}
-                        </CardContent>
-                    </Card>
-
-                    <Card>
-                        <CardHeader>
-                            <div className="flex items-center justify-between">
-                                <div className="space-y-1">
-                                    <CardTitle>My Competition Entries</CardTitle>
-                                    <CardDescription>Your competition entry history</CardDescription>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <Badge variant="secondary">{entries.length}</Badge>
-                                    {entries.length > 0 && (
-                                        <Button asChild variant="outline" size="sm">
-                                            <Link href="/history/entries">View All</Link>
-                                        </Button>
-                                    )}
-                                </div>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            {entries.length === 0 ? (
-                                <div className="flex flex-col items-center justify-center py-10 text-center">
-                                    <Trophy className="size-10 text-muted-foreground/40" />
-                                    <h3 className="mt-4 font-semibold">No entries yet</h3>
-                                    <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-                                        Register for show jumping competitions to see your entries here.
-                                    </p>
-                                    <Button asChild variant="outline" className="mt-4">
-                                        <Link href="/jumping/entry">Enter Competition</Link>
-                                    </Button>
-                                </div>
-                            ) : (
-                                <div className="overflow-x-auto">
-                                    <table className="w-full text-sm">
-                                        <thead>
-                                            <tr className="border-b">
-                                                <th className="pb-2 text-left font-medium">Rider ID</th>
-                                                <th className="pb-2 text-left font-medium">Horse ID</th>
-                                                <th className="pb-2 text-left font-medium">Event/Class</th>
-                                                <th className="pb-2 text-left font-medium">Date</th>
-                                                <th className="pb-2 text-left font-medium">Status</th>
-                                                <th className="pb-2 text-left font-medium">Transaction</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {entries.map((entry) => (
-                                                <tr key={entry.id} className="border-b last:border-0">
-                                                    <td className="py-3">{entry.rider_id}</td>
-                                                    <td className="py-3">{entry.horse_id}</td>
-                                                    <td className="py-3">{entry.event_id}/{entry.class_id}</td>
-                                                    <td className="py-3 text-muted-foreground">{entry.created_at}</td>
-                                                    <td className="py-3">{getStatusBadge(entry.status)}</td>
-                                                    <td className="py-3 font-mono text-xs text-muted-foreground">
-                                                        {entry.tran_ref || 'N/A'}
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            )}
-                        </CardContent>
-                    </Card>
                 </div>
             </div>
         </>
