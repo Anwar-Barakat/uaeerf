@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://emiratesequestrian.net/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://emiratesequestrian.net/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://emiratesequestrian.net/">
+      <s:element name="SearchRiderList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchFirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchLastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchFEIID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchEEFID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchStable" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchNationality" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchGender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchRiderListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchRiderListResult" type="tns:ArrayOfEEFRider" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEEFRider">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EEFRider" nillable="true" type="tns:EEFRider" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EEFRider">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="LastestUpdate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Photo" type="s:base64Binary" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsRegisteredInCurrentSeason" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Weight" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NationalityID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegisteredSeasonCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PoBox" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country_short" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HomeCountry_short" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NATIONALITY_short" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HomeAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HomeCity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HomeCountry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserAdminID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsSameUserStable" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsFirstTimeRegistration" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="RiderID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NFNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FullName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FamilyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NATIONALITY" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DOB" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="STABLE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEIREG" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TELEPHONE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MOBILE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EMAIL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DIVISION" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegisteredSeason" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Active" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Temporary" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Blocked" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Category" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchRiderListJson">
+        <s:complexType />
+      </s:element>
+      <s:element name="SearchRiderListJsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchRiderListJsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchRiderListV2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchFirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchLastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchFEIID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchEEFID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchStable" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchNationality" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchGender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchRiderListV2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchRiderListV2Result" type="tns:ArrayOfEEFRider" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckIfMobileExist">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RegTypeID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="PersonID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MobileNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckIfMobileExistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckIfMobileExistResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SearchRiderListSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchRiderList" />
+  </wsdl:message>
+  <wsdl:message name="SearchRiderListSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchRiderListResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchRiderListJsonSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchRiderListJson" />
+  </wsdl:message>
+  <wsdl:message name="SearchRiderListJsonSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchRiderListJsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchRiderListV2SoapIn">
+    <wsdl:part name="parameters" element="tns:SearchRiderListV2" />
+  </wsdl:message>
+  <wsdl:message name="SearchRiderListV2SoapOut">
+    <wsdl:part name="parameters" element="tns:SearchRiderListV2Response" />
+  </wsdl:message>
+  <wsdl:message name="CheckIfMobileExistSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckIfMobileExist" />
+  </wsdl:message>
+  <wsdl:message name="CheckIfMobileExistSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckIfMobileExistResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSRidersSoap">
+    <wsdl:operation name="SearchRiderList">
+      <wsdl:input message="tns:SearchRiderListSoapIn" />
+      <wsdl:output message="tns:SearchRiderListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchRiderListJson">
+      <wsdl:input message="tns:SearchRiderListJsonSoapIn" />
+      <wsdl:output message="tns:SearchRiderListJsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchRiderListV2">
+      <wsdl:input message="tns:SearchRiderListV2SoapIn" />
+      <wsdl:output message="tns:SearchRiderListV2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfMobileExist">
+      <wsdl:input message="tns:CheckIfMobileExistSoapIn" />
+      <wsdl:output message="tns:CheckIfMobileExistSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSRidersSoap" type="tns:WSRidersSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SearchRiderList">
+      <soap:operation soapAction="http://emiratesequestrian.net/SearchRiderList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchRiderListJson">
+      <soap:operation soapAction="http://emiratesequestrian.net/SearchRiderListJson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchRiderListV2">
+      <soap:operation soapAction="http://emiratesequestrian.net/SearchRiderListV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfMobileExist">
+      <soap:operation soapAction="http://emiratesequestrian.net/CheckIfMobileExist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSRidersSoap12" type="tns:WSRidersSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SearchRiderList">
+      <soap12:operation soapAction="http://emiratesequestrian.net/SearchRiderList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchRiderListJson">
+      <soap12:operation soapAction="http://emiratesequestrian.net/SearchRiderListJson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchRiderListV2">
+      <soap12:operation soapAction="http://emiratesequestrian.net/SearchRiderListV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfMobileExist">
+      <soap12:operation soapAction="http://emiratesequestrian.net/CheckIfMobileExist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSRiders">
+    <wsdl:port name="WSRidersSoap" binding="tns:WSRidersSoap">
+      <soap:address location="http://wsdev.emiratesequestrian.ae/webservices/WSRiders.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSRidersSoap12" binding="tns:WSRidersSoap12">
+      <soap12:address location="http://wsdev.emiratesequestrian.ae/webservices/WSRiders.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

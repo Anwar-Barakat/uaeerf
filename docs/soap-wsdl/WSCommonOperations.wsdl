@@ -1,0 +1,1170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://emiratesequestrian.net" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://emiratesequestrian.net" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://emiratesequestrian.net">
+      <s:element name="IsOfficialEligibletoTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OfficialID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IsOfficialEligibletoTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsOfficialEligibletoTransferResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsRiderEligibletoTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RiderID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsRiderEligibletoTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsRiderEligibletoTransferResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsTrainerEligibletoTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TrainerID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsTrainerEligibletoTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsTrainerEligibletoTransferResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsHorseEligibletoTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HorseID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsHorseEligibletoTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsHorseEligibletoTransferResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveHorseStableTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HorseID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OldStableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewStableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApprovedByUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RefID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveHorseStableTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ApproveHorseStableTransferResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveRiderStableTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RiderID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OldStableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewStableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApprovedByUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RefID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveRiderStableTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApproveRiderStableTransferResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveRiderStableTransferV2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RiderID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OldStableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewStableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApprovedByUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RefID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveRiderStableTransferV2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ApproveRiderStableTransferV2Result" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RejectRiderStableTransferV2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RiderID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApprovedByUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RefID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RejectionRemarks" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RejectRiderStableTransferV2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RejectRiderStableTransferV2Result" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveTrainerStableTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TrainerID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OldStableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewStableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApprovedByUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RefID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveTrainerStableTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApproveTrainerStableTransferResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RejectTrainerStableTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TrainerID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApprovedByUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RefID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RejectionRemarks" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RejectTrainerStableTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RejectTrainerStableTransferResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RejectHorseStableTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HorseID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApprovedByUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RefID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RejectionRemarks" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RejectHorseStableTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RejectHorseStableTransferResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueEmail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Emailmsg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailReciever" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailSubject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AttachmentFileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DivisionCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BCC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GComputerName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GIPAddressV4" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueEmailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="QueEmailResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueEmailTemplate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Emailmsg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailReciever" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailSubject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AttachmentFileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DivisionCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BCC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GComputerName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GIPAddressV4" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueEmailTemplateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="QueEmailTemplateResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueEmailTemplateV2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Emailmsg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailReciever" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailSubject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AttachmentFileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DivisionCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BCC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GComputerName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GIPAddressV4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="eSender" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueEmailTemplateV2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="QueEmailTemplateV2Result" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SMSmsg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SMSReciever" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SMSSubject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GComputerName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GIPAddressV4" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="QueSMSResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsPrivateRiderRegisteredByUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RiderID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SeasonID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DivisionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsPrivateRiderRegisteredByUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsPrivateRiderRegisteredByUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsPrivateHorseRegisteredByUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HorseID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SeasonID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DivisionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsPrivateHorseRegisteredByUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsPrivateHorseRegisteredByUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsPrivateTrainerRegisteredByUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TrainerID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SeasonID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DivisionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsPrivateTrainerRegisteredByUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsPrivateTrainerRegisteredByUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsUserAccountBlocked">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsUserAccountBlockedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsUserAccountBlockedResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsUserAccountHaveAccountsID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsUserAccountHaveAccountsIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsUserAccountHaveAccountsIDResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsRoyalStable">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsRoyalStableResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsRoyalStableResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsTrainerRoyalStable">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TrainerID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsTrainerRoyalStableResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IsTrainerRoyalStableResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveOfficialStableTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OfficialID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OldStableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewStableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApprovedByUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RefID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveOfficialStableTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ApproveOfficialStableTransferResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RejectOfficialStableTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OfficialID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApprovedByUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RefID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RejectionRemarks" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RejectOfficialStableTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RejectOfficialStableTransferResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsRiderUAEHosted">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RiderID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsRiderUAEHostedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsRiderUAEHostedResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="IsOfficialEligibletoTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:IsOfficialEligibletoTransfer" />
+  </wsdl:message>
+  <wsdl:message name="IsOfficialEligibletoTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:IsOfficialEligibletoTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsRiderEligibletoTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:IsRiderEligibletoTransfer" />
+  </wsdl:message>
+  <wsdl:message name="IsRiderEligibletoTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:IsRiderEligibletoTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsTrainerEligibletoTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:IsTrainerEligibletoTransfer" />
+  </wsdl:message>
+  <wsdl:message name="IsTrainerEligibletoTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:IsTrainerEligibletoTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsHorseEligibletoTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:IsHorseEligibletoTransfer" />
+  </wsdl:message>
+  <wsdl:message name="IsHorseEligibletoTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:IsHorseEligibletoTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApproveHorseStableTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:ApproveHorseStableTransfer" />
+  </wsdl:message>
+  <wsdl:message name="ApproveHorseStableTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:ApproveHorseStableTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApproveRiderStableTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:ApproveRiderStableTransfer" />
+  </wsdl:message>
+  <wsdl:message name="ApproveRiderStableTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:ApproveRiderStableTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApproveRiderStableTransferV2SoapIn">
+    <wsdl:part name="parameters" element="tns:ApproveRiderStableTransferV2" />
+  </wsdl:message>
+  <wsdl:message name="ApproveRiderStableTransferV2SoapOut">
+    <wsdl:part name="parameters" element="tns:ApproveRiderStableTransferV2Response" />
+  </wsdl:message>
+  <wsdl:message name="RejectRiderStableTransferV2SoapIn">
+    <wsdl:part name="parameters" element="tns:RejectRiderStableTransferV2" />
+  </wsdl:message>
+  <wsdl:message name="RejectRiderStableTransferV2SoapOut">
+    <wsdl:part name="parameters" element="tns:RejectRiderStableTransferV2Response" />
+  </wsdl:message>
+  <wsdl:message name="ApproveTrainerStableTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:ApproveTrainerStableTransfer" />
+  </wsdl:message>
+  <wsdl:message name="ApproveTrainerStableTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:ApproveTrainerStableTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="RejectTrainerStableTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:RejectTrainerStableTransfer" />
+  </wsdl:message>
+  <wsdl:message name="RejectTrainerStableTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:RejectTrainerStableTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="RejectHorseStableTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:RejectHorseStableTransfer" />
+  </wsdl:message>
+  <wsdl:message name="RejectHorseStableTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:RejectHorseStableTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueEmailSoapIn">
+    <wsdl:part name="parameters" element="tns:QueEmail" />
+  </wsdl:message>
+  <wsdl:message name="QueEmailSoapOut">
+    <wsdl:part name="parameters" element="tns:QueEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueEmailTemplateSoapIn">
+    <wsdl:part name="parameters" element="tns:QueEmailTemplate" />
+  </wsdl:message>
+  <wsdl:message name="QueEmailTemplateSoapOut">
+    <wsdl:part name="parameters" element="tns:QueEmailTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueEmailTemplateV2SoapIn">
+    <wsdl:part name="parameters" element="tns:QueEmailTemplateV2" />
+  </wsdl:message>
+  <wsdl:message name="QueEmailTemplateV2SoapOut">
+    <wsdl:part name="parameters" element="tns:QueEmailTemplateV2Response" />
+  </wsdl:message>
+  <wsdl:message name="QueSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:QueSMS" />
+  </wsdl:message>
+  <wsdl:message name="QueSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:QueSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsPrivateRiderRegisteredByUserSoapIn">
+    <wsdl:part name="parameters" element="tns:IsPrivateRiderRegisteredByUser" />
+  </wsdl:message>
+  <wsdl:message name="IsPrivateRiderRegisteredByUserSoapOut">
+    <wsdl:part name="parameters" element="tns:IsPrivateRiderRegisteredByUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsPrivateHorseRegisteredByUserSoapIn">
+    <wsdl:part name="parameters" element="tns:IsPrivateHorseRegisteredByUser" />
+  </wsdl:message>
+  <wsdl:message name="IsPrivateHorseRegisteredByUserSoapOut">
+    <wsdl:part name="parameters" element="tns:IsPrivateHorseRegisteredByUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsPrivateTrainerRegisteredByUserSoapIn">
+    <wsdl:part name="parameters" element="tns:IsPrivateTrainerRegisteredByUser" />
+  </wsdl:message>
+  <wsdl:message name="IsPrivateTrainerRegisteredByUserSoapOut">
+    <wsdl:part name="parameters" element="tns:IsPrivateTrainerRegisteredByUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsUserAccountBlockedSoapIn">
+    <wsdl:part name="parameters" element="tns:IsUserAccountBlocked" />
+  </wsdl:message>
+  <wsdl:message name="IsUserAccountBlockedSoapOut">
+    <wsdl:part name="parameters" element="tns:IsUserAccountBlockedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsUserAccountHaveAccountsIDSoapIn">
+    <wsdl:part name="parameters" element="tns:IsUserAccountHaveAccountsID" />
+  </wsdl:message>
+  <wsdl:message name="IsUserAccountHaveAccountsIDSoapOut">
+    <wsdl:part name="parameters" element="tns:IsUserAccountHaveAccountsIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsRoyalStableSoapIn">
+    <wsdl:part name="parameters" element="tns:IsRoyalStable" />
+  </wsdl:message>
+  <wsdl:message name="IsRoyalStableSoapOut">
+    <wsdl:part name="parameters" element="tns:IsRoyalStableResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsTrainerRoyalStableSoapIn">
+    <wsdl:part name="parameters" element="tns:IsTrainerRoyalStable" />
+  </wsdl:message>
+  <wsdl:message name="IsTrainerRoyalStableSoapOut">
+    <wsdl:part name="parameters" element="tns:IsTrainerRoyalStableResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApproveOfficialStableTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:ApproveOfficialStableTransfer" />
+  </wsdl:message>
+  <wsdl:message name="ApproveOfficialStableTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:ApproveOfficialStableTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="RejectOfficialStableTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:RejectOfficialStableTransfer" />
+  </wsdl:message>
+  <wsdl:message name="RejectOfficialStableTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:RejectOfficialStableTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsRiderUAEHostedSoapIn">
+    <wsdl:part name="parameters" element="tns:IsRiderUAEHosted" />
+  </wsdl:message>
+  <wsdl:message name="IsRiderUAEHostedSoapOut">
+    <wsdl:part name="parameters" element="tns:IsRiderUAEHostedResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSCommonOperationsSoap">
+    <wsdl:operation name="IsOfficialEligibletoTransfer">
+      <wsdl:input message="tns:IsOfficialEligibletoTransferSoapIn" />
+      <wsdl:output message="tns:IsOfficialEligibletoTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsRiderEligibletoTransfer">
+      <wsdl:input message="tns:IsRiderEligibletoTransferSoapIn" />
+      <wsdl:output message="tns:IsRiderEligibletoTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsTrainerEligibletoTransfer">
+      <wsdl:input message="tns:IsTrainerEligibletoTransferSoapIn" />
+      <wsdl:output message="tns:IsTrainerEligibletoTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsHorseEligibletoTransfer">
+      <wsdl:input message="tns:IsHorseEligibletoTransferSoapIn" />
+      <wsdl:output message="tns:IsHorseEligibletoTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveHorseStableTransfer">
+      <wsdl:input message="tns:ApproveHorseStableTransferSoapIn" />
+      <wsdl:output message="tns:ApproveHorseStableTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveRiderStableTransfer">
+      <wsdl:input message="tns:ApproveRiderStableTransferSoapIn" />
+      <wsdl:output message="tns:ApproveRiderStableTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveRiderStableTransferV2">
+      <wsdl:input message="tns:ApproveRiderStableTransferV2SoapIn" />
+      <wsdl:output message="tns:ApproveRiderStableTransferV2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RejectRiderStableTransferV2">
+      <wsdl:input message="tns:RejectRiderStableTransferV2SoapIn" />
+      <wsdl:output message="tns:RejectRiderStableTransferV2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveTrainerStableTransfer">
+      <wsdl:input message="tns:ApproveTrainerStableTransferSoapIn" />
+      <wsdl:output message="tns:ApproveTrainerStableTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RejectTrainerStableTransfer">
+      <wsdl:input message="tns:RejectTrainerStableTransferSoapIn" />
+      <wsdl:output message="tns:RejectTrainerStableTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RejectHorseStableTransfer">
+      <wsdl:input message="tns:RejectHorseStableTransferSoapIn" />
+      <wsdl:output message="tns:RejectHorseStableTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueEmail">
+      <wsdl:input message="tns:QueEmailSoapIn" />
+      <wsdl:output message="tns:QueEmailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueEmailTemplate">
+      <wsdl:input message="tns:QueEmailTemplateSoapIn" />
+      <wsdl:output message="tns:QueEmailTemplateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueEmailTemplateV2">
+      <wsdl:input message="tns:QueEmailTemplateV2SoapIn" />
+      <wsdl:output message="tns:QueEmailTemplateV2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueSMS">
+      <wsdl:input message="tns:QueSMSSoapIn" />
+      <wsdl:output message="tns:QueSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsPrivateRiderRegisteredByUser">
+      <wsdl:input message="tns:IsPrivateRiderRegisteredByUserSoapIn" />
+      <wsdl:output message="tns:IsPrivateRiderRegisteredByUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsPrivateHorseRegisteredByUser">
+      <wsdl:input message="tns:IsPrivateHorseRegisteredByUserSoapIn" />
+      <wsdl:output message="tns:IsPrivateHorseRegisteredByUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsPrivateTrainerRegisteredByUser">
+      <wsdl:input message="tns:IsPrivateTrainerRegisteredByUserSoapIn" />
+      <wsdl:output message="tns:IsPrivateTrainerRegisteredByUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsUserAccountBlocked">
+      <wsdl:input message="tns:IsUserAccountBlockedSoapIn" />
+      <wsdl:output message="tns:IsUserAccountBlockedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsUserAccountHaveAccountsID">
+      <wsdl:input message="tns:IsUserAccountHaveAccountsIDSoapIn" />
+      <wsdl:output message="tns:IsUserAccountHaveAccountsIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsRoyalStable">
+      <wsdl:input message="tns:IsRoyalStableSoapIn" />
+      <wsdl:output message="tns:IsRoyalStableSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsTrainerRoyalStable">
+      <wsdl:input message="tns:IsTrainerRoyalStableSoapIn" />
+      <wsdl:output message="tns:IsTrainerRoyalStableSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveOfficialStableTransfer">
+      <wsdl:input message="tns:ApproveOfficialStableTransferSoapIn" />
+      <wsdl:output message="tns:ApproveOfficialStableTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RejectOfficialStableTransfer">
+      <wsdl:input message="tns:RejectOfficialStableTransferSoapIn" />
+      <wsdl:output message="tns:RejectOfficialStableTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsRiderUAEHosted">
+      <wsdl:input message="tns:IsRiderUAEHostedSoapIn" />
+      <wsdl:output message="tns:IsRiderUAEHostedSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSCommonOperationsSoap" type="tns:WSCommonOperationsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IsOfficialEligibletoTransfer">
+      <soap:operation soapAction="http://emiratesequestrian.net/IsOfficialEligibletoTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsRiderEligibletoTransfer">
+      <soap:operation soapAction="http://emiratesequestrian.net/IsRiderEligibletoTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsTrainerEligibletoTransfer">
+      <soap:operation soapAction="http://emiratesequestrian.net/IsTrainerEligibletoTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsHorseEligibletoTransfer">
+      <soap:operation soapAction="http://emiratesequestrian.net/IsHorseEligibletoTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveHorseStableTransfer">
+      <soap:operation soapAction="http://emiratesequestrian.net/ApproveHorseStableTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveRiderStableTransfer">
+      <soap:operation soapAction="http://emiratesequestrian.net/ApproveRiderStableTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveRiderStableTransferV2">
+      <soap:operation soapAction="http://emiratesequestrian.net/ApproveRiderStableTransferV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RejectRiderStableTransferV2">
+      <soap:operation soapAction="http://emiratesequestrian.net/RejectRiderStableTransferV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveTrainerStableTransfer">
+      <soap:operation soapAction="http://emiratesequestrian.net/ApproveTrainerStableTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RejectTrainerStableTransfer">
+      <soap:operation soapAction="http://emiratesequestrian.net/RejectTrainerStableTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RejectHorseStableTransfer">
+      <soap:operation soapAction="http://emiratesequestrian.net/RejectHorseStableTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueEmail">
+      <soap:operation soapAction="http://emiratesequestrian.net/QueEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueEmailTemplate">
+      <soap:operation soapAction="http://emiratesequestrian.net/QueEmailTemplate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueEmailTemplateV2">
+      <soap:operation soapAction="http://emiratesequestrian.net/QueEmailTemplateV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueSMS">
+      <soap:operation soapAction="http://emiratesequestrian.net/QueSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsPrivateRiderRegisteredByUser">
+      <soap:operation soapAction="http://emiratesequestrian.net/IsPrivateRiderRegisteredByUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsPrivateHorseRegisteredByUser">
+      <soap:operation soapAction="http://emiratesequestrian.net/IsPrivateHorseRegisteredByUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsPrivateTrainerRegisteredByUser">
+      <soap:operation soapAction="http://emiratesequestrian.net/IsPrivateTrainerRegisteredByUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUserAccountBlocked">
+      <soap:operation soapAction="http://emiratesequestrian.net/IsUserAccountBlocked" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUserAccountHaveAccountsID">
+      <soap:operation soapAction="http://emiratesequestrian.net/IsUserAccountHaveAccountsID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsRoyalStable">
+      <soap:operation soapAction="http://emiratesequestrian.net/IsRoyalStable" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsTrainerRoyalStable">
+      <soap:operation soapAction="http://emiratesequestrian.net/IsTrainerRoyalStable" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveOfficialStableTransfer">
+      <soap:operation soapAction="http://emiratesequestrian.net/ApproveOfficialStableTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RejectOfficialStableTransfer">
+      <soap:operation soapAction="http://emiratesequestrian.net/RejectOfficialStableTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsRiderUAEHosted">
+      <soap:operation soapAction="http://emiratesequestrian.net/IsRiderUAEHosted" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSCommonOperationsSoap12" type="tns:WSCommonOperationsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IsOfficialEligibletoTransfer">
+      <soap12:operation soapAction="http://emiratesequestrian.net/IsOfficialEligibletoTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsRiderEligibletoTransfer">
+      <soap12:operation soapAction="http://emiratesequestrian.net/IsRiderEligibletoTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsTrainerEligibletoTransfer">
+      <soap12:operation soapAction="http://emiratesequestrian.net/IsTrainerEligibletoTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsHorseEligibletoTransfer">
+      <soap12:operation soapAction="http://emiratesequestrian.net/IsHorseEligibletoTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveHorseStableTransfer">
+      <soap12:operation soapAction="http://emiratesequestrian.net/ApproveHorseStableTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveRiderStableTransfer">
+      <soap12:operation soapAction="http://emiratesequestrian.net/ApproveRiderStableTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveRiderStableTransferV2">
+      <soap12:operation soapAction="http://emiratesequestrian.net/ApproveRiderStableTransferV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RejectRiderStableTransferV2">
+      <soap12:operation soapAction="http://emiratesequestrian.net/RejectRiderStableTransferV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveTrainerStableTransfer">
+      <soap12:operation soapAction="http://emiratesequestrian.net/ApproveTrainerStableTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RejectTrainerStableTransfer">
+      <soap12:operation soapAction="http://emiratesequestrian.net/RejectTrainerStableTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RejectHorseStableTransfer">
+      <soap12:operation soapAction="http://emiratesequestrian.net/RejectHorseStableTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueEmail">
+      <soap12:operation soapAction="http://emiratesequestrian.net/QueEmail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueEmailTemplate">
+      <soap12:operation soapAction="http://emiratesequestrian.net/QueEmailTemplate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueEmailTemplateV2">
+      <soap12:operation soapAction="http://emiratesequestrian.net/QueEmailTemplateV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueSMS">
+      <soap12:operation soapAction="http://emiratesequestrian.net/QueSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsPrivateRiderRegisteredByUser">
+      <soap12:operation soapAction="http://emiratesequestrian.net/IsPrivateRiderRegisteredByUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsPrivateHorseRegisteredByUser">
+      <soap12:operation soapAction="http://emiratesequestrian.net/IsPrivateHorseRegisteredByUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsPrivateTrainerRegisteredByUser">
+      <soap12:operation soapAction="http://emiratesequestrian.net/IsPrivateTrainerRegisteredByUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUserAccountBlocked">
+      <soap12:operation soapAction="http://emiratesequestrian.net/IsUserAccountBlocked" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUserAccountHaveAccountsID">
+      <soap12:operation soapAction="http://emiratesequestrian.net/IsUserAccountHaveAccountsID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsRoyalStable">
+      <soap12:operation soapAction="http://emiratesequestrian.net/IsRoyalStable" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsTrainerRoyalStable">
+      <soap12:operation soapAction="http://emiratesequestrian.net/IsTrainerRoyalStable" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveOfficialStableTransfer">
+      <soap12:operation soapAction="http://emiratesequestrian.net/ApproveOfficialStableTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RejectOfficialStableTransfer">
+      <soap12:operation soapAction="http://emiratesequestrian.net/RejectOfficialStableTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsRiderUAEHosted">
+      <soap12:operation soapAction="http://emiratesequestrian.net/IsRiderUAEHosted" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSCommonOperations">
+    <wsdl:port name="WSCommonOperationsSoap" binding="tns:WSCommonOperationsSoap">
+      <soap:address location="http://wsdev.emiratesequestrian.ae/webservices/WSCommonOperations.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSCommonOperationsSoap12" binding="tns:WSCommonOperationsSoap12">
+      <soap12:address location="http://wsdev.emiratesequestrian.ae/webservices/WSCommonOperations.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,1873 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://emiratesequestrian.info/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://emiratesequestrian.info/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://emiratesequestrian.info/">
+      <s:element name="getJumpingDivisionLevelList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getJumpingDivisionLevelListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getJumpingDivisionLevelListResult" type="tns:ArrayOfJumpingDivisionLevel" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfJumpingDivisionLevel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="JumpingDivisionLevel" nillable="true" type="tns:JumpingDivisionLevel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="JumpingDivisionLevel">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getCategoryList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getCategoryListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getCategoryListResult" type="tns:ArrayOfCategory" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCategory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Category" nillable="true" type="tns:Category" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Category">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DivisionLevel" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getColourList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getColourListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getColourListResult" type="tns:ArrayOfColours" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfColours">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Colours" nillable="true" type="tns:Colours" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Colours">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getBreedList">
+        <s:complexType />
+      </s:element>
+      <s:element name="getBreedListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getBreedListResult" type="tns:ArrayOfBreed" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBreed">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Breed" nillable="true" type="tns:Breed" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Breed">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getBreederList">
+        <s:complexType />
+      </s:element>
+      <s:element name="getBreederListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getBreederListResult" type="tns:ArrayOfBreed" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAttachTypeList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAttachTypeListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAttachTypeListResult" type="tns:ArrayOfAttachmentType" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAttachmentType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AttachmentType" nillable="true" type="tns:AttachmentType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AttachmentType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getCityList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getCityListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getCityListResult" type="tns:ArrayOfCity" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="City" nillable="true" type="tns:City" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="City">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getCountryList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getCountryListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getCountryListResult" type="tns:ArrayOfCountry" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCountry">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Country" nillable="true" type="tns:Country" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Country">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShortName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getGCCCountryList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getGCCCountryListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getGCCCountryListResult" type="tns:ArrayOfCountry" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSeasonList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSeasonListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getSeasonListResult" type="tns:ArrayOfSeason" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSeason">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Season" nillable="true" type="tns:Season" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Season">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getDisciplineList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getDisciplineListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getDisciplineListResult" type="tns:ArrayOfDiscipline" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDiscipline">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Discipline" nillable="true" type="tns:Discipline" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Discipline">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getGenderList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getGenderListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getGenderListResult" type="tns:ArrayOfGender" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGender">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Gender" nillable="true" type="tns:Gender" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Gender">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getHorseGenderList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getHorseGenderListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getHorseGenderListResult" type="tns:ArrayOfHorseGender" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfHorseGender">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HorseGender" nillable="true" type="tns:HorseGender" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="HorseGender">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getENDPerformanceStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getENDPerformanceStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getENDPerformanceStatusResult" type="tns:ArrayOfEndurancePerformanceStatus" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEndurancePerformanceStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EndurancePerformanceStatus" nillable="true" type="tns:EndurancePerformanceStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EndurancePerformanceStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getEnduranceCategory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getEnduranceCategoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getEnduranceCategoryResult" type="tns:ArrayOfEnduranceCategory" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEnduranceCategory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EnduranceCategory" nillable="true" type="tns:EnduranceCategory" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EnduranceCategory">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getEndurancePerformanceType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getEndurancePerformanceTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getEndurancePerformanceTypeResult" type="tns:ArrayOfEndurancePerformanceType" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEndurancePerformanceType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EndurancePerformanceType" nillable="true" type="tns:EndurancePerformanceType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EndurancePerformanceType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getRegistrationSource">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="recordID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getRegistrationSourceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getRegistrationSourceResult" type="tns:ArrayOfRegistrationSouce" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRegistrationSouce">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RegistrationSouce" nillable="true" type="tns:RegistrationSouce" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RegistrationSouce">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getDocumentRegistrationType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="recordID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getDocumentRegistrationTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getDocumentRegistrationTypeResult" type="tns:ArrayOfDocumentRegistrationType" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDocumentRegistrationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentRegistrationType" nillable="true" type="tns:DocumentRegistrationType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentRegistrationType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getRegistrationType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="recordID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getRegistrationTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getRegistrationTypeResult" type="tns:ArrayOfRegistrationType" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRegistrationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RegistrationType" nillable="true" type="tns:RegistrationType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RegistrationType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getDocumentType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="recordID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getDocumentTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getDocumentTypeResult" type="tns:ArrayOfDocumentType" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDocumentType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentType" nillable="true" type="tns:DocumentType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getDocumentSubmissionTypeList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getDocumentSubmissionTypeListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getDocumentSubmissionTypeListResult" type="tns:ArrayOfDocumentSubmissionType" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDocumentSubmissionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentSubmissionType" nillable="true" type="tns:DocumentSubmissionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentSubmissionType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getSubmissionTypeList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSubmissionTypeListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getSubmissionTypeListResult" type="tns:ArrayOfSubmissionType" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSubmissionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SubmissionType" nillable="true" type="tns:SubmissionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SubmissionType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getRegistrationStatusList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getRegistrationStatusListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getRegistrationStatusListResult" type="tns:ArrayOfRegistrationStatus" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRegistrationStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RegistrationStatus" nillable="true" type="tns:RegistrationStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RegistrationStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getVisaCategoryList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getVisaCategoryListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getVisaCategoryListResult" type="tns:ArrayOfVisaCategory" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfVisaCategory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="VisaCategory" nillable="true" type="tns:VisaCategory" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VisaCategory">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CheckIfMobileNoAvailable">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RegTypeID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="PersonID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MobileNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckIfMobileNoAvailableResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckIfMobileNoAvailableResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckIfEmailAvailable">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RegTypeID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="PersonID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="eMailAdd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckIfEmailAvailableResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckIfEmailAvailableResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getPersonRequiredDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PersonTypeID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CategoryID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getPersonRequiredDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getPersonRequiredDocumentResult" type="tns:ArrayOfPersonRequiredDocuments" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPersonRequiredDocuments">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PersonRequiredDocuments" nillable="true" type="tns:PersonRequiredDocuments" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonRequiredDocuments">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PersonType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CategoryID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocumentID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Category" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentType" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getApplicationRequiredDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApplicationTypeID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getApplicationRequiredDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getApplicationRequiredDocumentResult" type="tns:ArrayOfApplicationRequiredDocuments" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfApplicationRequiredDocuments">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ApplicationRequiredDocuments" nillable="true" type="tns:ApplicationRequiredDocuments" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ApplicationRequiredDocuments">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ApplicationType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationTypeName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocumentID" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="isStableFromDEC">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isStableFromDECResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="isStableFromDECResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsTrainerRegisterforCurrentSeason_WS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TrainerID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SeasonCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsTrainerRegisterforCurrentSeason_WSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsTrainerRegisterforCurrentSeason_WSResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsRiderRegisterforCurrentSeason_WS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RiderID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SeasonCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsRiderRegisterforCurrentSeason_WSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsRiderRegisterforCurrentSeason_WSResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsHorseRegisterforCurrentSeason_WS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HorseID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SeasonCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsHorseRegisterforCurrentSeason_WSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsHorseRegisterforCurrentSeason_WSResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsHorseRegisterforCurrentSeasonFEI_WS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HorseID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SeasonCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsHorseRegisterforCurrentSeasonFEI_WSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsHorseRegisterforCurrentSeasonFEI_WSResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsRiderRegisterforCurrentSeasonFEI_WS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RiderID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SeasonCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsRiderRegisterforCurrentSeasonFEI_WSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsRiderRegisterforCurrentSeasonFEI_WSResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getEducationLevelList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getEducationLevelListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getEducationLevelListResult" type="tns:ArrayOfEducationLevel" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEducationLevel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EducationLevel" nillable="true" type="tns:EducationLevel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EducationLevel">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getUAENationalCategoryList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getUAENationalCategoryListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getUAENationalCategoryListResult" type="tns:ArrayOfUAENationalCategory" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUAENationalCategory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UAENationalCategory" nillable="true" type="tns:UAENationalCategory" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UAENationalCategory">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="getJumpingDivisionLevelListSoapIn">
+    <wsdl:part name="parameters" element="tns:getJumpingDivisionLevelList" />
+  </wsdl:message>
+  <wsdl:message name="getJumpingDivisionLevelListSoapOut">
+    <wsdl:part name="parameters" element="tns:getJumpingDivisionLevelListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCategoryListSoapIn">
+    <wsdl:part name="parameters" element="tns:getCategoryList" />
+  </wsdl:message>
+  <wsdl:message name="getCategoryListSoapOut">
+    <wsdl:part name="parameters" element="tns:getCategoryListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getColourListSoapIn">
+    <wsdl:part name="parameters" element="tns:getColourList" />
+  </wsdl:message>
+  <wsdl:message name="getColourListSoapOut">
+    <wsdl:part name="parameters" element="tns:getColourListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getBreedListSoapIn">
+    <wsdl:part name="parameters" element="tns:getBreedList" />
+  </wsdl:message>
+  <wsdl:message name="getBreedListSoapOut">
+    <wsdl:part name="parameters" element="tns:getBreedListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getBreederListSoapIn">
+    <wsdl:part name="parameters" element="tns:getBreederList" />
+  </wsdl:message>
+  <wsdl:message name="getBreederListSoapOut">
+    <wsdl:part name="parameters" element="tns:getBreederListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAttachTypeListSoapIn">
+    <wsdl:part name="parameters" element="tns:getAttachTypeList" />
+  </wsdl:message>
+  <wsdl:message name="getAttachTypeListSoapOut">
+    <wsdl:part name="parameters" element="tns:getAttachTypeListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCityListSoapIn">
+    <wsdl:part name="parameters" element="tns:getCityList" />
+  </wsdl:message>
+  <wsdl:message name="getCityListSoapOut">
+    <wsdl:part name="parameters" element="tns:getCityListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCountryListSoapIn">
+    <wsdl:part name="parameters" element="tns:getCountryList" />
+  </wsdl:message>
+  <wsdl:message name="getCountryListSoapOut">
+    <wsdl:part name="parameters" element="tns:getCountryListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getGCCCountryListSoapIn">
+    <wsdl:part name="parameters" element="tns:getGCCCountryList" />
+  </wsdl:message>
+  <wsdl:message name="getGCCCountryListSoapOut">
+    <wsdl:part name="parameters" element="tns:getGCCCountryListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSeasonListSoapIn">
+    <wsdl:part name="parameters" element="tns:getSeasonList" />
+  </wsdl:message>
+  <wsdl:message name="getSeasonListSoapOut">
+    <wsdl:part name="parameters" element="tns:getSeasonListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDisciplineListSoapIn">
+    <wsdl:part name="parameters" element="tns:getDisciplineList" />
+  </wsdl:message>
+  <wsdl:message name="getDisciplineListSoapOut">
+    <wsdl:part name="parameters" element="tns:getDisciplineListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getGenderListSoapIn">
+    <wsdl:part name="parameters" element="tns:getGenderList" />
+  </wsdl:message>
+  <wsdl:message name="getGenderListSoapOut">
+    <wsdl:part name="parameters" element="tns:getGenderListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getHorseGenderListSoapIn">
+    <wsdl:part name="parameters" element="tns:getHorseGenderList" />
+  </wsdl:message>
+  <wsdl:message name="getHorseGenderListSoapOut">
+    <wsdl:part name="parameters" element="tns:getHorseGenderListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getENDPerformanceStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:getENDPerformanceStatus" />
+  </wsdl:message>
+  <wsdl:message name="getENDPerformanceStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:getENDPerformanceStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="getEnduranceCategorySoapIn">
+    <wsdl:part name="parameters" element="tns:getEnduranceCategory" />
+  </wsdl:message>
+  <wsdl:message name="getEnduranceCategorySoapOut">
+    <wsdl:part name="parameters" element="tns:getEnduranceCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="getEndurancePerformanceTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:getEndurancePerformanceType" />
+  </wsdl:message>
+  <wsdl:message name="getEndurancePerformanceTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:getEndurancePerformanceTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getRegistrationSourceSoapIn">
+    <wsdl:part name="parameters" element="tns:getRegistrationSource" />
+  </wsdl:message>
+  <wsdl:message name="getRegistrationSourceSoapOut">
+    <wsdl:part name="parameters" element="tns:getRegistrationSourceResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentRegistrationTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:getDocumentRegistrationType" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentRegistrationTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:getDocumentRegistrationTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getRegistrationTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:getRegistrationType" />
+  </wsdl:message>
+  <wsdl:message name="getRegistrationTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:getRegistrationTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:getDocumentType" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:getDocumentTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentSubmissionTypeListSoapIn">
+    <wsdl:part name="parameters" element="tns:getDocumentSubmissionTypeList" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentSubmissionTypeListSoapOut">
+    <wsdl:part name="parameters" element="tns:getDocumentSubmissionTypeListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSubmissionTypeListSoapIn">
+    <wsdl:part name="parameters" element="tns:getSubmissionTypeList" />
+  </wsdl:message>
+  <wsdl:message name="getSubmissionTypeListSoapOut">
+    <wsdl:part name="parameters" element="tns:getSubmissionTypeListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getRegistrationStatusListSoapIn">
+    <wsdl:part name="parameters" element="tns:getRegistrationStatusList" />
+  </wsdl:message>
+  <wsdl:message name="getRegistrationStatusListSoapOut">
+    <wsdl:part name="parameters" element="tns:getRegistrationStatusListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getVisaCategoryListSoapIn">
+    <wsdl:part name="parameters" element="tns:getVisaCategoryList" />
+  </wsdl:message>
+  <wsdl:message name="getVisaCategoryListSoapOut">
+    <wsdl:part name="parameters" element="tns:getVisaCategoryListResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckIfMobileNoAvailableSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckIfMobileNoAvailable" />
+  </wsdl:message>
+  <wsdl:message name="CheckIfMobileNoAvailableSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckIfMobileNoAvailableResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckIfEmailAvailableSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckIfEmailAvailable" />
+  </wsdl:message>
+  <wsdl:message name="CheckIfEmailAvailableSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckIfEmailAvailableResponse" />
+  </wsdl:message>
+  <wsdl:message name="getPersonRequiredDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:getPersonRequiredDocument" />
+  </wsdl:message>
+  <wsdl:message name="getPersonRequiredDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:getPersonRequiredDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="getApplicationRequiredDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:getApplicationRequiredDocument" />
+  </wsdl:message>
+  <wsdl:message name="getApplicationRequiredDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:getApplicationRequiredDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="isStableFromDECSoapIn">
+    <wsdl:part name="parameters" element="tns:isStableFromDEC" />
+  </wsdl:message>
+  <wsdl:message name="isStableFromDECSoapOut">
+    <wsdl:part name="parameters" element="tns:isStableFromDECResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsTrainerRegisterforCurrentSeason_WSSoapIn">
+    <wsdl:part name="parameters" element="tns:IsTrainerRegisterforCurrentSeason_WS" />
+  </wsdl:message>
+  <wsdl:message name="IsTrainerRegisterforCurrentSeason_WSSoapOut">
+    <wsdl:part name="parameters" element="tns:IsTrainerRegisterforCurrentSeason_WSResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsRiderRegisterforCurrentSeason_WSSoapIn">
+    <wsdl:part name="parameters" element="tns:IsRiderRegisterforCurrentSeason_WS" />
+  </wsdl:message>
+  <wsdl:message name="IsRiderRegisterforCurrentSeason_WSSoapOut">
+    <wsdl:part name="parameters" element="tns:IsRiderRegisterforCurrentSeason_WSResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsHorseRegisterforCurrentSeason_WSSoapIn">
+    <wsdl:part name="parameters" element="tns:IsHorseRegisterforCurrentSeason_WS" />
+  </wsdl:message>
+  <wsdl:message name="IsHorseRegisterforCurrentSeason_WSSoapOut">
+    <wsdl:part name="parameters" element="tns:IsHorseRegisterforCurrentSeason_WSResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsHorseRegisterforCurrentSeasonFEI_WSSoapIn">
+    <wsdl:part name="parameters" element="tns:IsHorseRegisterforCurrentSeasonFEI_WS" />
+  </wsdl:message>
+  <wsdl:message name="IsHorseRegisterforCurrentSeasonFEI_WSSoapOut">
+    <wsdl:part name="parameters" element="tns:IsHorseRegisterforCurrentSeasonFEI_WSResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsRiderRegisterforCurrentSeasonFEI_WSSoapIn">
+    <wsdl:part name="parameters" element="tns:IsRiderRegisterforCurrentSeasonFEI_WS" />
+  </wsdl:message>
+  <wsdl:message name="IsRiderRegisterforCurrentSeasonFEI_WSSoapOut">
+    <wsdl:part name="parameters" element="tns:IsRiderRegisterforCurrentSeasonFEI_WSResponse" />
+  </wsdl:message>
+  <wsdl:message name="getEducationLevelListSoapIn">
+    <wsdl:part name="parameters" element="tns:getEducationLevelList" />
+  </wsdl:message>
+  <wsdl:message name="getEducationLevelListSoapOut">
+    <wsdl:part name="parameters" element="tns:getEducationLevelListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getUAENationalCategoryListSoapIn">
+    <wsdl:part name="parameters" element="tns:getUAENationalCategoryList" />
+  </wsdl:message>
+  <wsdl:message name="getUAENationalCategoryListSoapOut">
+    <wsdl:part name="parameters" element="tns:getUAENationalCategoryListResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CommonsSoap">
+    <wsdl:operation name="getJumpingDivisionLevelList">
+      <wsdl:input message="tns:getJumpingDivisionLevelListSoapIn" />
+      <wsdl:output message="tns:getJumpingDivisionLevelListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getCategoryList">
+      <wsdl:input message="tns:getCategoryListSoapIn" />
+      <wsdl:output message="tns:getCategoryListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getColourList">
+      <wsdl:input message="tns:getColourListSoapIn" />
+      <wsdl:output message="tns:getColourListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getBreedList">
+      <wsdl:input message="tns:getBreedListSoapIn" />
+      <wsdl:output message="tns:getBreedListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getBreederList">
+      <wsdl:input message="tns:getBreederListSoapIn" />
+      <wsdl:output message="tns:getBreederListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAttachTypeList">
+      <wsdl:input message="tns:getAttachTypeListSoapIn" />
+      <wsdl:output message="tns:getAttachTypeListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getCityList">
+      <wsdl:input message="tns:getCityListSoapIn" />
+      <wsdl:output message="tns:getCityListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getCountryList">
+      <wsdl:input message="tns:getCountryListSoapIn" />
+      <wsdl:output message="tns:getCountryListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getGCCCountryList">
+      <wsdl:input message="tns:getGCCCountryListSoapIn" />
+      <wsdl:output message="tns:getGCCCountryListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getSeasonList">
+      <wsdl:input message="tns:getSeasonListSoapIn" />
+      <wsdl:output message="tns:getSeasonListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDisciplineList">
+      <wsdl:input message="tns:getDisciplineListSoapIn" />
+      <wsdl:output message="tns:getDisciplineListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getGenderList">
+      <wsdl:input message="tns:getGenderListSoapIn" />
+      <wsdl:output message="tns:getGenderListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getHorseGenderList">
+      <wsdl:input message="tns:getHorseGenderListSoapIn" />
+      <wsdl:output message="tns:getHorseGenderListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getENDPerformanceStatus">
+      <wsdl:input message="tns:getENDPerformanceStatusSoapIn" />
+      <wsdl:output message="tns:getENDPerformanceStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getEnduranceCategory">
+      <wsdl:input message="tns:getEnduranceCategorySoapIn" />
+      <wsdl:output message="tns:getEnduranceCategorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getEndurancePerformanceType">
+      <wsdl:input message="tns:getEndurancePerformanceTypeSoapIn" />
+      <wsdl:output message="tns:getEndurancePerformanceTypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getRegistrationSource">
+      <wsdl:input message="tns:getRegistrationSourceSoapIn" />
+      <wsdl:output message="tns:getRegistrationSourceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentRegistrationType">
+      <wsdl:input message="tns:getDocumentRegistrationTypeSoapIn" />
+      <wsdl:output message="tns:getDocumentRegistrationTypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getRegistrationType">
+      <wsdl:input message="tns:getRegistrationTypeSoapIn" />
+      <wsdl:output message="tns:getRegistrationTypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentType">
+      <wsdl:input message="tns:getDocumentTypeSoapIn" />
+      <wsdl:output message="tns:getDocumentTypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentSubmissionTypeList">
+      <wsdl:input message="tns:getDocumentSubmissionTypeListSoapIn" />
+      <wsdl:output message="tns:getDocumentSubmissionTypeListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getSubmissionTypeList">
+      <wsdl:input message="tns:getSubmissionTypeListSoapIn" />
+      <wsdl:output message="tns:getSubmissionTypeListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getRegistrationStatusList">
+      <wsdl:input message="tns:getRegistrationStatusListSoapIn" />
+      <wsdl:output message="tns:getRegistrationStatusListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getVisaCategoryList">
+      <wsdl:input message="tns:getVisaCategoryListSoapIn" />
+      <wsdl:output message="tns:getVisaCategoryListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfMobileNoAvailable">
+      <wsdl:input message="tns:CheckIfMobileNoAvailableSoapIn" />
+      <wsdl:output message="tns:CheckIfMobileNoAvailableSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfEmailAvailable">
+      <wsdl:input message="tns:CheckIfEmailAvailableSoapIn" />
+      <wsdl:output message="tns:CheckIfEmailAvailableSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPersonRequiredDocument">
+      <wsdl:input message="tns:getPersonRequiredDocumentSoapIn" />
+      <wsdl:output message="tns:getPersonRequiredDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getApplicationRequiredDocument">
+      <wsdl:input message="tns:getApplicationRequiredDocumentSoapIn" />
+      <wsdl:output message="tns:getApplicationRequiredDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="isStableFromDEC">
+      <wsdl:input message="tns:isStableFromDECSoapIn" />
+      <wsdl:output message="tns:isStableFromDECSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsTrainerRegisterforCurrentSeason_WS">
+      <wsdl:input message="tns:IsTrainerRegisterforCurrentSeason_WSSoapIn" />
+      <wsdl:output message="tns:IsTrainerRegisterforCurrentSeason_WSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsRiderRegisterforCurrentSeason_WS">
+      <wsdl:input message="tns:IsRiderRegisterforCurrentSeason_WSSoapIn" />
+      <wsdl:output message="tns:IsRiderRegisterforCurrentSeason_WSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsHorseRegisterforCurrentSeason_WS">
+      <wsdl:input message="tns:IsHorseRegisterforCurrentSeason_WSSoapIn" />
+      <wsdl:output message="tns:IsHorseRegisterforCurrentSeason_WSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsHorseRegisterforCurrentSeasonFEI_WS">
+      <wsdl:input message="tns:IsHorseRegisterforCurrentSeasonFEI_WSSoapIn" />
+      <wsdl:output message="tns:IsHorseRegisterforCurrentSeasonFEI_WSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsRiderRegisterforCurrentSeasonFEI_WS">
+      <wsdl:input message="tns:IsRiderRegisterforCurrentSeasonFEI_WSSoapIn" />
+      <wsdl:output message="tns:IsRiderRegisterforCurrentSeasonFEI_WSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getEducationLevelList">
+      <wsdl:input message="tns:getEducationLevelListSoapIn" />
+      <wsdl:output message="tns:getEducationLevelListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getUAENationalCategoryList">
+      <wsdl:input message="tns:getUAENationalCategoryListSoapIn" />
+      <wsdl:output message="tns:getUAENationalCategoryListSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CommonsSoap" type="tns:CommonsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getJumpingDivisionLevelList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getJumpingDivisionLevelList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCategoryList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getCategoryList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getColourList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getColourList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBreedList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getBreedList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBreederList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getBreederList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAttachTypeList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getAttachTypeList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCityList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getCityList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountryList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getCountryList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGCCCountryList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getGCCCountryList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSeasonList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getSeasonList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDisciplineList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getDisciplineList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGenderList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getGenderList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getHorseGenderList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getHorseGenderList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getENDPerformanceStatus">
+      <soap:operation soapAction="http://emiratesequestrian.info/getENDPerformanceStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEnduranceCategory">
+      <soap:operation soapAction="http://emiratesequestrian.info/getEnduranceCategory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEndurancePerformanceType">
+      <soap:operation soapAction="http://emiratesequestrian.info/getEndurancePerformanceType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRegistrationSource">
+      <soap:operation soapAction="http://emiratesequestrian.info/getRegistrationSource" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentRegistrationType">
+      <soap:operation soapAction="http://emiratesequestrian.info/getDocumentRegistrationType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRegistrationType">
+      <soap:operation soapAction="http://emiratesequestrian.info/getRegistrationType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentType">
+      <soap:operation soapAction="http://emiratesequestrian.info/getDocumentType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentSubmissionTypeList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getDocumentSubmissionTypeList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSubmissionTypeList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getSubmissionTypeList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRegistrationStatusList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getRegistrationStatusList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getVisaCategoryList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getVisaCategoryList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfMobileNoAvailable">
+      <soap:operation soapAction="http://emiratesequestrian.info/CheckIfMobileNoAvailable" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfEmailAvailable">
+      <soap:operation soapAction="http://emiratesequestrian.info/CheckIfEmailAvailable" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonRequiredDocument">
+      <soap:operation soapAction="http://emiratesequestrian.info/getPersonRequiredDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getApplicationRequiredDocument">
+      <soap:operation soapAction="http://emiratesequestrian.info/getApplicationRequiredDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isStableFromDEC">
+      <soap:operation soapAction="http://emiratesequestrian.info/isStableFromDEC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsTrainerRegisterforCurrentSeason_WS">
+      <soap:operation soapAction="http://emiratesequestrian.info/IsTrainerRegisterforCurrentSeason_WS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsRiderRegisterforCurrentSeason_WS">
+      <soap:operation soapAction="http://emiratesequestrian.info/IsRiderRegisterforCurrentSeason_WS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsHorseRegisterforCurrentSeason_WS">
+      <soap:operation soapAction="http://emiratesequestrian.info/IsHorseRegisterforCurrentSeason_WS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsHorseRegisterforCurrentSeasonFEI_WS">
+      <soap:operation soapAction="http://emiratesequestrian.info/IsHorseRegisterforCurrentSeasonFEI_WS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsRiderRegisterforCurrentSeasonFEI_WS">
+      <soap:operation soapAction="http://emiratesequestrian.info/IsRiderRegisterforCurrentSeasonFEI_WS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEducationLevelList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getEducationLevelList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUAENationalCategoryList">
+      <soap:operation soapAction="http://emiratesequestrian.info/getUAENationalCategoryList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CommonsSoap12" type="tns:CommonsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getJumpingDivisionLevelList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getJumpingDivisionLevelList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCategoryList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getCategoryList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getColourList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getColourList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBreedList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getBreedList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBreederList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getBreederList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAttachTypeList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getAttachTypeList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCityList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getCityList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountryList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getCountryList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGCCCountryList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getGCCCountryList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSeasonList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getSeasonList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDisciplineList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getDisciplineList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGenderList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getGenderList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getHorseGenderList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getHorseGenderList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getENDPerformanceStatus">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getENDPerformanceStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEnduranceCategory">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getEnduranceCategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEndurancePerformanceType">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getEndurancePerformanceType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRegistrationSource">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getRegistrationSource" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentRegistrationType">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getDocumentRegistrationType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRegistrationType">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getRegistrationType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentType">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getDocumentType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentSubmissionTypeList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getDocumentSubmissionTypeList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSubmissionTypeList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getSubmissionTypeList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRegistrationStatusList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getRegistrationStatusList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getVisaCategoryList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getVisaCategoryList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfMobileNoAvailable">
+      <soap12:operation soapAction="http://emiratesequestrian.info/CheckIfMobileNoAvailable" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfEmailAvailable">
+      <soap12:operation soapAction="http://emiratesequestrian.info/CheckIfEmailAvailable" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonRequiredDocument">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getPersonRequiredDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getApplicationRequiredDocument">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getApplicationRequiredDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isStableFromDEC">
+      <soap12:operation soapAction="http://emiratesequestrian.info/isStableFromDEC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsTrainerRegisterforCurrentSeason_WS">
+      <soap12:operation soapAction="http://emiratesequestrian.info/IsTrainerRegisterforCurrentSeason_WS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsRiderRegisterforCurrentSeason_WS">
+      <soap12:operation soapAction="http://emiratesequestrian.info/IsRiderRegisterforCurrentSeason_WS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsHorseRegisterforCurrentSeason_WS">
+      <soap12:operation soapAction="http://emiratesequestrian.info/IsHorseRegisterforCurrentSeason_WS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsHorseRegisterforCurrentSeasonFEI_WS">
+      <soap12:operation soapAction="http://emiratesequestrian.info/IsHorseRegisterforCurrentSeasonFEI_WS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsRiderRegisterforCurrentSeasonFEI_WS">
+      <soap12:operation soapAction="http://emiratesequestrian.info/IsRiderRegisterforCurrentSeasonFEI_WS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEducationLevelList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getEducationLevelList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUAENationalCategoryList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/getUAENationalCategoryList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Commons">
+    <wsdl:port name="CommonsSoap" binding="tns:CommonsSoap">
+      <soap:address location="http://wsdev.emiratesequestrian.ae/webservices/WSCommons.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CommonsSoap12" binding="tns:CommonsSoap12">
+      <soap12:address location="http://wsdev.emiratesequestrian.ae/webservices/WSCommons.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

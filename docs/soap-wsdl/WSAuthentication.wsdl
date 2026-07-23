@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://emiratesequestrian.info/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://emiratesequestrian.info/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://emiratesequestrian.info/">
+      <s:element name="Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginResult" type="tns:LoginResult" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="LoginResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EEFCookiecontainer" type="tns:CookieContainer" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CookieContainer">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Capacity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxCookieSize" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PerDomainCapacity" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LoginBackOffice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="uPass" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginBackOfficeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LoginBackOfficeResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserStableIDbyDiscipline">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="stableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DisciplineID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserStableIDbyDisciplineResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserStableIDbyDisciplineResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginBackOfficeSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginBackOffice" />
+  </wsdl:message>
+  <wsdl:message name="LoginBackOfficeSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginBackOfficeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserStableIDbyDisciplineSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserStableIDbyDiscipline" />
+  </wsdl:message>
+  <wsdl:message name="GetUserStableIDbyDisciplineSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserStableIDbyDisciplineResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSAuthenticationSoap">
+    <wsdl:operation name="Login">
+      <wsdl:input message="tns:LoginSoapIn" />
+      <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginBackOffice">
+      <wsdl:input message="tns:LoginBackOfficeSoapIn" />
+      <wsdl:output message="tns:LoginBackOfficeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserStableIDbyDiscipline">
+      <wsdl:input message="tns:GetUserStableIDbyDisciplineSoapIn" />
+      <wsdl:output message="tns:GetUserStableIDbyDisciplineSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSAuthenticationSoap" type="tns:WSAuthenticationSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://emiratesequestrian.info/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginBackOffice">
+      <soap:operation soapAction="http://emiratesequestrian.info/LoginBackOffice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserStableIDbyDiscipline">
+      <soap:operation soapAction="http://emiratesequestrian.info/GetUserStableIDbyDiscipline" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSAuthenticationSoap12" type="tns:WSAuthenticationSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="http://emiratesequestrian.info/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginBackOffice">
+      <soap12:operation soapAction="http://emiratesequestrian.info/LoginBackOffice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserStableIDbyDiscipline">
+      <soap12:operation soapAction="http://emiratesequestrian.info/GetUserStableIDbyDiscipline" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSAuthentication">
+    <wsdl:port name="WSAuthenticationSoap" binding="tns:WSAuthenticationSoap">
+      <soap:address location="http://wsdev.emiratesequestrian.ae/webservices/WSAuthentication.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSAuthenticationSoap12" binding="tns:WSAuthenticationSoap12">
+      <soap12:address location="http://wsdev.emiratesequestrian.ae/webservices/WSAuthentication.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
