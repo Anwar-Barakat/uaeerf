@@ -74,22 +74,28 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
         <>
             <Head title="Show Jumping Entry" />
 
-            <div className="container mx-auto max-w-2xl py-8 px-4">
-                <div className="mb-6">
-                    <h1 className="text-3xl font-bold tracking-tight">Show Jumping Entry</h1>
-                    <p className="text-muted-foreground mt-2">
-                        Register for a show jumping competition
-                    </p>
-                </div>
+            <div className="page-container py-8">
+                <div className="max-w-3xl mx-auto space-y-8">
+                    <div className="page-header">
+                        <h1 className="page-title">Show Jumping Entry</h1>
+                        <p className="page-description">
+                            Register for show jumping competitions. Enter your details and validate eligibility before proceeding to payment.
+                        </p>
+                    </div>
 
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Competition Entry</CardTitle>
-                        <CardDescription>
-                            Enter your details and validate eligibility before payment
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
+                    <Card className="card-enhanced">
+                        <CardHeader className="border-b">
+                            <div className="flex items-start justify-between">
+                                <div>
+                                    <CardTitle className="text-2xl">Competition Entry</CardTitle>
+                                    <CardDescription className="mt-2">
+                                        Complete the form and verify eligibility
+                                    </CardDescription>
+                                </div>
+                                <span className="badge-warning">Step 1 of 2</span>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="pt-6">
                         <form onSubmit={submit} className="space-y-6">
                             <div className="space-y-2">
                                 <Label htmlFor="rider_id">Select Rider *</Label>
@@ -226,19 +232,30 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
                                 </Alert>
                             )}
 
-                            <div className="rounded-lg bg-muted p-4">
-                                <div className="flex items-center justify-between">
+                            <div className="divider" />
+
+                            <div className="rounded-xl border-2 border-accent/20 bg-gradient-to-br from-accent/5 to-accent/10 p-6">
+                                <div className="flex items-center justify-between mb-4">
                                     <div>
-                                        <p className="font-medium">Entry Fee</p>
-                                        <p className="text-sm text-muted-foreground">Secure payment via PayTabs</p>
+                                        <p className="text-sm font-medium text-muted-foreground uppercase tracking-wide">Entry Fee</p>
+                                        <p className="text-xs text-muted-foreground mt-1">Secure payment via PayTabs</p>
                                     </div>
-                                    <p className="text-2xl font-bold">AED 150</p>
+                                    <div className="text-right">
+                                        <p className="text-4xl font-bold text-accent">150</p>
+                                        <p className="text-sm text-muted-foreground">AED</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                    </svg>
+                                    <span>Encrypted and secure payment</span>
                                 </div>
                             </div>
 
                             <Button
                                 type="submit"
-                                className="w-full"
+                                className="w-full h-12 btn-primary text-base"
                                 disabled={
                                     processing ||
                                     !userRiders?.length ||
@@ -246,7 +263,19 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
                                     (eligibility !== null && !eligibility.eligible)
                                 }
                             >
-                                {processing ? 'Processing...' : 'Proceed to Secure Payment →'}
+                                {processing ? (
+                                    <>
+                                        <span className="loading-spinner h-4 w-4 mr-2" />
+                                        Processing...
+                                    </>
+                                ) : (
+                                    <>
+                                        Proceed to Secure Payment
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </>
+                                )}
                             </Button>
                         </form>
                     </CardContent>
