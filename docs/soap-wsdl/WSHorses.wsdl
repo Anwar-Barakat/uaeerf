@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://emiratesequestrian.net/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://emiratesequestrian.net/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://emiratesequestrian.net/">
+      <s:element name="SearchHorseList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchFEIID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchEEFID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchOwner" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchTrainer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchStable" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchNFPassport" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchMicrochip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchHorseListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchHorseListResult" type="tns:ArrayOfHorses" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfHorses">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Horses" nillable="true" type="tns:Horses" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Horses">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UELNNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastestUpdate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserAdminID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsRegisteredInCurrentSeason" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsSameUserStable" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsFirstTimeRegistration" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsAtRest" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsFEIAtRest" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="RestUntil" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEIRestUntil" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HorseID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OwnerSince" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegisteredSeason" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DIVISION" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MicrochipNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NFPassportNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEIPassport" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Stable" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Owner" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Trainer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Colour" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DOB" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country_Origin_short" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country_Origin" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NFNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HorseName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Breed" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="breedID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="genderID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ColourID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TrainerID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OwnerID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CountryOfOriginID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Active" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Temporary" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Annex7" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Blocked" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEIRegistration" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchHorseListV2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchFEIID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchEEFID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchOwner" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchTrainer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchStable" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchNFPassport" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchMicrochip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchHorseListV2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchHorseListV2Result" type="tns:ArrayOfHorses" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchHorseListV3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AdminUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchFEIID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchEEFID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchOwner" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchTrainer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchStable" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchNFPassport" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchMicrochip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchDiscipline" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchDisciplineID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchHorseListV3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchHorseListV3Result" type="tns:ArrayOfHorses" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchHorseListV4">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HorseID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdminUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchFEIID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchEEFID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchOwner" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchTrainer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchStable" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchNFPassport" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchMicrochip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchDiscipline" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchDisciplineID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchHorseListV4Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchHorseListV4Result" type="tns:ArrayOfHorses" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckIfHorseIsAtRest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HorseID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="RestCheckingdate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="RestTill" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckIfHorseIsAtRestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckIfHorseIsAtRestResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="RestTill" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchHorseListV5">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HorseID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdminUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchFEIID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchEEFID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchOwner" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchTrainer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchStable" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchNFPassport" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchMicrochip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchDiscipline" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchDisciplineID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchActive" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchHorseListV5Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchHorseListV5Result" type="tns:ArrayOfHorses" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchHorseListV5Jason">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HorseID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdminUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchFEIID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchEEFID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchOwner" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchTrainer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchStable" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchNFPassport" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchMicrochip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchDiscipline" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchDisciplineID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchActive" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchHorseListV5JasonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchHorseListV5JasonResult" type="tns:ArrayOfHorses" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SearchHorseListSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchHorseList" />
+  </wsdl:message>
+  <wsdl:message name="SearchHorseListSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchHorseListResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchHorseListV2SoapIn">
+    <wsdl:part name="parameters" element="tns:SearchHorseListV2" />
+  </wsdl:message>
+  <wsdl:message name="SearchHorseListV2SoapOut">
+    <wsdl:part name="parameters" element="tns:SearchHorseListV2Response" />
+  </wsdl:message>
+  <wsdl:message name="SearchHorseListV3SoapIn">
+    <wsdl:part name="parameters" element="tns:SearchHorseListV3" />
+  </wsdl:message>
+  <wsdl:message name="SearchHorseListV3SoapOut">
+    <wsdl:part name="parameters" element="tns:SearchHorseListV3Response" />
+  </wsdl:message>
+  <wsdl:message name="SearchHorseListV4SoapIn">
+    <wsdl:part name="parameters" element="tns:SearchHorseListV4" />
+  </wsdl:message>
+  <wsdl:message name="SearchHorseListV4SoapOut">
+    <wsdl:part name="parameters" element="tns:SearchHorseListV4Response" />
+  </wsdl:message>
+  <wsdl:message name="CheckIfHorseIsAtRestSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckIfHorseIsAtRest" />
+  </wsdl:message>
+  <wsdl:message name="CheckIfHorseIsAtRestSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckIfHorseIsAtRestResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchHorseListV5SoapIn">
+    <wsdl:part name="parameters" element="tns:SearchHorseListV5" />
+  </wsdl:message>
+  <wsdl:message name="SearchHorseListV5SoapOut">
+    <wsdl:part name="parameters" element="tns:SearchHorseListV5Response" />
+  </wsdl:message>
+  <wsdl:message name="SearchHorseListV5JasonSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchHorseListV5Jason" />
+  </wsdl:message>
+  <wsdl:message name="SearchHorseListV5JasonSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchHorseListV5JasonResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSHorsesSoap">
+    <wsdl:operation name="SearchHorseList">
+      <wsdl:input message="tns:SearchHorseListSoapIn" />
+      <wsdl:output message="tns:SearchHorseListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV2">
+      <wsdl:input message="tns:SearchHorseListV2SoapIn" />
+      <wsdl:output message="tns:SearchHorseListV2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV3">
+      <wsdl:input message="tns:SearchHorseListV3SoapIn" />
+      <wsdl:output message="tns:SearchHorseListV3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV4">
+      <wsdl:input message="tns:SearchHorseListV4SoapIn" />
+      <wsdl:output message="tns:SearchHorseListV4SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfHorseIsAtRest">
+      <wsdl:input message="tns:CheckIfHorseIsAtRestSoapIn" />
+      <wsdl:output message="tns:CheckIfHorseIsAtRestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV5">
+      <wsdl:input message="tns:SearchHorseListV5SoapIn" />
+      <wsdl:output message="tns:SearchHorseListV5SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV5Jason">
+      <wsdl:input message="tns:SearchHorseListV5JasonSoapIn" />
+      <wsdl:output message="tns:SearchHorseListV5JasonSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSHorsesSoap" type="tns:WSHorsesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SearchHorseList">
+      <soap:operation soapAction="http://emiratesequestrian.net/SearchHorseList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV2">
+      <soap:operation soapAction="http://emiratesequestrian.net/SearchHorseListV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV3">
+      <soap:operation soapAction="http://emiratesequestrian.net/SearchHorseListV3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV4">
+      <soap:operation soapAction="http://emiratesequestrian.net/SearchHorseListV4" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfHorseIsAtRest">
+      <soap:operation soapAction="http://emiratesequestrian.net/CheckIfHorseIsAtRest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV5">
+      <soap:operation soapAction="http://emiratesequestrian.net/SearchHorseListV5" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV5Jason">
+      <soap:operation soapAction="http://emiratesequestrian.net/SearchHorseListV5Jason" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSHorsesSoap12" type="tns:WSHorsesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SearchHorseList">
+      <soap12:operation soapAction="http://emiratesequestrian.net/SearchHorseList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV2">
+      <soap12:operation soapAction="http://emiratesequestrian.net/SearchHorseListV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV3">
+      <soap12:operation soapAction="http://emiratesequestrian.net/SearchHorseListV3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV4">
+      <soap12:operation soapAction="http://emiratesequestrian.net/SearchHorseListV4" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfHorseIsAtRest">
+      <soap12:operation soapAction="http://emiratesequestrian.net/CheckIfHorseIsAtRest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV5">
+      <soap12:operation soapAction="http://emiratesequestrian.net/SearchHorseListV5" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchHorseListV5Jason">
+      <soap12:operation soapAction="http://emiratesequestrian.net/SearchHorseListV5Jason" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSHorses">
+    <wsdl:port name="WSHorsesSoap" binding="tns:WSHorsesSoap">
+      <soap:address location="http://wsdev.emiratesequestrian.ae/webservices/WSHorses.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSHorsesSoap12" binding="tns:WSHorsesSoap12">
+      <soap12:address location="http://wsdev.emiratesequestrian.ae/webservices/WSHorses.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,1292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ws.uaeerf.ae/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://ws.uaeerf.ae/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ws.uaeerf.ae/">
+      <s:element name="Get_DEC_UserList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Get_DEC_UserListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_DEC_UserListResult" type="tns:ArrayOfWebUsers" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWebUsers">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WebUsers" nillable="true" type="tns:WebUsers" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="WebUsers">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MobileNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Stable_ID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Get_HorseOwner">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_HorseOwnerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_HorseOwnerResult" type="tns:ArrayOfHorseOwner" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfHorseOwner">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HorseOwner" nillable="true" type="tns:HorseOwner" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="HorseOwner">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FULL_NAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NATIONALITY" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="STABLE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEI_REGISTRATION" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TELEPHONE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MOBILE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EMAIL" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Get_HorseTrainer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_HorseTrainerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_HorseTrainerResult" type="tns:ArrayOfHorseTrainer" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfHorseTrainer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HorseTrainer" nillable="true" type="tns:HorseTrainer" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="HorseTrainer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FULL_NAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NATIONALITY" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="STABLE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEI_REGISTRATION" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TELEPHONE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MOBILE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EMAIL" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Submit_HorseNewRegistration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Horse" type="tns:HorseRegEntries" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="HorseRegEntries">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PayType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="breederID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FormId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RefNum" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Contact" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Owner1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Owner2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OwnerId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrentName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OriginalName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DivisionLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Breed" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BreedId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Breeder" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountryofBirth" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CountryOfBirthId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountryofResidence" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CountryOfResidenceId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DOB" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="GenderId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Colour" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ColourId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrentDoc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IDDocNoc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NoOfDoc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MicrochipNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UAELNNO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sire" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SireRegNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dam" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DamRegNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SireOfDam" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SireOfDamRegNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Division" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DivisionId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Trainer1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Trainer1Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Trainer2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Club" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StableId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OtherClub" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEIPassportFile" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEIPassport" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FEIPassportIssueDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FEIExpiryDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEIRegistration" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FEIRegistrationDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastInfluenzaDesc" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastInfluenzaDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Remarks" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastUpdate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="NFRegistrationNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NFRegistrationDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistrationType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Datesubmit" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="isCompleted" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="isFetched" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RegisterSeason" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RegisterFEI" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SeasonCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Browser" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocumentCheck" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SourceID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistrationCategory" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Submit_HorseNewRegistrationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Submit_HorseNewRegistrationResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Submit_HorseRenewal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Horse" type="tns:HorseRenewal" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="HorseRenewal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PayType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FormID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="HorseID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DivisionID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Complevel" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DateSubmit" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ApprovalDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApprovedBy" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="isFetched" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RegisterSeason" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RegisterFEI" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Remarks" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SeasonCode" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocumentCheck" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SourceID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Submit_HorseRenewalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Submit_HorseRenewalResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_HorseNewRegistration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReferenceID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_HorseNewRegistrationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_HorseNewRegistrationResult" type="tns:ArrayOfHorseRegEntries" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfHorseRegEntries">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HorseRegEntries" nillable="true" type="tns:HorseRegEntries" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Get_HorseRenewal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReferenceID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_HorseRenewalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_HorseRenewalResult" type="tns:ArrayOfHorseRenewal" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfHorseRenewal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HorseRenewal" nillable="true" type="tns:HorseRenewal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getDECStableList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getDECStableListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getDECStableListResult" type="tns:ArrayOfStables" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfStables">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Stables" nillable="true" type="tns:Stables" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Stables">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="LastestUpdate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Stable_ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Remarks" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Owner" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Discipline" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Category" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MainOrg" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Submit_Document">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PictureByte" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="DocumentRegTypeID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="formId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="userid" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileDescription" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DocumentTypeID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mimeType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DocumentExpiry" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="DocumentIssue" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="DocumentSubmissionType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReferenceNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IDNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Submit_DocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Submit_DocumentResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getDocumentList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DocumentRegTypeID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DocumentSubmissionType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReferenceNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="formid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IDNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getDocumentListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getDocumentListResult" type="tns:ArrayOfDocuments" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDocuments">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Documents" nillable="true" type="tns:Documents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Documents">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="regtype" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="formId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="uid" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RefID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="filename" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="filecontent" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="IssueDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="expiry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="mimetype" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dateuploaded" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApprovedBy" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ApprovalDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceNumber" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateApplicationStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReferenceNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="SubmissionTypeID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RegTypeID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="stat" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateApplicationStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateApplicationStatusResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Submit_PersonNewRegistration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PersonType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="person" type="tns:PersonRegEntries" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PersonRegEntries">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PayType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FormId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RefNum" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RefKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FatherName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nationality" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NationalityID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dob" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sex" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SexID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BloodGroup" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PoBox" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CityID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountryID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Telephone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Club" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OtherClub" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Kin" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AppRelationship" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactTel" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FEIActive" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEIRegistration" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FEIRegistrationDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="LicenseNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LicenseNumberDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Division" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DivisionId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="HomeAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HomeCity" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HomeCityId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="HomeCountry" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HomeCountryId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="HomePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HomeFax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HomeMobile" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Justification" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Remarks" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Category" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="JumpingDivisionLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistrationType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BBMPIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IPHONEPIN" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DateSubmit" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="StatusId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsCompleted" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsFetched" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RegisterSeason" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RegisterFEI" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="isRegisterLongines" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SeasonCode" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocumentCheck" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Weight" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Browser" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SourceID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="VisaCategory" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="UAENationalCategory" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Education" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Submit_PersonNewRegistrationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Submit_PersonNewRegistrationResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Submit_PersonRenewal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PersonType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Person" type="tns:PersonRenewal" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PersonRenewal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PayType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Weight" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MobileNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="JumpingDivisionLevel" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FormID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PersonID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DivisionID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Complevel" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DateSubmit" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ApprovalDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApprovedBy" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="isFetched" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RegisterSeason" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RegisterFEI" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RegisterLongines" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Remarks" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SeasonCode" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocumentCheck" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SourceID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="VisaCategory" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="UAENationalCategory" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Education" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Submit_PersonRenewalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Submit_PersonRenewalResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_PersonRenewal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PersonType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReferenceID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_PersonRenewalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_PersonRenewalResult" type="tns:ArrayOfPersonRenewal" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPersonRenewal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PersonRenewal" nillable="true" type="tns:PersonRenewal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Get_PersonNewRegistration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PersonType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReferenceID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_PersonNewRegistrationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_PersonNewRegistrationResult" type="tns:ArrayOfPersonRegEntries" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPersonRegEntries">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PersonRegEntries" nillable="true" type="tns:PersonRegEntries" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Get_FEIAdditionalRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Category" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReferenceID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_FEIAdditionalRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_FEIAdditionalRequestResult" type="tns:ArrayOfFEIAdditionalFEI" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfFEIAdditionalFEI">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FEIAdditionalFEI" nillable="true" type="tns:FEIAdditionalFEI" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FEIAdditionalFEI">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FormID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Category" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Division" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DateSubmit" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ApprovalDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApprovedBy" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="isFetched" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Remarks" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SourceID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Season" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Submit_FEIAdditional">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEIRequest" type="tns:FEIAdditionalFEI" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Submit_FEIAdditionalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Submit_FEIAdditionalResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Submit_FEIAdditionalV2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEIRequest" type="tns:FEIAdditionalFEI" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="retFormID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Submit_FEIAdditionalV2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Submit_FEIAdditionalV2Result" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="retFormID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArchiveProfile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RegistrationCategory" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArchiveProfileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ArchiveProfileResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArchiveProfileWithRemarks">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RegistrationCategory" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="aRemarks" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aReasonID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aOtherReason" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArchiveProfileWithRemarksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ArchiveProfileWithRemarksResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="Get_DEC_UserListSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_DEC_UserList" />
+  </wsdl:message>
+  <wsdl:message name="Get_DEC_UserListSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_DEC_UserListResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_HorseOwnerSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_HorseOwner" />
+  </wsdl:message>
+  <wsdl:message name="Get_HorseOwnerSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_HorseOwnerResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_HorseTrainerSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_HorseTrainer" />
+  </wsdl:message>
+  <wsdl:message name="Get_HorseTrainerSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_HorseTrainerResponse" />
+  </wsdl:message>
+  <wsdl:message name="Submit_HorseNewRegistrationSoapIn">
+    <wsdl:part name="parameters" element="tns:Submit_HorseNewRegistration" />
+  </wsdl:message>
+  <wsdl:message name="Submit_HorseNewRegistrationSoapOut">
+    <wsdl:part name="parameters" element="tns:Submit_HorseNewRegistrationResponse" />
+  </wsdl:message>
+  <wsdl:message name="Submit_HorseRenewalSoapIn">
+    <wsdl:part name="parameters" element="tns:Submit_HorseRenewal" />
+  </wsdl:message>
+  <wsdl:message name="Submit_HorseRenewalSoapOut">
+    <wsdl:part name="parameters" element="tns:Submit_HorseRenewalResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_HorseNewRegistrationSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_HorseNewRegistration" />
+  </wsdl:message>
+  <wsdl:message name="Get_HorseNewRegistrationSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_HorseNewRegistrationResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_HorseRenewalSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_HorseRenewal" />
+  </wsdl:message>
+  <wsdl:message name="Get_HorseRenewalSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_HorseRenewalResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDECStableListSoapIn">
+    <wsdl:part name="parameters" element="tns:getDECStableList" />
+  </wsdl:message>
+  <wsdl:message name="getDECStableListSoapOut">
+    <wsdl:part name="parameters" element="tns:getDECStableListResponse" />
+  </wsdl:message>
+  <wsdl:message name="Submit_DocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:Submit_Document" />
+  </wsdl:message>
+  <wsdl:message name="Submit_DocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:Submit_DocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentListSoapIn">
+    <wsdl:part name="parameters" element="tns:getDocumentList" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentListSoapOut">
+    <wsdl:part name="parameters" element="tns:getDocumentListResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateApplicationStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateApplicationStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateApplicationStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateApplicationStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="Submit_PersonNewRegistrationSoapIn">
+    <wsdl:part name="parameters" element="tns:Submit_PersonNewRegistration" />
+  </wsdl:message>
+  <wsdl:message name="Submit_PersonNewRegistrationSoapOut">
+    <wsdl:part name="parameters" element="tns:Submit_PersonNewRegistrationResponse" />
+  </wsdl:message>
+  <wsdl:message name="Submit_PersonRenewalSoapIn">
+    <wsdl:part name="parameters" element="tns:Submit_PersonRenewal" />
+  </wsdl:message>
+  <wsdl:message name="Submit_PersonRenewalSoapOut">
+    <wsdl:part name="parameters" element="tns:Submit_PersonRenewalResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_PersonRenewalSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_PersonRenewal" />
+  </wsdl:message>
+  <wsdl:message name="Get_PersonRenewalSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_PersonRenewalResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_PersonNewRegistrationSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_PersonNewRegistration" />
+  </wsdl:message>
+  <wsdl:message name="Get_PersonNewRegistrationSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_PersonNewRegistrationResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_FEIAdditionalRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_FEIAdditionalRequest" />
+  </wsdl:message>
+  <wsdl:message name="Get_FEIAdditionalRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_FEIAdditionalRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="Submit_FEIAdditionalSoapIn">
+    <wsdl:part name="parameters" element="tns:Submit_FEIAdditional" />
+  </wsdl:message>
+  <wsdl:message name="Submit_FEIAdditionalSoapOut">
+    <wsdl:part name="parameters" element="tns:Submit_FEIAdditionalResponse" />
+  </wsdl:message>
+  <wsdl:message name="Submit_FEIAdditionalV2SoapIn">
+    <wsdl:part name="parameters" element="tns:Submit_FEIAdditionalV2" />
+  </wsdl:message>
+  <wsdl:message name="Submit_FEIAdditionalV2SoapOut">
+    <wsdl:part name="parameters" element="tns:Submit_FEIAdditionalV2Response" />
+  </wsdl:message>
+  <wsdl:message name="ArchiveProfileSoapIn">
+    <wsdl:part name="parameters" element="tns:ArchiveProfile" />
+  </wsdl:message>
+  <wsdl:message name="ArchiveProfileSoapOut">
+    <wsdl:part name="parameters" element="tns:ArchiveProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="ArchiveProfileWithRemarksSoapIn">
+    <wsdl:part name="parameters" element="tns:ArchiveProfileWithRemarks" />
+  </wsdl:message>
+  <wsdl:message name="ArchiveProfileWithRemarksSoapOut">
+    <wsdl:part name="parameters" element="tns:ArchiveProfileWithRemarksResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSRegistrationsSoap">
+    <wsdl:operation name="Get_DEC_UserList">
+      <wsdl:input message="tns:Get_DEC_UserListSoapIn" />
+      <wsdl:output message="tns:Get_DEC_UserListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_HorseOwner">
+      <wsdl:input message="tns:Get_HorseOwnerSoapIn" />
+      <wsdl:output message="tns:Get_HorseOwnerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_HorseTrainer">
+      <wsdl:input message="tns:Get_HorseTrainerSoapIn" />
+      <wsdl:output message="tns:Get_HorseTrainerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Submit_HorseNewRegistration">
+      <wsdl:input message="tns:Submit_HorseNewRegistrationSoapIn" />
+      <wsdl:output message="tns:Submit_HorseNewRegistrationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Submit_HorseRenewal">
+      <wsdl:input message="tns:Submit_HorseRenewalSoapIn" />
+      <wsdl:output message="tns:Submit_HorseRenewalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_HorseNewRegistration">
+      <wsdl:input message="tns:Get_HorseNewRegistrationSoapIn" />
+      <wsdl:output message="tns:Get_HorseNewRegistrationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_HorseRenewal">
+      <wsdl:input message="tns:Get_HorseRenewalSoapIn" />
+      <wsdl:output message="tns:Get_HorseRenewalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDECStableList">
+      <wsdl:input message="tns:getDECStableListSoapIn" />
+      <wsdl:output message="tns:getDECStableListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Submit_Document">
+      <wsdl:input message="tns:Submit_DocumentSoapIn" />
+      <wsdl:output message="tns:Submit_DocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentList">
+      <wsdl:input message="tns:getDocumentListSoapIn" />
+      <wsdl:output message="tns:getDocumentListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateApplicationStatus">
+      <wsdl:input message="tns:UpdateApplicationStatusSoapIn" />
+      <wsdl:output message="tns:UpdateApplicationStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Submit_PersonNewRegistration">
+      <wsdl:input message="tns:Submit_PersonNewRegistrationSoapIn" />
+      <wsdl:output message="tns:Submit_PersonNewRegistrationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Submit_PersonRenewal">
+      <wsdl:input message="tns:Submit_PersonRenewalSoapIn" />
+      <wsdl:output message="tns:Submit_PersonRenewalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_PersonRenewal">
+      <wsdl:input message="tns:Get_PersonRenewalSoapIn" />
+      <wsdl:output message="tns:Get_PersonRenewalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_PersonNewRegistration">
+      <wsdl:input message="tns:Get_PersonNewRegistrationSoapIn" />
+      <wsdl:output message="tns:Get_PersonNewRegistrationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_FEIAdditionalRequest">
+      <wsdl:input message="tns:Get_FEIAdditionalRequestSoapIn" />
+      <wsdl:output message="tns:Get_FEIAdditionalRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Submit_FEIAdditional">
+      <wsdl:input message="tns:Submit_FEIAdditionalSoapIn" />
+      <wsdl:output message="tns:Submit_FEIAdditionalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Submit_FEIAdditionalV2">
+      <wsdl:input message="tns:Submit_FEIAdditionalV2SoapIn" />
+      <wsdl:output message="tns:Submit_FEIAdditionalV2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ArchiveProfile">
+      <wsdl:input message="tns:ArchiveProfileSoapIn" />
+      <wsdl:output message="tns:ArchiveProfileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ArchiveProfileWithRemarks">
+      <wsdl:input message="tns:ArchiveProfileWithRemarksSoapIn" />
+      <wsdl:output message="tns:ArchiveProfileWithRemarksSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSRegistrationsSoap" type="tns:WSRegistrationsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Get_DEC_UserList">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Get_DEC_UserList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_HorseOwner">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Get_HorseOwner" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_HorseTrainer">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Get_HorseTrainer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_HorseNewRegistration">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Submit_HorseNewRegistration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_HorseRenewal">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Submit_HorseRenewal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_HorseNewRegistration">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Get_HorseNewRegistration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_HorseRenewal">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Get_HorseRenewal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDECStableList">
+      <soap:operation soapAction="http://ws.uaeerf.ae/getDECStableList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_Document">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Submit_Document" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentList">
+      <soap:operation soapAction="http://ws.uaeerf.ae/getDocumentList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateApplicationStatus">
+      <soap:operation soapAction="http://ws.uaeerf.ae/UpdateApplicationStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_PersonNewRegistration">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Submit_PersonNewRegistration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_PersonRenewal">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Submit_PersonRenewal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_PersonRenewal">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Get_PersonRenewal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_PersonNewRegistration">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Get_PersonNewRegistration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_FEIAdditionalRequest">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Get_FEIAdditionalRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_FEIAdditional">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Submit_FEIAdditional" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_FEIAdditionalV2">
+      <soap:operation soapAction="http://ws.uaeerf.ae/Submit_FEIAdditionalV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ArchiveProfile">
+      <soap:operation soapAction="http://ws.uaeerf.ae/ArchiveProfile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ArchiveProfileWithRemarks">
+      <soap:operation soapAction="http://ws.uaeerf.ae/ArchiveProfileWithRemarks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSRegistrationsSoap12" type="tns:WSRegistrationsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Get_DEC_UserList">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Get_DEC_UserList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_HorseOwner">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Get_HorseOwner" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_HorseTrainer">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Get_HorseTrainer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_HorseNewRegistration">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Submit_HorseNewRegistration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_HorseRenewal">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Submit_HorseRenewal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_HorseNewRegistration">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Get_HorseNewRegistration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_HorseRenewal">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Get_HorseRenewal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDECStableList">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/getDECStableList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_Document">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Submit_Document" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentList">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/getDocumentList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateApplicationStatus">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/UpdateApplicationStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_PersonNewRegistration">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Submit_PersonNewRegistration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_PersonRenewal">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Submit_PersonRenewal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_PersonRenewal">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Get_PersonRenewal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_PersonNewRegistration">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Get_PersonNewRegistration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_FEIAdditionalRequest">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Get_FEIAdditionalRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_FEIAdditional">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Submit_FEIAdditional" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit_FEIAdditionalV2">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/Submit_FEIAdditionalV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ArchiveProfile">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/ArchiveProfile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ArchiveProfileWithRemarks">
+      <soap12:operation soapAction="http://ws.uaeerf.ae/ArchiveProfileWithRemarks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSRegistrations">
+    <wsdl:port name="WSRegistrationsSoap" binding="tns:WSRegistrationsSoap">
+      <soap:address location="http://wsdev.emiratesequestrian.ae/webservices/WSRegistrations.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSRegistrationsSoap12" binding="tns:WSRegistrationsSoap12">
+      <soap12:address location="http://wsdev.emiratesequestrian.ae/webservices/WSRegistrations.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

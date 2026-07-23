@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://emiratesequestrian.info/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://emiratesequestrian.info/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://emiratesequestrian.info/">
+      <s:element name="GetEventList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchDivision" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="DivisionCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetEventListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEventListResult" type="tns:ArrayOfEvents" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEvents">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Events" nillable="true" type="tns:Events" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Events">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StatusID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TypeID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TypeName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DivisionID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DivisionName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RaceCity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RaceCountry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SeasonID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SeasonName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RaceID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RaceName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RaceLocation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RaceClub" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OpeningDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ClosingDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="RaceFromDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="RaceTOdate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetEventListJson">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetEventListJsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEventListJsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJumpingExcelResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EventCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StableID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="classcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJumpingExcelResultResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetJumpingExcelResultResult" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetEventListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEventList" />
+  </wsdl:message>
+  <wsdl:message name="GetEventListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEventListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEventListJsonSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEventListJson" />
+  </wsdl:message>
+  <wsdl:message name="GetEventListJsonSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEventListJsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetJumpingExcelResultSoapIn">
+    <wsdl:part name="parameters" element="tns:GetJumpingExcelResult" />
+  </wsdl:message>
+  <wsdl:message name="GetJumpingExcelResultSoapOut">
+    <wsdl:part name="parameters" element="tns:GetJumpingExcelResultResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSCalendarSoap">
+    <wsdl:operation name="GetEventList">
+      <wsdl:input message="tns:GetEventListSoapIn" />
+      <wsdl:output message="tns:GetEventListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEventListJson">
+      <wsdl:input message="tns:GetEventListJsonSoapIn" />
+      <wsdl:output message="tns:GetEventListJsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJumpingExcelResult">
+      <wsdl:input message="tns:GetJumpingExcelResultSoapIn" />
+      <wsdl:output message="tns:GetJumpingExcelResultSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSCalendarSoap" type="tns:WSCalendarSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetEventList">
+      <soap:operation soapAction="http://emiratesequestrian.info/GetEventList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEventListJson">
+      <soap:operation soapAction="http://emiratesequestrian.info/GetEventListJson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJumpingExcelResult">
+      <soap:operation soapAction="http://emiratesequestrian.info/GetJumpingExcelResult" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSCalendarSoap12" type="tns:WSCalendarSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetEventList">
+      <soap12:operation soapAction="http://emiratesequestrian.info/GetEventList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEventListJson">
+      <soap12:operation soapAction="http://emiratesequestrian.info/GetEventListJson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJumpingExcelResult">
+      <soap12:operation soapAction="http://emiratesequestrian.info/GetJumpingExcelResult" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSCalendar">
+    <wsdl:port name="WSCalendarSoap" binding="tns:WSCalendarSoap">
+      <soap:address location="http://wsdev.emiratesequestrian.ae/webservices/WSCalendar.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSCalendarSoap12" binding="tns:WSCalendarSoap12">
+      <soap12:address location="http://wsdev.emiratesequestrian.ae/webservices/WSCalendar.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
