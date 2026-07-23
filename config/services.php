@@ -35,4 +35,26 @@ return [
         ],
     ],
 
+    'soap' => [
+        'auth_url' => env('SOAP_AUTH_URL'),
+        'registrations_url' => env('SOAP_REGISTRATIONS_URL'),
+        'riders_url' => env('SOAP_RIDERS_URL'),
+        'horses_url' => env('SOAP_HORSES_URL'),
+        'calendar_url' => env('SOAP_CALENDAR_URL'),
+        'commons_url' => env('SOAP_COMMONS_URL'),
+        'common_ops_url' => env('SOAP_COMMON_OPS_URL'),
+        'jumping_criteria_url' => env('SOAP_JUMPING_CRITERIA_URL'),
+
+        'auth_username' => env('SOAP_AUTH_USERNAME'),
+        'auth_password' => env('SOAP_AUTH_PASSWORD'),
+    ],
+
+    'paytabs' => [
+        'profile_id' => env('PAYTABS_PROFILE_ID'),
+        'server_key' => env('PAYTABS_SERVER_KEY'),
+        'callback_url' => env('PAYTABS_CALLBACK_URL'),
+        'return_url' => env('PAYTABS_RETURN_URL'),
+        'endpoint' => env('PAYTABS_ENDPOINT', 'https://secure.paytabs.com/payment/request'),
+    ],
+
 ];
