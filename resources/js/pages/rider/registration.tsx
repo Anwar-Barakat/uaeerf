@@ -178,7 +178,6 @@ export default function RiderRegistration({ disciplines, categories }: Props) {
                         </form>
                     </CardContent>
                 </Card>
-                </div>
             </div>
         </>
     );

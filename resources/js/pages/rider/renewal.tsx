@@ -119,7 +119,6 @@ export default function RiderRenewal({ seasons, userRiders }: Props) {
                         </form>
                     </CardContent>
                 </Card>
-                </div>
             </div>
         </>
     );

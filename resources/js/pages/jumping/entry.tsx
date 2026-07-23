@@ -251,7 +251,6 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
                         </form>
                     </CardContent>
                 </Card>
-                </div>
             </div>
         </>
     );
