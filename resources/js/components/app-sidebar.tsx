@@ -4,7 +4,6 @@ import {
     UserPlus,
     RefreshCw,
     Trophy,
-    FileText,
     Globe
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
@@ -59,11 +58,6 @@ const footerNavItems: NavItem[] = [
         title: 'UAEERF Website',
         href: 'https://www.emiratesequestrian.ae',
         icon: Globe,
-    },
-    {
-        title: 'Documentation',
-        href: '#',
-        icon: FileText,
     },
 ];
 

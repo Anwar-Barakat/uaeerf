@@ -1,6 +1,12 @@
 import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler, useState } from 'react';
+import axios from 'axios';
+import { ArrowRight, Loader2, Search, ShieldCheck } from 'lucide-react';
+import type { FormEventHandler} from 'react';
+import { useState } from 'react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -10,9 +16,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import axios from 'axios';
 
 interface Props {
     userRiders: Array<{ id: number; name: string }>;
@@ -74,28 +77,26 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
         <>
             <Head title="Show Jumping Entry" />
 
-            <div className="page-container py-8">
-                <div className="max-w-3xl mx-auto space-y-8">
-                    <div className="page-header">
-                        <h1 className="page-title">Show Jumping Entry</h1>
-                        <p className="page-description">
-                            Register for show jumping competitions. Enter your details and validate eligibility before proceeding to payment.
-                        </p>
-                    </div>
+            <div className="mx-auto max-w-3xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
+                <div className="space-y-1">
+                    <h1 className="text-3xl font-bold tracking-tight">Show Jumping Entry</h1>
+                    <p className="text-muted-foreground">
+                        Register for show jumping competitions. Enter your details and validate eligibility
+                        before proceeding to payment.
+                    </p>
+                </div>
 
-                    <Card className="card-enhanced">
-                        <CardHeader className="border-b">
-                            <div className="flex items-start justify-between">
-                                <div>
+                    <Card>
+                        <CardHeader className="border-b pb-6">
+                            <div className="flex items-start justify-between gap-4">
+                                <div className="space-y-1">
                                     <CardTitle className="text-2xl">Competition Entry</CardTitle>
-                                    <CardDescription className="mt-2">
-                                        Complete the form and verify eligibility
-                                    </CardDescription>
+                                    <CardDescription>Complete the form and verify eligibility</CardDescription>
                                 </div>
-                                <span className="badge-warning">Step 1 of 2</span>
+                                <Badge variant="secondary">Step 1 of 2</Badge>
                             </div>
                         </CardHeader>
-                        <CardContent className="pt-6">
+                        <CardContent>
                         <form onSubmit={submit} className="space-y-6">
                             <div className="space-y-2">
                                 <Label htmlFor="rider_id">Select Rider *</Label>
@@ -204,7 +205,17 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
                                 onClick={validateEligibility}
                                 disabled={validating || !data.rider_id || !data.horse_id}
                             >
-                                {validating ? 'Validating...' : '🔍 Check Eligibility'}
+                                {validating ? (
+                                    <>
+                                        <Loader2 className="size-4 animate-spin" />
+                                        Validating...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Search className="size-4" />
+                                        Check Eligibility
+                                    </>
+                                )}
                             </Button>
 
                             {eligibility && (
@@ -232,30 +243,27 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
                                 </Alert>
                             )}
 
-                            <div className="divider" />
-
-                            <div className="rounded-xl border-2 border-accent/20 bg-gradient-to-br from-accent/5 to-accent/10 p-6">
-                                <div className="flex items-center justify-between mb-4">
+                            <div className="rounded-lg border bg-muted/40 p-5">
+                                <div className="mb-3 flex items-center justify-between">
                                     <div>
-                                        <p className="text-sm font-medium text-muted-foreground uppercase tracking-wide">Entry Fee</p>
-                                        <p className="text-xs text-muted-foreground mt-1">Secure payment via PayTabs</p>
+                                        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Entry Fee</p>
+                                        <p className="mt-1 text-xs text-muted-foreground">Secure payment via PayTabs</p>
                                     </div>
                                     <div className="text-right">
-                                        <p className="text-4xl font-bold text-accent">150</p>
+                                        <p className="text-3xl font-bold text-primary">150</p>
                                         <p className="text-sm text-muted-foreground">AED</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                                    </svg>
+                                    <ShieldCheck className="size-4 text-primary" />
                                     <span>Encrypted and secure payment</span>
                                 </div>
                             </div>
 
                             <Button
                                 type="submit"
-                                className="w-full h-12 btn-primary text-base"
+                                size="lg"
+                                className="w-full"
                                 disabled={
                                     processing ||
                                     !userRiders?.length ||
@@ -265,21 +273,19 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
                             >
                                 {processing ? (
                                     <>
-                                        <span className="loading-spinner h-4 w-4 mr-2" />
+                                        <Loader2 className="size-4 animate-spin" />
                                         Processing...
                                     </>
                                 ) : (
                                     <>
                                         Proceed to Secure Payment
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                        </svg>
+                                        <ArrowRight className="size-4" />
                                     </>
                                 )}
                             </Button>
                         </form>
-                    </CardContent>
-                </Card>
+                        </CardContent>
+                    </Card>
             </div>
         </>
     );
