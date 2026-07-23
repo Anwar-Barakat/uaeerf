@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\PaymentTransactionData;
 use App\Data\PaymentWebhookData;
 use App\Repositories\PaymentTransactionRepository;
 use App\Services\PayTabsService;
@@ -35,16 +36,17 @@ class PayTabsController extends Controller
             ]);
             return response()->json(['status' => 'already_processed']);
         }
-        $this->transactionRepo->create([
-            'tran_ref' => $webhookData->tran_ref,
-            'cart_id' => $webhookData->cart_id,
-            'amount' => $webhookData->cart_amount,
-            'currency' => $webhookData->cart_currency,
-            'status' => $webhookData->isSuccessful() ? 'success' : 'failed',
-            'response_code' => $webhookData->payment_result->response_code,
-            'response_message' => $webhookData->payment_result->response_message,
-            'webhook_payload' => json_encode($request->all()),
-        ]);
+        $transactionData = new PaymentTransactionData(
+            tran_ref: $webhookData->tran_ref,
+            cart_id: $webhookData->cart_id,
+            amount: $webhookData->cart_amount,
+            currency: $webhookData->cart_currency,
+            status: $webhookData->isSuccessful() ? 'success' : 'failed',
+            response_code: $webhookData->payment_result->response_code,
+            response_message: $webhookData->payment_result->response_message,
+            webhook_payload: json_encode($request->all()),
+        );
+        $this->transactionRepo->create($transactionData);
 
         if (!$webhookData->isSuccessful()) {
             Log::warning('PayTabs payment failed', [
