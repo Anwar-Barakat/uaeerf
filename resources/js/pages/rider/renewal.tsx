@@ -39,14 +39,14 @@ export default function RiderRenewal({ seasons, userRiders }: Props) {
                     </p>
                 </div>
 
-                <Card className="border-2">
-                    <CardHeader className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950 dark:to-cyan-950">
+                <Card className="form-card-renewal">
+                    <CardHeader className="service-header-renewal">
                         <CardTitle className="text-xl">Season Renewal</CardTitle>
                         <CardDescription>
                             Keep your rider status active for continued participation
                         </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-6">
                         <form onSubmit={submit} className="space-y-6">
                             <div className="space-y-2">
                                 <Label htmlFor="rider_id">Select Rider *</Label>
@@ -99,27 +99,25 @@ export default function RiderRenewal({ seasons, userRiders }: Props) {
                                 )}
                             </div>
 
-                            <div className="rounded-lg bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 p-6 border-2 border-blue-200 dark:border-blue-800">
+                            <div className="payment-section-renewal">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="text-lg font-bold text-blue-900 dark:text-blue-100">
+                                        <p className="payment-label-renewal text-lg">
                                             Renewal Fee
                                         </p>
-                                        <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">
+                                        <p className="text-sm text-muted-foreground mt-1">
                                             Secure payment via PayTabs
                                         </p>
                                     </div>
-                                    <div className="text-right">
-                                        <p className="text-3xl font-bold text-blue-900 dark:text-blue-100">
-                                            AED 50
-                                        </p>
+                                    <div className="payment-amount-renewal">
+                                        AED 50
                                     </div>
                                 </div>
                             </div>
 
                             <Button
                                 type="submit"
-                                className="w-full h-12 text-base bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800"
+                                className="btn-outline-renewal"
                                 disabled={processing || !userRiders?.length}
                             >
                                 {processing ? 'Processing...' : 'Proceed to Secure Payment →'}

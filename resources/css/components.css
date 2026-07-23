@@ -1,0 +1,331 @@
+@layer components {
+    .service-card {
+        @apply border-2 rounded-lg overflow-hidden transition-all duration-200;
+    }
+
+    .service-card-registration {
+        @apply service-card hover:shadow-lg hover:shadow-green-500/20;
+        border-color: rgb(34 197 94 / 0.3);
+    }
+
+    .service-card-registration:hover {
+        border-color: rgb(34 197 94 / 0.6);
+    }
+
+    .service-card-renewal {
+        @apply service-card hover:shadow-lg hover:shadow-blue-500/20;
+        border-color: rgb(59 130 246 / 0.3);
+    }
+
+    .service-card-renewal:hover {
+        border-color: rgb(59 130 246 / 0.6);
+    }
+
+    .service-card-entry {
+        @apply service-card hover:shadow-lg hover:shadow-amber-500/20;
+        border-color: rgb(245 158 11 / 0.3);
+    }
+
+    .service-card-entry:hover {
+        border-color: rgb(245 158 11 / 0.6);
+    }
+
+    .service-header {
+        @apply p-6;
+    }
+
+    .service-header-registration {
+        @apply service-header;
+        background: linear-gradient(135deg, rgb(34 197 94 / 0.1) 0%, rgb(16 185 129 / 0.15) 100%);
+    }
+
+    .dark .service-header-registration {
+        background: linear-gradient(135deg, rgb(34 197 94 / 0.15) 0%, rgb(16 185 129 / 0.2) 100%);
+    }
+
+    .service-header-renewal {
+        @apply service-header;
+        background: linear-gradient(135deg, rgb(59 130 246 / 0.1) 0%, rgb(6 182 212 / 0.15) 100%);
+    }
+
+    .dark .service-header-renewal {
+        background: linear-gradient(135deg, rgb(59 130 246 / 0.15) 0%, rgb(6 182 212 / 0.2) 100%);
+    }
+
+    .service-header-entry {
+        @apply service-header;
+        background: linear-gradient(135deg, rgb(245 158 11 / 0.1) 0%, rgb(234 179 8 / 0.15) 100%);
+    }
+
+    .dark .service-header-entry {
+        background: linear-gradient(135deg, rgb(245 158 11 / 0.15) 0%, rgb(234 179 8 / 0.2) 100%);
+    }
+
+    .service-icon {
+        @apply p-3 rounded-xl flex items-center justify-center;
+    }
+
+    .service-icon-registration {
+        @apply service-icon;
+        background-color: rgb(34 197 94 / 0.15);
+    }
+
+    .dark .service-icon-registration {
+        background-color: rgb(34 197 94 / 0.2);
+    }
+
+    .service-icon-registration svg {
+        @apply h-6 w-6;
+        color: rgb(22 163 74);
+    }
+
+    .dark .service-icon-registration svg {
+        color: rgb(34 197 94);
+    }
+
+    .service-icon-renewal {
+        @apply service-icon;
+        background-color: rgb(59 130 246 / 0.15);
+    }
+
+    .dark .service-icon-renewal {
+        background-color: rgb(59 130 246 / 0.2);
+    }
+
+    .service-icon-renewal svg {
+        @apply h-6 w-6;
+        color: rgb(37 99 235);
+    }
+
+    .dark .service-icon-renewal svg {
+        color: rgb(59 130 246);
+    }
+
+    .service-icon-entry {
+        @apply service-icon;
+        background-color: rgb(245 158 11 / 0.15);
+    }
+
+    .dark .service-icon-entry {
+        background-color: rgb(245 158 11 / 0.2);
+    }
+
+    .service-icon-entry svg {
+        @apply h-6 w-6;
+        color: rgb(217 119 6);
+    }
+
+    .dark .service-icon-entry svg {
+        color: rgb(245 158 11);
+    }
+
+    .fee-badge {
+        @apply px-4 py-3 rounded-lg font-semibold text-sm;
+    }
+
+    .fee-badge-registration {
+        @apply fee-badge;
+        background-color: rgb(34 197 94 / 0.15);
+        color: rgb(22 101 52);
+    }
+
+    .dark .fee-badge-registration {
+        background-color: rgb(34 197 94 / 0.2);
+        color: rgb(134 239 172);
+    }
+
+    .fee-badge-renewal {
+        @apply fee-badge;
+        background-color: rgb(59 130 246 / 0.15);
+        color: rgb(30 64 175);
+    }
+
+    .dark .fee-badge-renewal {
+        background-color: rgb(59 130 246 / 0.2);
+        color: rgb(147 197 253);
+    }
+
+    .fee-badge-entry {
+        @apply fee-badge;
+        background-color: rgb(245 158 11 / 0.15);
+        color: rgb(146 64 14);
+    }
+
+    .dark .fee-badge-entry {
+        background-color: rgb(245 158 11 / 0.2);
+        color: rgb(253 224 71);
+    }
+
+    .btn-primary-registration {
+        @apply w-full h-12 rounded-lg font-medium transition-colors;
+        background-color: rgb(22 163 74);
+        color: white;
+    }
+
+    .btn-primary-registration:hover:not(:disabled) {
+        background-color: rgb(21 128 61);
+    }
+
+    .btn-primary-registration:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .btn-outline-renewal {
+        @apply w-full h-12 rounded-lg font-medium transition-colors border-2;
+        border-color: rgb(59 130 246);
+        color: rgb(59 130 246);
+        background-color: transparent;
+    }
+
+    .btn-outline-renewal:hover:not(:disabled) {
+        background-color: rgb(59 130 246 / 0.1);
+    }
+
+    .dark .btn-outline-renewal:hover:not(:disabled) {
+        background-color: rgb(59 130 246 / 0.15);
+    }
+
+    .btn-outline-renewal:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .btn-outline-entry {
+        @apply w-full h-12 rounded-lg font-medium transition-colors border-2;
+        border-color: rgb(245 158 11);
+        color: rgb(245 158 11);
+        background-color: transparent;
+    }
+
+    .btn-outline-entry:hover:not(:disabled) {
+        background-color: rgb(245 158 11 / 0.1);
+    }
+
+    .dark .btn-outline-entry:hover:not(:disabled) {
+        background-color: rgb(245 158 11 / 0.15);
+    }
+
+    .btn-outline-entry:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .form-card {
+        @apply border-2 rounded-lg overflow-hidden;
+    }
+
+    .form-card-registration {
+        @apply form-card;
+        border-color: rgb(34 197 94 / 0.3);
+    }
+
+    .form-card-renewal {
+        @apply form-card;
+        border-color: rgb(59 130 246 / 0.3);
+    }
+
+    .form-card-entry {
+        @apply form-card;
+        border-color: rgb(245 158 11 / 0.3);
+    }
+
+    .payment-section {
+        @apply p-6 rounded-lg border-2;
+    }
+
+    .payment-section-registration {
+        @apply payment-section;
+        background: linear-gradient(135deg, rgb(34 197 94 / 0.08) 0%, rgb(16 185 129 / 0.12) 100%);
+        border-color: rgb(34 197 94 / 0.3);
+    }
+
+    .dark .payment-section-registration {
+        background: linear-gradient(135deg, rgb(34 197 94 / 0.1) 0%, rgb(16 185 129 / 0.15) 100%);
+        border-color: rgb(34 197 94 / 0.4);
+    }
+
+    .payment-section-renewal {
+        @apply payment-section;
+        background: linear-gradient(135deg, rgb(59 130 246 / 0.08) 0%, rgb(6 182 212 / 0.12) 100%);
+        border-color: rgb(59 130 246 / 0.3);
+    }
+
+    .dark .payment-section-renewal {
+        background: linear-gradient(135deg, rgb(59 130 246 / 0.1) 0%, rgb(6 182 212 / 0.15) 100%);
+        border-color: rgb(59 130 246 / 0.4);
+    }
+
+    .payment-section-entry {
+        @apply payment-section;
+        background: linear-gradient(135deg, rgb(245 158 11 / 0.08) 0%, rgb(234 179 8 / 0.12) 100%);
+        border-color: rgb(245 158 11 / 0.3);
+    }
+
+    .dark .payment-section-entry {
+        background: linear-gradient(135deg, rgb(245 158 11 / 0.1) 0%, rgb(234 179 8 / 0.15) 100%);
+        border-color: rgb(245 158 11 / 0.4);
+    }
+
+    .payment-amount {
+        @apply text-3xl font-bold;
+    }
+
+    .payment-amount-registration {
+        @apply payment-amount;
+        color: rgb(22 101 52);
+    }
+
+    .dark .payment-amount-registration {
+        color: rgb(134 239 172);
+    }
+
+    .payment-amount-renewal {
+        @apply payment-amount;
+        color: rgb(30 64 175);
+    }
+
+    .dark .payment-amount-renewal {
+        color: rgb(147 197 253);
+    }
+
+    .payment-amount-entry {
+        @apply payment-amount;
+        color: rgb(146 64 14);
+    }
+
+    .dark .payment-amount-entry {
+        color: rgb(253 224 71);
+    }
+
+    .payment-label {
+        @apply text-sm font-medium;
+    }
+
+    .payment-label-registration {
+        @apply payment-label;
+        color: rgb(21 128 61);
+    }
+
+    .dark .payment-label-registration {
+        color: rgb(74 222 128);
+    }
+
+    .payment-label-renewal {
+        @apply payment-label;
+        color: rgb(29 78 216);
+    }
+
+    .dark .payment-label-renewal {
+        color: rgb(96 165 250);
+    }
+
+    .payment-label-entry {
+        @apply payment-label;
+        color: rgb(161 98 7);
+    }
+
+    .dark .payment-label-entry {
+        color: rgb(250 204 21);
+    }
+}

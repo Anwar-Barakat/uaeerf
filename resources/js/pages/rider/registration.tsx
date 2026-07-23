@@ -44,14 +44,14 @@ export default function RiderRegistration({ disciplines, categories }: Props) {
                     </p>
                 </div>
 
-                <Card className="border-2">
-                    <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950">
+                <Card className="form-card-registration">
+                    <CardHeader className="service-header-registration">
                         <CardTitle className="text-xl">New Rider Application</CardTitle>
                         <CardDescription>
                             Complete the form below to begin your rider registration process
                         </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-6">
                         <form onSubmit={submit} className="space-y-6">
                             <div className="space-y-2">
                                 <Label htmlFor="rider_name">Rider Name *</Label>
@@ -162,27 +162,25 @@ export default function RiderRegistration({ disciplines, categories }: Props) {
                                 )}
                             </div>
 
-                            <div className="rounded-lg bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 border-2 border-green-200 dark:border-green-800">
+                            <div className="payment-section-registration">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="text-lg font-bold text-green-900 dark:text-green-100">
+                                        <p className="payment-label-registration text-lg">
                                             Registration Fee
                                         </p>
-                                        <p className="text-sm text-green-700 dark:text-green-300 mt-1">
+                                        <p className="text-sm text-muted-foreground mt-1">
                                             Secure payment via PayTabs
                                         </p>
                                     </div>
-                                    <div className="text-right">
-                                        <p className="text-3xl font-bold text-green-900 dark:text-green-100">
-                                            AED 100
-                                        </p>
+                                    <div className="payment-amount-registration">
+                                        AED 100
                                     </div>
                                 </div>
                             </div>
 
                             <Button
                                 type="submit"
-                                className="w-full h-12 text-base bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800"
+                                className="btn-primary-registration"
                                 disabled={processing}
                             >
                                 {processing ? 'Processing...' : 'Proceed to Secure Payment →'}

@@ -82,14 +82,14 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
                     </p>
                 </div>
 
-                <Card className="border-2">
-                    <CardHeader className="bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-950 dark:to-yellow-950">
+                <Card className="form-card-entry">
+                    <CardHeader className="service-header-entry">
                         <CardTitle className="text-xl">Competition Entry</CardTitle>
                         <CardDescription>
                             Enter your details and validate eligibility before payment
                         </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-6">
                         <form onSubmit={submit} className="space-y-6">
                             <div className="space-y-2">
                                 <Label htmlFor="rider_id">Select Rider *</Label>
@@ -193,8 +193,7 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
 
                             <Button
                                 type="button"
-                                variant="outline"
-                                className="w-full h-11 border-2 border-amber-300 hover:bg-amber-50 dark:border-amber-700 dark:hover:bg-amber-950"
+                                className="btn-outline-entry h-11"
                                 onClick={validateEligibility}
                                 disabled={validating || !data.rider_id || !data.horse_id}
                             >
@@ -226,27 +225,25 @@ export default function ShowJumpingEntry({ userRiders, userHorses }: Props) {
                                 </Alert>
                             )}
 
-                            <div className="rounded-lg bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 p-6 border-2 border-amber-200 dark:border-amber-800">
+                            <div className="payment-section-entry">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="text-lg font-bold text-amber-900 dark:text-amber-100">
+                                        <p className="payment-label-entry text-lg">
                                             Entry Fee
                                         </p>
-                                        <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
+                                        <p className="text-sm text-muted-foreground mt-1">
                                             Secure payment via PayTabs
                                         </p>
                                     </div>
-                                    <div className="text-right">
-                                        <p className="text-3xl font-bold text-amber-900 dark:text-amber-100">
-                                            AED 150
-                                        </p>
+                                    <div className="payment-amount-entry">
+                                        AED 150
                                     </div>
                                 </div>
                             </div>
 
                             <Button
                                 type="submit"
-                                className="w-full h-12 text-base bg-amber-600 hover:bg-amber-700 dark:bg-amber-700 dark:hover:bg-amber-800"
+                                className="btn-outline-entry"
                                 disabled={
                                     processing ||
                                     !userRiders?.length ||
