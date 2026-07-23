@@ -60,4 +60,61 @@ class DashboardRepository
             ->whereBetween('created_at', [$start, $end])
             ->count();
     }
+
+    public function recentRegistrations(int $userId, int $limit = 5): array
+    {
+        return DB::connection('mssql')->table('rider_registrations')
+            ->where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->get(['id', 'rider_name', 'date_of_birth', 'status', 'tran_ref', 'created_at'])
+            ->map(fn($row) => (array) $row)
+            ->toArray();
+    }
+
+    public function recentRenewals(int $userId, int $limit = 5): array
+    {
+        return DB::connection('mssql')->table('rider_renewals')
+            ->where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->get(['id', 'rider_id', 'season_id', 'status', 'tran_ref', 'created_at'])
+            ->map(fn($row) => (array) $row)
+            ->toArray();
+    }
+
+    public function recentEntries(int $userId, int $limit = 5): array
+    {
+        return DB::connection('mssql')->table('show_jumping_entries')
+            ->where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->get(['id', 'rider_id', 'horse_id', 'event_id', 'class_id', 'status', 'tran_ref', 'created_at'])
+            ->map(fn($row) => (array) $row)
+            ->toArray();
+    }
+
+    public function paginateRegistrations(int $userId, int $perPage = 10)
+    {
+        return DB::connection('mssql')->table('rider_registrations')
+            ->where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage, ['id', 'rider_name', 'date_of_birth', 'status', 'tran_ref', 'created_at']);
+    }
+
+    public function paginateRenewals(int $userId, int $perPage = 10)
+    {
+        return DB::connection('mssql')->table('rider_renewals')
+            ->where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage, ['id', 'rider_id', 'season_id', 'status', 'tran_ref', 'created_at']);
+    }
+
+    public function paginateEntries(int $userId, int $perPage = 10)
+    {
+        return DB::connection('mssql')->table('show_jumping_entries')
+            ->where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage, ['id', 'rider_id', 'horse_id', 'event_id', 'class_id', 'status', 'tran_ref', 'created_at']);
+    }
 }

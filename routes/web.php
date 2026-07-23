@@ -11,6 +11,10 @@ Route::get('payment/return', [\App\Http\Controllers\PayTabsController::class, 'r
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('history/registrations', [\App\Http\Controllers\HistoryController::class, 'registrations'])->name('history.registrations');
+    Route::get('history/renewals', [\App\Http\Controllers\HistoryController::class, 'renewals'])->name('history.renewals');
+    Route::get('history/entries', [\App\Http\Controllers\HistoryController::class, 'entries'])->name('history.entries');
+
     // Rider Registration & Renewal Pages
     Route::get('rider/registration', function () {
         return inertia('rider/registration', [
