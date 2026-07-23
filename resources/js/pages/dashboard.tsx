@@ -1,15 +1,50 @@
 import { Head, Link } from '@inertiajs/react';
-import { ArrowRight, FileText, RefreshCw, Sparkles, Trophy, UserPlus } from 'lucide-react';
+import { ArrowRight, BarChart3, CalendarClock, CircleCheck, FileText, RefreshCw, Sparkles, Trophy, UserPlus } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { dashboard } from '@/routes';
 
-const stats = [
-    { label: 'Active Registrations', value: 0, hint: 'No active registrations', accent: 'border-l-primary' },
-    { label: 'Competition Entries', value: 0, hint: 'No upcoming entries', accent: 'border-l-amber-500' },
-    { label: 'Renewals Due', value: 0, hint: 'All up to date', accent: 'border-l-blue-500' },
-];
+type ActivityPoint = { month: string; registrations: number; entries: number };
+
+interface DashboardProps {
+    stats?: {
+        activeRegistrations: number;
+        competitionEntries: number;
+        renewals: number;
+    };
+    activity?: ActivityPoint[];
+}
+
+const statMeta = [
+    {
+        key: 'activeRegistrations',
+        label: 'Active Registrations',
+        zeroHint: 'No active registrations',
+        icon: CircleCheck,
+        chip: 'bg-emerald-500',
+        value_text: 'text-emerald-600',
+        tint: 'from-emerald-500/10',
+    },
+    {
+        key: 'competitionEntries',
+        label: 'Competition Entries',
+        zeroHint: 'No competition entries',
+        icon: Trophy,
+        chip: 'bg-amber-500',
+        value_text: 'text-amber-600',
+        tint: 'from-amber-500/10',
+    },
+    {
+        key: 'renewals',
+        label: 'Season Renewals',
+        zeroHint: 'No renewals yet',
+        icon: CalendarClock,
+        chip: 'bg-blue-500',
+        value_text: 'text-blue-600',
+        tint: 'from-blue-500/10',
+    },
+] as const;
 
 const actions = [
     {
@@ -47,7 +82,11 @@ const actions = [
     },
 ];
 
-export default function Dashboard() {
+export default function Dashboard({ stats, activity = [] }: DashboardProps) {
+    const values = stats ?? { activeRegistrations: 0, competitionEntries: 0, renewals: 0 };
+    const activityTotal = activity.reduce((sum, m) => sum + m.registrations + m.entries, 0);
+    const activityMax = Math.max(1, ...activity.map((m) => Math.max(m.registrations, m.entries)));
+
     return (
         <>
             <Head title="Dashboard" />
@@ -62,18 +101,81 @@ export default function Dashboard() {
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-3">
-                    {stats.map((stat) => (
-                        <Card key={stat.label} className={`border-l-4 ${stat.accent}`}>
-                            <CardHeader>
-                                <CardDescription>{stat.label}</CardDescription>
-                                <CardTitle className="text-3xl">{stat.value}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-xs text-muted-foreground">{stat.hint}</p>
-                            </CardContent>
-                        </Card>
-                    ))}
+                    {statMeta.map((stat) => {
+                        const value = values[stat.key];
+
+                        return (
+                            <Card
+                                key={stat.label}
+                                className={`relative overflow-hidden bg-gradient-to-br ${stat.tint} to-transparent`}
+                            >
+                                <CardHeader className="flex flex-row items-start justify-between space-y-0">
+                                    <div className="space-y-1">
+                                        <CardDescription>{stat.label}</CardDescription>
+                                        <CardTitle className={`text-4xl font-bold ${stat.value_text}`}>
+                                            {value}
+                                        </CardTitle>
+                                    </div>
+                                    <div className={`flex size-11 items-center justify-center rounded-xl text-white shadow-sm ${stat.chip}`}>
+                                        <stat.icon className="size-5" />
+                                    </div>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-xs text-muted-foreground">
+                                        {value > 0 ? `${value} on record` : stat.zeroHint}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        );
+                    })}
                 </div>
+
+                <Card>
+                    <CardHeader className="flex flex-row items-start justify-between space-y-0">
+                        <div className="space-y-1">
+                            <CardTitle>Activity Overview</CardTitle>
+                            <CardDescription>Registrations and entries over the last 6 months</CardDescription>
+                        </div>
+                        <div className="hidden items-center gap-4 text-xs text-muted-foreground sm:flex">
+                            <span className="flex items-center gap-1.5">
+                                <span className="size-2.5 rounded-sm bg-primary" /> Registrations
+                            </span>
+                            <span className="flex items-center gap-1.5">
+                                <span className="size-2.5 rounded-sm bg-blue-500" /> Entries
+                            </span>
+                        </div>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="relative h-52">
+                            {activityTotal === 0 && (
+                                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 text-center">
+                                    <BarChart3 className="size-9 text-muted-foreground/40" />
+                                    <p className="text-sm font-medium text-muted-foreground">No activity to display yet</p>
+                                    <p className="max-w-xs text-xs text-muted-foreground/70">
+                                        Your registrations and competition entries will appear here.
+                                    </p>
+                                </div>
+                            )}
+                            <div className="flex h-full items-end justify-between gap-3 border-b border-l border-border/70 pl-1">
+                                {activity.map((m) => (
+                                    <div key={m.month} className="flex h-full flex-1 flex-col items-center justify-end gap-2">
+                                        <div className="flex h-full w-full items-end justify-center gap-1">
+                                            <div
+                                                className="w-1/3 rounded-t bg-primary/80 transition-all"
+                                                style={{ height: `${Math.max(2, (m.registrations / activityMax) * 100)}%` }}
+                                            />
+                                            <div
+                                                className="w-1/3 rounded-t bg-blue-500/80 transition-all"
+                                                style={{ height: `${Math.max(2, (m.entries / activityMax) * 100)}%` }}
+                                            />
+                                        </div>
+                                        <span className="text-xs text-muted-foreground">{m.month}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
 
                 <div className="space-y-1">
                     <h2 className="text-xl font-semibold tracking-tight">Quick Actions</h2>
