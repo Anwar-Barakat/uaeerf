@@ -4,10 +4,9 @@ import {
     UserPlus,
     RefreshCw,
     Trophy,
-    Globe
+    Home,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
-import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -18,8 +17,6 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    SidebarGroup,
-    SidebarGroupLabel,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
@@ -29,6 +26,7 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
+        iconColor: 'bg-violet-500 text-white',
     },
 ];
 
@@ -37,11 +35,13 @@ const riderNavItems: NavItem[] = [
         title: 'Rider Registration',
         href: '/rider/registration',
         icon: UserPlus,
+        iconColor: 'bg-emerald-500 text-white',
     },
     {
         title: 'Rider Renewal',
         href: '/rider/renewal',
         icon: RefreshCw,
+        iconColor: 'bg-blue-500 text-white',
     },
 ];
 
@@ -50,20 +50,13 @@ const competitionNavItems: NavItem[] = [
         title: 'Show Jumping Entry',
         href: '/jumping/entry',
         icon: Trophy,
-    },
-];
-
-const footerNavItems: NavItem[] = [
-    {
-        title: 'UAEERF Website',
-        href: 'https://www.emiratesequestrian.ae',
-        icon: Globe,
+        iconColor: 'bg-amber-500 text-white',
     },
 ];
 
 export function AppSidebar() {
     return (
-        <Sidebar collapsible="icon" variant="inset">
+        <Sidebar collapsible="icon">
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
@@ -77,21 +70,28 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
-
-                <SidebarGroup className="px-2 py-0 mt-4">
-                    <SidebarGroupLabel>Rider Services</SidebarGroupLabel>
-                    <NavMain items={riderNavItems} />
-                </SidebarGroup>
-
-                <SidebarGroup className="px-2 py-0 mt-4">
-                    <SidebarGroupLabel>Competitions</SidebarGroupLabel>
-                    <NavMain items={competitionNavItems} />
-                </SidebarGroup>
+                <NavMain items={mainNavItems} label="Platform" />
+                <NavMain items={riderNavItems} label="Rider Services" />
+                <NavMain items={competitionNavItems} label="Competitions" />
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+                <SidebarMenu className="mt-auto gap-1">
+                    <SidebarMenuItem>
+                        <SidebarMenuButton
+                            asChild
+                            tooltip={{ children: 'UAEERF Website' }}
+                            className="group/nav h-9 gap-3 rounded-lg font-medium transition-colors hover:bg-primary/5 hover:text-foreground group-data-[collapsible=icon]:size-9! group-data-[collapsible=icon]:p-1!"
+                        >
+                            <Link href="/">
+                                <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-teal-500 text-white shadow-sm transition-transform group-hover/nav:scale-105">
+                                    <Home className="size-3.5" />
+                                </span>
+                                <span>UAEERF Website</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                </SidebarMenu>
                 <NavUser />
             </SidebarFooter>
         </Sidebar>
