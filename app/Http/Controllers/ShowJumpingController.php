@@ -139,19 +139,21 @@ class ShowJumpingController extends Controller
         }
 
         try {
-            // Insert into MSSQL ClassEntriesWeb table
-            // IMPORTANT: Payment confirmed, now safe to write to database
-            $this->entryRepo->insertToClassEntriesWeb($entry, $tranRef);
+            $this->entryRepo->processWithTransaction(function () use ($entry, $cartId, $tranRef) {
+                // Insert into MSSQL ClassEntriesWeb table
+                // IMPORTANT: Payment confirmed, now safe to write to database
+                $this->entryRepo->insertToClassEntriesWeb($entry, $tranRef);
 
-            // Update local entry status
-            $this->entryRepo->markCompleted($cartId, $tranRef);
+                // Update local entry status
+                $this->entryRepo->markCompleted($cartId, $tranRef);
 
-            Log::info('Show jumping entry completed', [
-                'cart_id' => $cartId,
-                'tran_ref' => $tranRef,
-                'rider_id' => $entry->rider_id,
-                'horse_id' => $entry->horse_id,
-            ]);
+                Log::info('Show jumping entry completed', [
+                    'cart_id' => $cartId,
+                    'tran_ref' => $tranRef,
+                    'rider_id' => $entry->rider_id,
+                    'horse_id' => $entry->horse_id,
+                ]);
+            });
 
         } catch (\Exception $e) {
             Log::error('Show jumping entry database insert failed', [
